@@ -392,12 +392,12 @@ contains
           end if
 
           do ft = 1,numpft
-           sites(s)%use_this_pft(ft) = 1
+           sites(s)%use_this_pft(ft) = itrue
            if(hlm_use_fixed_biogeog.eq.itrue)then
              if(sites(s)%area_pft(ft).gt.0.0_r8)then
-                sites(s)%use_this_pft(ft) = 1
+                sites(s)%use_this_pft(ft) = itrue
              else
-                sites(s)%use_this_pft(ft) = 0
+                sites(s)%use_this_pft(ft) = ifalse
              end if !area
            end if !SBG
           end do !ft
@@ -580,7 +580,7 @@ contains
     patch_in%shortest => null()
     
     do pft =  1,numpft
-     if(site_in%use_this_pft(pft).eq.1)then
+     if(site_in%use_this_pft(pft).eq.itrue)then
        if(EDPftvarcon_inst%initd(pft)>1.0E-7) then
 
        allocate(temp_cohort) ! temporary cohort
