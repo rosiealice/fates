@@ -232,7 +232,7 @@ contains
   end subroutine zero_site
 
   ! ============================================================================
-  subroutine set_site_properties( nsites, sites,bc_in )
+  subroutine set_site_properties( nsites, sites, bc_in )
     !
     ! !DESCRIPTION:
     !

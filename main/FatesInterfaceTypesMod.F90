@@ -132,6 +132,14 @@ module FatesInterfaceTypesMod
                                                                     ! there locations and their formats
                                                                     ! This need only be defined when
                                                                     ! hlm_use_inventory_init = 1
+   integer, public ::  hlm_use_fixed_biogeog                         !  Flag to use FATES fixed biogeography mode
+                                                                    !  1 = TRUE, 0 = FALSE 
+
+   integer, public ::  hlm_use_nocomp                                !  Flag to use FATES no PFT competition mode
+                                                                    !  1 = TRUE, 0 = FALSE   
+
+
+
 
    ! -------------------------------------------------------------------------------------
    ! Parameters that are dictated by FATES and known to be required knowledge
@@ -424,6 +432,9 @@ module FatesInterfaceTypesMod
       real(r8),allocatable :: h2o_liq_sisl(:)      ! Liquid water mass in each layer (kg/m2)
       real(r8) :: smpmin_si                        ! restriction for min of soil potential (mm)
       
+    ! Fixed biogeography mode 
+      real(r8), allocatable :: pft_areafrac(:)     ! Fractional area of the FATES column occupied by each PFT
+
    end type bc_in_type
 
 

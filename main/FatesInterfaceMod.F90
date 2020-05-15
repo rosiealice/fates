@@ -354,6 +354,8 @@ contains
          allocate(bc_in%h2o_liq_sisl(nlevsoil_in)); bc_in%h2o_liq_sisl = nan
       end if
 
+      allocate(bc_in%pft_areafrac(maxpft))
+
       return
    end subroutine allocate_bcin
 
@@ -988,6 +990,8 @@ contains
          hlm_use_ed_prescribed_phys = unset_int
          hlm_use_inventory_init = unset_int
          hlm_inventory_ctrl_file = 'unset'
+         hlm_use_fixed_biogeog = unset_int
+         hlm_use_nocomp = unset_int    
 
       case('check_allset')
          
@@ -1193,6 +1197,19 @@ contains
             call endrun(msg=errMsg(sourcefile, __LINE__))
          end if
 
+         if(hlm_use_fixed_biogeog.eq.unset_int) then
+           if(fates_global_verbose()) then
+             write(fates_log(), *) 'switch for fixed biogeog unset: him_use_fixed_biogeog, exiting'
+           end if
+           call endrun(msg=errMsg(sourcefile, __LINE__))
+         end if
+
+        if(hlm_use_nocomp.eq.unset_int) then
+              if(fates_global_verbose()) then
+             write(fates_log(), *) 'switch for no competition mode. '
+            end if
+           call endrun(msg=errMsg(sourcefile, __LINE__))
+         end if
          
          if (fates_global_verbose()) then
             write(fates_log(), *) 'Checked. All control parameters sent to FATES.'
@@ -1282,7 +1299,18 @@ contains
                   write(fates_log(),*) 'Transfering hlm_use_cohort_age_tracking= ',ival,' to FATES'
                end if
 
+            case('use_fixed_biogeog')
+                hlm_use_fixed_biogeog = ival
+               if (fates_global_verbose()) then
+                   write(fates_log(),*) 'Transfering hlm_use_fixed_biogeog= ',ival,' to FATES'
+               end if
                
+            case('use_nocomp')
+                hlm_use_nocomp = ival
+               if (fates_global_verbose()) then
+                   write(fates_log(),*) 'Transfering hlm_use_nocomp= ',ival,' to FATES'
+               end if
+
             case('use_logging')
                hlm_use_logging = ival
                if (fates_global_verbose()) then
@@ -1359,4 +1387,24 @@ contains
       return
    end subroutine set_fates_ctrlparms
 
-  
+   ! ====================================================================================
+
+   subroutine FatesReportParameters(masterproc)
+      
+      ! -----------------------------------------------------
+      ! Simple parameter reporting functions
+      ! A debug like print flag is contained in each routine
+      ! -----------------------------------------------------
+
+      logical,intent(in) :: masterproc
+
+      call FatesReportPFTParams(masterproc)
+      call FatesReportParams(masterproc)
+      call FatesCheckParams(masterproc,hlm_parteh_mode)
+      call SpitFireCheckParams(masterproc)
+
+      return
+   end subroutine FatesReportParameters
+
+
+end module FatesInterfaceMod
