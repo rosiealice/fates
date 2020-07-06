@@ -720,7 +720,7 @@ data:
   "reproduction                                     ",
   "structure                                        " ;
 
- fates_alloc_storage_cushion = 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 
+ fates_alloc_storage_cushion = 1.2, 1.2, 1.2, 1.2, 3.0, 1.2, 1.2, 1.2, 1.2, 
     1.2, 1.2, 1.2 ;
 
  fates_allom_agb1 = 0.06896, 0.06896, 0.06896, 0.06896, 0.06896, 0.06896, 
