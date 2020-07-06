@@ -1949,7 +1949,7 @@ end subroutine flush_hvars
                hio_cleafoff_si                      => this%hvars(ih_cleafoff_si)%r81d, &
                hio_cleafon_si                       => this%hvars(ih_cleafon_si)%r81d, &
                hio_dleafoff_si                      => this%hvars(ih_dleafoff_si)%r81d, &
-               hio_dleafon_si                       => this%hvars(ih_dleafoff_si)%r81d, &
+               hio_dleafon_si                       => this%hvars(ih_dleafon_si)%r81d, &
                hio_meanliqvol_si                    => this%hvars(ih_meanliqvol_si)%r81d, &
                hio_cbal_err_fates_si                => this%hvars(ih_cbal_err_fates_si)%r81d, &
                hio_err_fates_si                     => this%hvars(ih_err_fates_si)%r82d )
