@@ -731,7 +731,7 @@ contains
 
     integer, parameter :: canopy_leaf_lifespan = 365    ! Maximum lifespan of drought decid leaves
 
-    integer, parameter :: min_daysoff_dforcedflush = 30 ! THis is the number of days that must had elapsed
+    integer, parameter :: min_daysoff_dforcedflush = 100 ! THis is the number of days that must had elapsed
                                                         ! since leaves had dropped, in order to forcably
                                                         ! flush leaves again.  This does not impact flushing
                                                         ! due to real moisture constraints, and will prevent
@@ -1123,6 +1123,7 @@ contains
                    ! flush either the amount required from the laimemory, or -most- of the storage pool
                    ! RF: added a criterion to stop the entire store pool emptying and triggering termination mortality
                    ! n.b. this might not be necessary if we adopted a more gradual approach to leaf flushing... 
+                   ! also, this still gets us to 0.1 of the initial store and so we might still trigger mortality
                      store_c_transfer_frac =  min((EDPftvarcon_inst%phenflush_fraction(ipft)* &
                      currentCohort%laimemory)/store_c,(1.0_r8-carbon_store_buffer))
 

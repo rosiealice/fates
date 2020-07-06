@@ -22,7 +22,7 @@ module EDMortalityFunctionsMod
    use FatesInterfaceTypesMod     , only : bc_in_type
 
    use PRTGenericMod,          only : all_carbon_elements
-   use PRTGenericMod,          only : store_organ
+   use PRTGenericMod,          only : store_organ, leaf_organ
 
    implicit none
    private
@@ -66,6 +66,7 @@ contains
     real(r8) :: frac  ! relativised stored carbohydrate
     real(r8) :: leaf_c_target      ! target leaf biomass kgC
     real(r8) :: store_c
+    real(r8) :: leaf_c
     real(r8) :: hf_sm_threshold    ! hydraulic failure soil moisture threshold 
     real(r8) :: hf_flc_threshold   ! hydraulic failure fractional loss of conductivity threshold
     real(r8) :: mort_ip_size_senescence ! inflection point for increase in mortality with dbh 
@@ -140,14 +141,19 @@ if (hlm_use_ed_prescribed_phys .eq. ifalse) then
      else
        hmort = 0.0_r8
      endif      
-    else
+    else !use_planthydro
      if(cohort_in%patchptr%btran_ft(cohort_in%pft) <= hf_sm_threshold)then 
        hmort = EDPftvarcon_inst%mort_scalar_hydrfailure(cohort_in%pft)
      else
        hmort = 0.0_r8
      endif
-    endif 
-    
+    endif !use_planthydro
+
+   leaf_c = cohort_in%prt%GetState(leaf_organ,all_carbon_elements)
+   if(leaf_c.le.0.0_r8)then ! hydraulic mortality can only happen when leaves are on. 
+      hmort = 0.0_r8
+   endif
+   
     ! Carbon Starvation induced mortality.
     if ( cohort_in%dbh  >  0._r8 ) then
 
