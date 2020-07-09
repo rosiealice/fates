@@ -131,7 +131,7 @@ contains
     ! !LOCAL VARIABLES:
     type(ed_patch_type), pointer :: currentPatch
     integer :: el              ! Loop counter for elements
-
+    integer :: do_patch_dynamics ! turn patch spawning off for some modes.
     !-----------------------------------------------------------------------
 
     if ( hlm_masterproc==itrue ) write(fates_log(),'(A,I4,A,I2.2,A,I2.2)') 'FATES Dynamics: ',&
@@ -241,8 +241,15 @@ contains
     ! Patch dynamics sub-routines: fusion, new patch creation (spwaning), termination.
     !*********************************************************************************
 
+    if ( hlm_use_ed_st3.eq.itrue )then
+      do_patch_dynamics=ifalse
+   else
+      do_patch_dynamics = itrue
+    endif
+
+
     ! make new patches from disturbed land
-    if ( hlm_use_ed_st3.eq.ifalse ) then
+    if ( do_patch_dynamics.eq.itrue ) then
        call spawn_patches(currentSite, bc_in)
     end if
    
