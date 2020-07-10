@@ -731,7 +731,7 @@ contains
 
     integer, parameter :: canopy_leaf_lifespan = 365    ! Maximum lifespan of drought decid leaves
 
-    integer, parameter :: min_daysoff_dforcedflush = 100 ! THis is the number of days that must had elapsed
+    integer, parameter :: min_daysoff_dforcedflush = 200 ! THis is the number of days that must had elapsed
                                                         ! since leaves had dropped, in order to forcably
                                                         ! flush leaves again.  This does not impact flushing
                                                         ! due to real moisture constraints, and will prevent
@@ -956,7 +956,7 @@ contains
     do i_wmem = 1,numWaterMem-1 !shift memory along one
        currentSite%water_memory(numWaterMem+1-i_wmem) = currentSite%water_memory(numWaterMem-i_wmem)
     enddo
-    currentSite%water_memory(1) = bc_in%h2o_liqvol_sl(ilayer_swater) 
+    currentSite%water_memory(1) = bc_in%smp_sl(ilayer_swater) 
 
     ! Calculate the mean water content over the last 10 days (m3/m3)
     mean_10day_liqvol = sum(currentSite%water_memory(1:numWaterMem))/real(numWaterMem,r8)
@@ -991,8 +991,7 @@ contains
     ! c) is the model day at least > 10 (let soil water spin-up)
     ! Note that cold-starts begin in the "leaf-on"
     ! status
-    if ( (currentSite%dstatus == phen_dstat_timeoff .or. &
-          currentSite%dstatus == phen_dstat_moistoff) .and. &
+    if (currentSite%dstatus == phen_dstat_moistoff.and. &
           (model_day_int > numWaterMem) .and. &
           (dayssincedleafon >= 365-30 .and. dayssincedleafon <= 365+30 ) .and. &
           (dayssincedleafoff > ED_val_phen_doff_time) ) then
