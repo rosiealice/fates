@@ -55,7 +55,7 @@ module EDCanopyStructureMod
   public :: canopy_summarization
   public :: update_hlm_dynamics
 
-  logical, parameter :: debug=.true.
+  logical, parameter :: debug=.false.
 
   character(len=*), parameter, private :: sourcefile = &
        __FILE__
@@ -1939,19 +1939,21 @@ contains
        total_patch_area = 0._r8 
        total_canopy_area = 0._r8
        bc_out(s)%canopy_fraction_pa(:) = 0._r8
+
        currentPatch => sites(s)%oldest_patch
        c = fcolumn(s)
        do while(associated(currentPatch))
-          !if(currentPatch%nocomp_pft_label.ne.0)then 
+          if(currentPatch%nocomp_pft_label.ne.0)then 
              ! only increase ifp for veg patches, not bareground (in SP mode)
              ifp = ifp+1
-          !endif ! stay with ifp=0 for bareground patch. 
+          endif ! stay with ifp=0 for bareground patch. 
           if ( currentPatch%total_canopy_area-currentPatch%area > 0.000001_r8 ) then
              write(fates_log(),*) 'ED: canopy area bigger than area',currentPatch%total_canopy_area ,currentPatch%area
              currentPatch%total_canopy_area = currentPatch%area
           endif
 
-
+          if(currentPatch%nocomp_pft_label.ne.0.or.hlm_use_sp.eq.false)then 
+          ! do not set values for bare ground patch in SP mode. 
           if (associated(currentPatch%tallest)) then
              bc_out(s)%htop_pa(ifp) = currentPatch%tallest%hite
           else
@@ -2034,6 +2036,8 @@ contains
           else
              bc_out(s)%frac_veg_nosno_alb_pa(ifp) = 0.0_r8
           end if
+          end if !is vegetated patch
+          bc_out(s)%nocomp_pft_label_pa(ifp) = currentPatch%nocomp_pft_label
           currentPatch => currentPatch%younger
        end do
 
