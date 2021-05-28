@@ -307,10 +307,11 @@ contains
                 frac_sai(L,ft,iv) =  currentPatch%esai_profile(L,ft,iv)/total_lai_sai(L,ft,iv)
                 ! layer level reflectance qualities
                 do ib = 1,hlm_numSWb !vis, nir
-                  f_abs(ft,ib,iv,ib) = 1.0_r8 - (frac_lai(L,ft,iv)*(rhol(ft,ib) + taul(ft,ib))+&
+                  f_abs(L,ft,iv,ib) = 1.0_r8 - (frac_lai(L,ft,iv)*(rhol(ft,ib) + taul(ft,ib))+&
                                       frac_sai(L,ft,iv)*(rhos(ft,ib) + taus(ft,ib)))
-                  rho_layer(ft,ib,iv,ib)=frac_lai(L,ft,iv)*rhol(ft,ib)+frac_sai(L,ft,iv)*rhos(ft,ib)
-                  tau_layer(ft,ib,iv,ib)=frac_lai(L,ft,iv)*taul(ft,ib)+frac_sai(L,ft,iv)*taus(ft,ib)
+                  f_abs(L,ft,iv,ib) = 1.0_r8 - rhol(ft,ib) - taul(ft,ib)
+                  rho_layer(L,ft,iv,ib)=frac_lai(L,ft,iv)*rhol(ft,ib)+frac_sai(L,ft,iv)*rhos(ft,ib)
+                  tau_layer(L,ft,iv,ib)=frac_lai(L,ft,iv)*taul(ft,ib)+frac_sai(L,ft,iv)*taus(ft,ib)
                 end do
              endif
           end do !iv
@@ -693,10 +694,12 @@ contains
                       do iv = 1, currentPatch%nrad(L,ft)
                          ! down rad'n is the sum of the down and upwards reflected diffuse fluxes...
                          down_rad = Dif_dn(L,ft,iv) * tran_dif(L,ft,iv,ib) + &
-                              Dif_up(L,ft,iv+1) * refl_dif(L,ft,iv,ib) 
-                        !... plus the direct beam intercepted and intransmitted by this layer. 
+                              Dif_up(L,ft,iv+1) * refl_dif(L,ft,iv,ib)
+                        !... plus the direct beam intercepted and intransmitted by this layer.
                          down_rad = down_rad + forc_dir(radtype) * tr_dir_z(L,ft,iv) * (1.00_r8 - &
                               exp(-k_dir(ft) * total_lai_sai(L,ft,iv))) * taul(ft,ib)
+
+                        !... plus the direct beam intercepted and intransmitted by this layer. 
                         ! modified to spread it out over the whole of incomplete layers. 
                          down_rad = down_rad *(ftweight(L,ft,iv)/ftweight(L,ft,1))
 
