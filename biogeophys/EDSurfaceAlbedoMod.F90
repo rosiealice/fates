@@ -309,7 +309,6 @@ contains
                 do ib = 1,hlm_numSWb !vis, nir
                   f_abs(L,ft,iv,ib) = 1.0_r8 - (frac_lai(L,ft,iv)*(rhol(ft,ib) + taul(ft,ib))+&
                                       frac_sai(L,ft,iv)*(rhos(ft,ib) + taus(ft,ib)))
-                  f_abs(L,ft,iv,ib) = 1.0_r8 - rhol(ft,ib) - taul(ft,ib)
                   rho_layer(L,ft,iv,ib)=frac_lai(L,ft,iv)*rhol(ft,ib)+frac_sai(L,ft,iv)*rhos(ft,ib)
                   tau_layer(L,ft,iv,ib)=frac_lai(L,ft,iv)*taul(ft,ib)+frac_sai(L,ft,iv)*taus(ft,ib)
                 end do
@@ -523,10 +522,10 @@ contains
 
                    do iv = 1,currentPatch%nrad(L,ft)
                       !How much diffuse light is intercepted and then reflected?
-                      refl_dif(L,ft,iv,ib) = (1._r8 - tr_dif_z(L,ft,iv)) * rhol(ft,ib)
+                      refl_dif(L,ft,iv,ib) = (1._r8 - tr_dif_z(L,ft,iv)) * rho_layer(L,ft,iv,ib)
                       !How much diffuse light in this layer is transmitted?
                       tran_dif(L,ft,iv,ib) = (1._r8 - tr_dif_z(L,ft,iv)) * &
-                           taul(ft,ib) + tr_dif_z(L,ft,iv)
+                           tau_layer(L,ft,iv,ib) + tr_dif_z(L,ft,iv)
                    end do
 
                    !++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++!
@@ -697,7 +696,7 @@ contains
                               Dif_up(L,ft,iv+1) * refl_dif(L,ft,iv,ib)
                         !... plus the direct beam intercepted and intransmitted by this layer.
                          down_rad = down_rad + forc_dir(radtype) * tr_dir_z(L,ft,iv) * (1.00_r8 - &
-                              exp(-k_dir(ft) * total_lai_sai(L,ft,iv))) * taul(ft,ib)
+                              exp(-k_dir(ft) * total_lai_sai(L,ft,iv))) * tau_layer(L,ft,iv,ib)
 
                         !... plus the direct beam intercepted and intransmitted by this layer. 
                         ! modified to spread it out over the whole of incomplete layers. 
@@ -757,8 +756,7 @@ contains
                          !reflection of the lower layer,
                          up_rad = Dif_dn(L,ft,iv) * refl_dif(L,ft,iv,ib)
                          up_rad = up_rad + forc_dir(radtype) * tr_dir_z(L,ft,iv) * (1.00_r8 - exp(-k_dir(ft) * &
-                              (currentPatch%elai_profile(L,ft,iv) + currentPatch%esai_profile(L,ft,iv)))) * &
-                              rhol(ft,ib)
+                         total_lai_sai(L,ft,iv)) )* rho_layer(L,ft,iv,ib)
                          up_rad = up_rad + Dif_up(L,ft,iv+1) * tran_dif(L,ft,iv,ib)
                          up_rad = up_rad * ftweight(L,ft,iv)/ftweight(L,ft,1)
                          up_rad = up_rad + Dif_up(L,ft,iv+1) *(ftweight(L,ft,1)-ftweight(L,ft,iv))/ftweight(L,ft,1)
@@ -1014,7 +1012,7 @@ contains
                 write(fates_log(),*)  '>5% Dif Radn consvn error',error ,ib
                 write(fates_log(),*) 'diags', albi_parb_out(ib), ftii_parb_out(ib), &
                      fabi_parb_out(ib)
-                write(fates_log(),*) 'lai_change',lai_change(currentpatch%ncl_p,1:numpft,1:diag_nlevleaf)
+!                write(fates_log(),*) 'lai_change',lai_change(currentpatch%ncl_p,1:numpft,1:diag_nlevleaf)
                 write(fates_log(),*) 'elai',currentpatch%elai_profile(currentpatch%ncl_p,1:numpft,1:diag_nlevleaf)
                 write(fates_log(),*) 'esai',currentpatch%esai_profile(currentpatch%ncl_p,1:numpft,1:diag_nlevleaf)
                 write(fates_log(),*) 'ftweight',ftweight(currentpatch%ncl_p,1:numpft,1:diag_nlevleaf)
