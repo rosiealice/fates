@@ -1936,7 +1936,7 @@ contains
     do s = 1,nsites
 
        ifp = 0
-       bc_out(s)%nocomp_pft_label_pa(ifp) = currentPatch%nocomp_pft_label       
+   
        total_patch_area = 0._r8 
        total_canopy_area = 0._r8
        bc_out(s)%canopy_fraction_pa(:) = 0._r8
@@ -1951,7 +1951,6 @@ contains
           ! and is handled natively by the HLM. 
           ! thus we do not set any of the following vegetation properities for bare ground patchs. 
           ifp = ifp+1
-
           bc_out(s)%nocomp_pft_label_pa(ifp) = currentPatch%nocomp_pft_label
           if (associated(currentPatch%tallest)) then
              bc_out(s)%htop_pa(ifp) = currentPatch%tallest%hite
