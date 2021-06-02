@@ -1943,7 +1943,7 @@ contains
 
        currentPatch => sites(s)%oldest_patch
        c = fcolumn(s)
-       do while(associated(currentPatch))fates/main/FatesInterfaceMod.F90:
+       do while(associated(currentPatch))
 
           if(currentPatch%nocomp_pft_label.ne.0.or.hlm_use_sp.eq.ifalse)then 
           ! do not set output values for bare ground patch in SP mode. 
