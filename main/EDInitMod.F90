@@ -487,10 +487,8 @@ contains
           start_patch = 1   ! start at the first vegetated patch
           if(hlm_use_nocomp.eq.itrue)then
              num_new_patches = numpft
-             if(hlm_use_sp.eq.itrue)then
-                start_patch = 0 ! start at the bare ground patch
-             endif
-             !           allocate(newppft(numpft))
+             start_patch = 0 ! start at the bare ground patch
+             !
           else !default
              num_new_patches = 1
           end if !nocomp
