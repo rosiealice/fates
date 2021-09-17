@@ -369,6 +369,21 @@ contains
     call endrun(msg=errMsg(sourcefile, __LINE__))
   end function dftcdpsi_from_psi_base
 
+
+  ! =====================================================================================
+  ! Set the hardening variable in wrf module per cohhort
+  ! This will vary in time! 
+  ! =====================================================================================
+
+  subroutine set_wrf_cohorthardening(this,hardening)
+
+  class(wrf_type_vg) :: this
+  real(r8), intent(in) :: params_in(:)
+  
+  this%hardening    = params_in(1)
+  
+  return
+  end subroutine set_wrf_param_vg
   ! =====================================================================================
   ! Van Genuchten Functions are defined here
   ! =====================================================================================
