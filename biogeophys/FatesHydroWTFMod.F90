@@ -388,7 +388,7 @@ contains
   class(wrf_type_vg) :: this
   real(r8), intent(in) :: params_in(:)
   
-  this%hardening    = params_ifn(1)
+  this%hardening    = params_in(1)
   
   return
   end subroutine set_wrf_param_vg
