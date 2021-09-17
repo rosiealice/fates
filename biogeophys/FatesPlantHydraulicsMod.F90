@@ -506,12 +506,12 @@ contains
     if(init_mode == 2) then
        
 !       h_aroot_mean = 0._r8
-
+       call set_wrf_harden(1.0_r8) !cold start hardening is off. Does this need setting twice?
        do j=1, site_hydr%nlevrhiz
           
           ! Match the potential of the absorbing root to the inner rhizosphere shell
           cohort_hydr%psi_aroot(j) = site_hydr%wrf_soil(j)%p%psi_from_th(site_hydr%h2osoi_liqvol_shell(j,1))
-
+ 
           ! Calculate the mean total potential (include height) of absorbing roots
 !          h_aroot_mean = h_aroot_mean + cohort_hydr%psi_aroot(j) + mpa_per_pa*denh2o*grav_earth*(-site_hydr%zi_rhiz(j))
           
@@ -1389,6 +1389,7 @@ contains
              allocate(wrf_vg)
              site_hydr%wrf_soil(j)%p => wrf_vg
              call wrf_vg%set_wrf_param([alpha_vg, psd_vg, th_sat_vg, th_res_vg])
+             
           end do
        case(campbell_type)
           do j=1,site_hydr%nlevrhiz
@@ -2435,6 +2436,8 @@ contains
           
           ccohort=>cpatch%tallest
           do while(associated(ccohort))
+             !update hardening for each cohort in BC hydraulics loop.
+             call wrf_plant%set_wrf_harden([cohort%harden])
 
              ccohort_hydr => ccohort%co_hydr
              ft       = ccohort%pft
@@ -5334,12 +5337,16 @@ contains
              call wrf_vg%set_wrf_param([EDPftvarcon_inst%hydr_vg_alpha_node(ft,pm), &
                                         EDPftvarcon_inst%hydr_vg_m_node(ft,pm), &
                                         EDPftvarcon_inst%hydr_thetas_node(ft,pm), &
-                                        EDPftvarcon_inst%hydr_resid_node(ft,pm)])
+                                        EDPftvarcon_inst%hydr_resid_node(ft,pm)])            
           end do
+     
+          
        case(tfs_type)
           do ft = 1,numpft
              allocate(wrf_tfs)
              wrf_plant(pm,ft)%p => wrf_tfs
+             
+ 
              if (pm.eq.leaf_p_media) then   ! Leaf tissue
                 cap_slp    = 0.0_r8
                 cap_int    = 0.0_r8
@@ -5360,6 +5367,9 @@ contains
            end do
         end select
      end do
+     
+     !initialize hardening value in wrf once case is selected.  
+     wrf_plant%set_wrf_harden([1.0_r8]) ! cold start has no hardening.
 
     ! -----------------------------------------------------------------------------------
     ! Initialize the Water Conductance (K) Functions
