@@ -65,7 +65,7 @@ module FatesHydroWTFMod
       real(r8) :: th_min      ! vwc matching min_sf_interp where we start linear interp
       real(r8) :: th_max      ! vwc matching max_sf_interp where we start linear interp
       
-      real(r8) :: hardening   ! time-varying cohort-level 'hardening' from cold, that changes PV curve. 
+      
       
   contains
       
@@ -74,7 +74,6 @@ module FatesHydroWTFMod
      procedure :: dpsidth_from_th => dpsidth_from_th_base
      procedure :: set_wrf_param   => set_wrf_param_base
      procedure :: get_thsat       => get_thsat_base
-     procedure :: set_wrf_harden  => set_wrf_cohort_hardening
      
      ! All brands of WRFs have access to these tools to operate
      ! above and below sat and residual, should they want to
@@ -118,12 +117,15 @@ module FatesHydroWTFMod
      real(r8) :: psd     ! Inverse width of pore size distribution parameter
      real(r8) :: th_sat  ! Saturation volumetric water content [m3/m3]
      real(r8) :: th_res  ! Residual volumetric water content   [m3/m3]
+     real(r8) :: hardening ! time-varying cohort-level cold 'hardening'. Changes PV curve. 
+     
    contains
      procedure :: th_from_psi     => th_from_psi_vg
      procedure :: psi_from_th     => psi_from_th_vg
      procedure :: dpsidth_from_th => dpsidth_from_th_vg
      procedure :: set_wrf_param   => set_wrf_param_vg
      procedure :: get_thsat       => get_thsat_vg
+     procedure :: set_wrf_harden  => set_wrf_cohort_hardening
   end type wrf_type_vg
 
   ! Water Conductivity Function
@@ -148,12 +150,14 @@ module FatesHydroWTFMod
      real(r8) :: th_sat   ! Saturation volumetric water content         [m3/m3]
      real(r8) :: psi_sat  ! Bubbling pressure (potential at saturation) [Mpa]
      real(r8) :: beta     ! Clapp-Hornberger "beta" parameter           [-]
+     real(r8) :: hardening ! time-varying cohort-level cold 'hardening'. Changes PV curve. 
    contains
      procedure :: th_from_psi     => th_from_psi_cch
      procedure :: psi_from_th     => psi_from_th_cch
      procedure :: dpsidth_from_th => dpsidth_from_th_cch
      procedure :: set_wrf_param   => set_wrf_param_cch
      procedure :: get_thsat       => get_thsat_cch
+     procedure :: set_wrf_harden  => set_wrf_cohort_hardening
   end type wrf_type_cch
 
   ! Water Conductivity Function
@@ -376,7 +380,7 @@ contains
 
   ! =====================================================================================
   ! Set the hardening variable in wrf module per cohhort
-  ! This will vary in time! 
+  ! This will vary in time, but not with Vg/CH water retention function.  
   ! =====================================================================================
 
   subroutine set_wrf_cohort_hardening(this,params_in)
