@@ -65,6 +65,8 @@ module FatesHydroWTFMod
       real(r8) :: th_min      ! vwc matching min_sf_interp where we start linear interp
       real(r8) :: th_max      ! vwc matching max_sf_interp where we start linear interp
       
+      real(r8) :: hardening   ! time-varying cohort-level 'hardening' from cold, that changes PV curve. 
+      
   contains
       
      procedure :: th_from_psi     => th_from_psi_base
@@ -194,6 +196,7 @@ module FatesHydroWTFMod
      real(r8) :: p50          ! matric potential at 50% conductivity loss   [Mpa]
      real(r8) :: avuln        ! vulnerability curve parameter
      real(r8) :: th_sat       ! volumetric water content at saturation
+
 
    contains
      procedure :: ftc_from_psi      => ftc_from_psi_tfs
@@ -375,12 +378,12 @@ contains
   ! This will vary in time! 
   ! =====================================================================================
 
-  subroutine set_wrf_cohorthardening(this,hardening)
+  subroutine set_wrf_cohorthardening(this,params_in)
 
   class(wrf_type_vg) :: this
   real(r8), intent(in) :: params_in(:)
   
-  this%hardening    = params_in(1)
+  this%hardening    = params_ifn(1)
   
   return
   end subroutine set_wrf_param_vg
@@ -714,6 +717,10 @@ contains
     else
         th = this%th_sat*(psi/this%psi_sat)**(-1.0_r8/this%beta)
     end if
+    
+    ! THIS IS A STUB TO TEST THE POSSIBILITY OF PASSING HARDENING
+    th = th * 1.0_r8/this%hardening
+    
     return
   end function th_from_psi_cch
 
