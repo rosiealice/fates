@@ -74,7 +74,8 @@ module FatesHydroWTFMod
      procedure :: dpsidth_from_th => dpsidth_from_th_base
      procedure :: set_wrf_param   => set_wrf_param_base
      procedure :: get_thsat       => get_thsat_base
-
+     procedure :: set_wrf_harden  => set_wrf_cohort_hardening
+     
      ! All brands of WRFs have access to these tools to operate
      ! above and below sat and residual, should they want to
      procedure, non_overridable :: psi_linear_sat
@@ -378,7 +379,7 @@ contains
   ! This will vary in time! 
   ! =====================================================================================
 
-  subroutine set_wrf_cohorthardening(this,params_in)
+  subroutine set_wrf_cohort_hardening(this,params_in)
 
   class(wrf_type_vg) :: this
   real(r8), intent(in) :: params_in(:)
