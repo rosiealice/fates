@@ -435,6 +435,7 @@ contains
     integer  :: nocomp_pft
     real(r8) :: newparea
     real(r8) :: tota !check on area
+    real(r8) :: diffarea 
     integer  :: is_first_patch
 
     type(ed_site_type),  pointer :: sitep
@@ -494,6 +495,29 @@ contains
           else !default
              num_new_patches = 1
           end if !nocomp
+
+          !check if the total area adds to the same as site area                                         
+          if(hlm_use_nocomp.eq.itrue)then
+           tota = 0.0_r8
+            do n = start_patch, num_new_patches 
+              nocomp_pft = n
+              newparea = sites(s)%area_pft(nocomp_pft)
+              tota = tota + newparea
+          end do
+         diffarea = tota-area
+
+         if(abs(diffarea).gt.nearzero*area)then
+           do n = start_patch, num_new_patches
+             if(abs(diffarea).lt.1.0e-10_r8)then ! this is a precision error                       
+                if(sites(s)%area_pft(nocomp_pft).gt.(diffarea+nearzero))then
+                   sites(s)%area_pft(nocomp_pft) = sites(s)%area_pft(nocomp_pft) - diffarea
+                   diffarea = 0._r8
+                   write(*,*) 'removing diffarea',s,n,tota-area
+                 endif !enough room? 
+              endif ! big or small
+            end do !n
+          endif !diffarea
+          endif
 
           is_first_patch = itrue
           do n = start_patch, num_new_patches
@@ -581,7 +605,7 @@ contains
                    ! remove or add extra area
                    ! if the oldest patch has enough area, use that
                    sites(s)%oldest_patch%area = sites(s)%oldest_patch%area - (tota-area)
-                   write(*,*) 'fixing patch precision - oldest',s, tota-area
+                   write(*,*) 'fixing patch precision - oldest',s, tota-area,sites(s)%oldest_patch%area-area
                 else ! or otherwise take the area from the youngest patch.
                    sites(s)%youngest_patch%area = sites(s)%oldest_patch%area - (tota-area)
                    write(*,*) 'fixing patch precision -youngest ',s, tota-area
