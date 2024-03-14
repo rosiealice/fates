@@ -1879,6 +1879,7 @@ contains
        bc_out(s)%dleaf_pa(:) = 0._r8
        bc_out(s)%z0m_pa(:) = 0._r8
        bc_out(s)%displa_pa(:) = 0._r8
+       bc_out(s)%fire_emissions_pa(:,:) = 0._r8
        
        currentPatch => sites(s)%oldest_patch
        c = fcolumn(s)
@@ -1931,6 +1932,12 @@ contains
                    total_patch_leaf_stem_area = total_patch_leaf_stem_area + &
                         (currentCohort%treelai + currentCohort%treesai) * currentCohort%c_area
                    currentCohort => currentCohort%taller
+                end do
+
+                do c = 1, num_emission_compounds
+                   !is this in the right place in the code?
+                   !what else do we need to do with restarts to not mess up the first day of emissions?
+                   bc_out(s)%fire_emissions_pa(ifp,c) = currentPatch%fire_emissions(c) / secs_per_day
                 end do
 
                 ! make sure there is some leaf and stem area
