@@ -17,6 +17,7 @@ module FatesPatchMod
   use PRTGenericMod,       only : num_elements
   use PRTGenericMod,       only : element_list
   use EDParamsMod,         only : nlevleaf, nclmax, maxpft
+  use EDTypesMod,          only : num_emission_compounds 
   use FatesConstantsMod,   only : n_dbh_bins, n_dist_types
   use FatesConstantsMod,   only : t_water_freeze_k_1atm
   use FatesRunningMeanMod, only : ema_24hr, fixed_24hr, ema_lpa, ema_longterm
@@ -216,7 +217,9 @@ module FatesPatchMod
     real(r8)              :: frac_burnt              ! fraction burnt [0-1/day]  
     real(r8)              :: tfc_ros                 ! total intensity-relevant fuel consumed - no trunks [kgC/m2 of burned ground/day]
     real(r8)              :: burnt_frac_litter(nfsc) ! fraction of each litter pool burned, conditional on it being burned [0-1]
-
+    real(r8)              :: fire_emission_height    ! Height of fire emissions into the atmsophere. m.
+    real(r8)              :: fire_emissions(num_emission_compounds) ! Emissions from fires. g emissions/m2/day
+    
     !---------------------------------------------------------------------------
     
     ! PLANT HYDRAULICS (not currently used in hydraulics RGK 03-2018)  
