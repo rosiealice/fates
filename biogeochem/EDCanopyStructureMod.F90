@@ -1880,6 +1880,7 @@ contains
        bc_out(s)%z0m_pa(:) = 0._r8
        bc_out(s)%displa_pa(:) = 0._r8
        bc_out(s)%fire_emissions_pa(:,:) = 0._r8
+       bc_out(s)%fire_emission_height_pa = 0._r8
        
        currentPatch => sites(s)%oldest_patch
        c = fcolumn(s)
@@ -1939,6 +1940,7 @@ contains
                    !what else do we need to do with restarts to not mess up the first day of emissions?
                    bc_out(s)%fire_emissions_pa(ifp,c) = currentPatch%fire_emissions(c) / secs_per_day
                 end do
+                bc_out(s)%fire_emission_height_pa(ifp) = currentPatch%fire_emission_height
 
                 ! make sure there is some leaf and stem area
                 if (total_patch_leaf_stem_area > nearzero) then
