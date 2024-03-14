@@ -15,7 +15,7 @@ dimensions:
 	fates_plant_organs = 4 ;
 	fates_string_length = 60 ;
 	fates_landuseclass = 5 ;
-	fates_nemission_factors = 10 ;
+	fates_nemission_factors = 13 ;
 variables:
 	double fates_history_ageclass_bin_edges(fates_history_age_bins) ;
 		fates_history_ageclass_bin_edges:units = "yr" ;
@@ -269,6 +269,10 @@ variables:
 	double fates_fire_crown_kill(fates_pft) ;
 		fates_fire_crown_kill:units = "NA" ;
 		fates_fire_crown_kill:long_name = "fire parameter, see equation 22 in Thonicke et al 2010" ;
+        char fates_fire_emission_compound_name)(fates_pft, fates_string_length) ;
+                fates_fire_emission_compound_name:units = "unitless - string" ;
+                fates_fire_emission_compound_name = "Description of fire emission compounds" ;
+		
         double fates_fire_emission_factors(fates_pft,fates_nemission_factors) ;
                fates_fire_emission_factors:units = "kg emission/m2/s" ;
 	       fates_fire_emission_factors:long_name = "Emissions factors for FATES PFTs" ;
@@ -1255,6 +1259,21 @@ fates_fire_emission_factors =
 fates_fire_emission_heights =
     0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5 ;
 
+fates_fire_emission_compound_name =
+ "CO2",
+  "CO",
+  "CH4",
+  "NHMC",
+  "H2",
+  "NOX",
+  "N2O",
+  "PM25",
+  "TPM",
+  "TC",
+  "OC",
+  "BC",
+  "SO2" ;
+  
 fates_fire_emission_factors =
     0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
     0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
