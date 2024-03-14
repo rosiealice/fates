@@ -1093,7 +1093,10 @@ contains
           currentPatch%rx_fire                    = 0
           currentPatch%rx_fi                      = 0._r8
           currentPatch%rx_frac_burnt              = 0._r8
+                    currentPatch%fire_emissions(:)          = 0._r8
+          currentPatch%fire_emission_height       = 0._r8
           
+
           currentPatch => currentPatch%older
        enddo
     enddo

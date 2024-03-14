@@ -3267,6 +3267,10 @@ contains
     rp%ros_front               = (dp%ros_front*dp%area + rp%ros_front*rp%area) * inv_sum_area
     rp%tau_l                   = (dp%tau_l*dp%area + rp%tau_l*rp%area) * inv_sum_area
     rp%tfc_ros              = (dp%tfc_ros*dp%area + rp%tfc_ros*rp%area) * inv_sum_area
+    rp%fire_emission_height = (dp%fire_emission_height*dp%area + rp%fire_emission_height*rp%area) * inv_sum_area
+    do c = 1, num_emission_compounds
+       rp%fire_emissions(c) = (dp%fire_emissions(c)*dp%area + rp%fire_emissions(c)*rp%area) * inv_sum_area
+    enddo 
     rp%fi                   = (dp%fi*dp%area + rp%fi*rp%area) * inv_sum_area
     rp%nonrx_fi             = (dp%nonrx_fi*dp%area + rp%nonrx_fi*rp%area) * inv_sum_area
     rp%rx_fi                = (dp%rx_fi*dp%area + rp%rx_fi*rp%area) * inv_sum_area
