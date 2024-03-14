@@ -62,6 +62,7 @@
   public :: crown_damage
   public :: cambial_damage_kill
   public :: post_fire_mortality
+  public :: fire_emissions
 
   ! The following parameter represents one of the values of hlm_spitfire_mode
   ! and more of these appear in subroutine area_burnt_intensity below
@@ -1118,5 +1119,37 @@ contains
 
   end subroutine post_fire_mortality
 
+  !*****************************************************************                                   
+  subroutine  fire_emissions ( currentSite )
+  !*****************************************************************                                   
+    type(ed_site_type), intent(in), target :: currentSite
+
+    type(fates_patch_type),  pointer :: currentPatch
+    type(fates_cohort_type), pointer :: currentCohort
+
+    currentPatch => currentSite%oldest_patch
+    if(use_fates_nocomp.eq.true)then
+       ! Do not do fire emissions if we are not in nocomp mode
+       !this capability has not been added yet. 
+       
+       do while(associated(currentPatch))
+          if(currentPatch%nocomp_pft_label .ne. nocomp_bareground)then
+             biomass_burned = currentPatch%TFC_ROS / 0.45_r8 ! kg biomass/m2/day
+             !n.b. does this also need to include the amount of tree canopy consumed?
+
+             do c = 1, nemission_compounds
+                emission_factor = EDPftvarcon_inst%fire_emission_factors(currentPatch%nocomp_pft_label,c)
+                currentPatch%fire_emissions(c) = biomass_burned * emission_factor
+             end do 
+
+             currentPatch%fire_emission_height =  EDPftvarcon_inst%fire_emission_height(currentPatch%nocomp_pft_label)
+
+             currentPatch => currentPatch%younger
+
+       enddo !end patch loop
+    end if ! is nocomp 
+
+  end subroutine fire_emissions   
+  
   ! ============================================================================
 end module SFMainMod
