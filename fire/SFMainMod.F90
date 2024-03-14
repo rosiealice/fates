@@ -1122,6 +1122,8 @@ contains
   !*****************************************************************                                   
   subroutine  fire_emissions ( currentSite )
   !*****************************************************************                                   
+
+    use EDTypesMod                , only : num_emission_compounds
     type(ed_site_type), intent(in), target :: currentSite
 
     type(fates_patch_type),  pointer :: currentPatch
@@ -1137,7 +1139,7 @@ contains
              biomass_burned = currentPatch%TFC_ROS / 0.45_r8 ! kg biomass/m2/day
              !n.b. does this also need to include the amount of tree canopy consumed?
 
-             do c = 1, nemission_compounds
+             do c = 1, num_emission_compounds
                 emission_factor = EDPftvarcon_inst%fire_emission_factors(currentPatch%nocomp_pft_label,c)
                 currentPatch%fire_emissions(c) = biomass_burned * emission_factor
              end do 
