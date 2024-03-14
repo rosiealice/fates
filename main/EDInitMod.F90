@@ -831,6 +831,9 @@ contains
           currentPatch%scorch_ht(:)               = 0._r8
           currentPatch%frac_burnt                 = 0._r8
           currentPatch%burnt_frac_litter(:)       = 0._r8
+          currentPatch%fire_emissions(:)          = 0._r8
+          currentPatch%fire_emission_height       = 0._r8
+          
 
           currentPatch => currentPatch%older
        enddo
