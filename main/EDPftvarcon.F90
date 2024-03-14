@@ -917,6 +917,14 @@ contains
     call fates_params%RetrieveParameterAllocate(name=name, &
          data=this%fire_alpha_SH)
 
+    name = 'fates_fire_emission_factors'
+    call fates_params%RetrieveParameterAllocate(name=name, &
+         data=this%fire_emission_factors)
+
+    name = 'fates_fire_emission_heights'
+    call fates_params%RetrieveParameterAllocate(name=name, &
+         data=this%fire_emission_heights)
+    
     name = 'fates_allom_frbstor_repro'
     call fates_params%RetrieveParameterAllocate(name=name, &
          data=this%allom_frbstor_repro)
@@ -1216,7 +1224,7 @@ contains
     ! arrays. We have to register the parameters as 1-d arrays as they
     ! are on the parameter file. We store them as 2-d in the receive step.
     use FatesParametersInterface, only : fates_parameters_type, param_string_length
-    use FatesParametersInterface, only : dimension_name_pft, dimension_shape_1d
+    use FatesParametersInterface, only : dimension_name_pft, dimension_name_nemission_compounds, dimension_shape_1d
 
     implicit none
 
