@@ -25,7 +25,7 @@ module FatesInterfaceMod
    use EDParamsMod               , only : maxpft
    use EDTypesMod                , only : do_fates_salinity
    use EDTypesMod                , only : numWaterMem
-   use EDTypesMod                , only : num_emission_compounds
+   use EDParamsMod                , only : num_emission_compounds
    use EDTypesMod                , only : numlevsoil_max
    use EDTypesMod                , only : ed_site_type
    use FatesPatchMod             , only : fates_patch_type
@@ -388,6 +388,7 @@ contains
     fates%bc_out(s)%hbot_pa(:)   = 0.0_r8
     fates%bc_out(s)%displa_pa(:) = 0.0_r8
     fates%bc_out(s)%fire_emissions_pa(:,:) = 0.0_r8
+    fates%bc_out(s)%fire_emission_height_pa(:) = 0.0_r8    
     fates%bc_out(s)%z0m_pa(:)    = 0.0_r8
     fates%bc_out(s)%dleaf_pa(:)   = 0.0_r8
     fates%bc_out(s)%nocomp_pft_label_pa(:) = 0
@@ -715,7 +716,8 @@ contains
 
       ! Fire emissions
       allocate(bc_out%fire_emissions_pa(maxpatch_total,num_emission_compounds))      
-
+      allocate(bc_out%fire_emission_height_pa(maxpatch_total))
+      
       ! Plant-Hydro BC's
       if (hlm_use_planthydro.eq.itrue) then
          allocate(bc_out%qflx_soil2root_sisl(nlevsoil_in))

@@ -17,7 +17,7 @@ module FatesPatchMod
   use PRTGenericMod,       only : num_elements
   use PRTGenericMod,       only : element_list
   use EDParamsMod,         only : nlevleaf, nclmax, maxpft
-  use EDTypesMod,          only : num_emission_compounds 
+  use EDParamsMod,         only : num_emission_compounds
   use FatesConstantsMod,   only : n_dbh_bins, n_dist_types
   use FatesConstantsMod,   only : t_water_freeze_k_1atm
   use FatesRunningMeanMod, only : ema_24hr, fixed_24hr, ema_lpa, ema_longterm

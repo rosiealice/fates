@@ -108,6 +108,8 @@ module EDParamsMod
  
    integer, parameter, public :: maxpft = 16      ! maximum number of PFTs allowed
    
+   integer, parameter, public :: num_emission_compounds = 13 ! number of fire emission fields calculated
+   
    real(r8),protected,public  :: q10_mr     ! Q10 for respiration rate (for soil fragmenation and plant respiration)    (unitless)
    real(r8),protected,public  :: q10_froz   ! Q10 for frozen-soil respiration rates (for soil fragmentation)            (unitless)
 

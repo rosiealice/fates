@@ -1123,14 +1123,18 @@ contains
   subroutine  fire_emissions ( currentSite )
   !*****************************************************************                                   
 
-    use EDTypesMod                , only : num_emission_compounds
-    type(ed_site_type), intent(in), target :: currentSite
+    use EDParamsMod                , only : num_emission_compounds
+    use FatesInterfaceTypesMod        , only : hlm_use_nocomp
 
+    type(ed_site_type), intent(in), target :: currentSite
     type(fates_patch_type),  pointer :: currentPatch
     type(fates_cohort_type), pointer :: currentCohort
-
+    real(r8) biomass_burned  ! Local biomass burned variable
+    real(r8) emission_factor ! Local emission factor variable
+    integer c
+    
     currentPatch => currentSite%oldest_patch
-    if(use_fates_nocomp.eq.true)then
+    if(hlm_use_nocomp.eq..true.)then
        ! Do not do fire emissions if we are not in nocomp mode
        !this capability has not been added yet. 
        
@@ -1142,12 +1146,12 @@ contains
              do c = 1, num_emission_compounds
                 emission_factor = EDPftvarcon_inst%fire_emission_factors(currentPatch%nocomp_pft_label,c)
                 currentPatch%fire_emissions(c) = biomass_burned * emission_factor
-             end do 
+             enddo 
 
-             currentPatch%fire_emission_height =  EDPftvarcon_inst%fire_emission_height(currentPatch%nocomp_pft_label)
+             currentPatch%fire_emission_height =  EDPftvarcon_inst%fire_emission_heights(currentPatch%nocomp_pft_label)
 
              currentPatch => currentPatch%younger
-
+          endif
        enddo !end patch loop
     end if ! is nocomp 
 

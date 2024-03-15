@@ -1,5 +1,4 @@
 module EDTypesMod
-  1;95;0c
 
   use FatesConstantsMod,     only : r8 => fates_r8
   use FatesGlobals,          only : endrun => fates_endrun
@@ -82,9 +81,6 @@ module EDTypesMod
   integer, parameter, public  :: numlevsoil_max       = 30         ! This is scratch space used for static arrays
                                                                    ! The actual number of soil layers should not exceed this
 
-
-  ! FIRE EMISSIONS
-    integer , parameter, public :: num_emission_compounds      = 13  
 
   ! BIOLOGY/BIOGEOCHEMISTRY        
   integer , parameter, public :: num_vegtemp_mem      = 10         ! Window of time over which we track temp for cold sensecence (days)
