@@ -565,12 +565,13 @@ module EDParamsMod
 
     call fates_params%RegisterParameter(name=ED_name_maxpatches_by_landuse, dimension_shape=dimension_shape_1d, &
          dimension_names=dim_names_landuse)
-    
+        
     call fates_params%RegisterParameter(name=ED_name_max_nocomp_pfts_by_landuse, dimension_shape=dimension_shape_1d, &
          dimension_names=dim_names_landuse)
 
     call fates_params%RegisterParameter(name=name_landuse_grazing_rate, dimension_shape=dimension_shape_1d, &
          dimension_names=dim_names_landuse)
+    
     
   end subroutine FatesRegisterParams
 
