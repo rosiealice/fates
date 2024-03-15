@@ -541,6 +541,8 @@ module FatesPatchMod
       this%scorch_ht(:)                 = nan 
       this%tfc_ros                      = nan
       this%frac_burnt                   = nan
+            this%fire_emissions(:)            = nan
+      this%fire_emission_height         = nan
       
     end subroutine NanValues
 
@@ -629,7 +631,9 @@ module FatesPatchMod
       this%nonrx_frac_burnt                  = 0.0_r8
       this%rx_fi                             = 0.0_r8
       this%rx_frac_burnt                     = 0.0_r8
-
+      this%fire_emissions(:)                 = 0.0_r8
+      this%fire_emission_height              = 0.0_r8
+      
     end subroutine ZeroValues
 
     !===========================================================================
