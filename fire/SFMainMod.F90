@@ -692,6 +692,7 @@ contains
     
     currentPatch => currentSite%oldest_patch
     if(hlm_use_nocomp == itrue)then
+    if(hlm_use_nocomp.eq..true.)then
        ! Do not do fire emissions if we are not in nocomp mode
        !this capability has not been added yet. 
        
@@ -705,13 +706,13 @@ contains
                 currentPatch%fire_emissions(c) = biomass_burned * emission_factor
              enddo 
 
-             currentPatch%fire_emission_height =  EDPftvarcon_inst%fire_emission_heights(currentPatch%nocomp_pft_label)
+             currentPatch%fire_emission_height =  EDPftvarcon_inst%fire_emission_heightss(currentPatch%nocomp_pft_label)
              if(currentPatch%fire_emissions(c).gt.0.0_r8)then
                 write(*,*) 'postivie emissionssf',currentPatch%fire_emissions(1),biomass_burned
              endif
           endif ! bare ground
           currentPatch => currentPatch%younger
-          
+                    endif
        enddo !end patch loop
     end if ! is nocomp 
 
