@@ -942,7 +942,7 @@ contains
 <<<<<<< HEAD
          data=this%fire_emission_heights)
 =======
-         data=this%fates_fire_emission_heights)
+         data=this%fire_emission_heights)
 >>>>>>> 3048976e (Code now should read in the PFT indexed emission variables)
     
     name = 'fates_allom_frbstor_repro'

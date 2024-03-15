@@ -40,7 +40,7 @@ module FatesParametersInterface
   character(len=*), parameter, public :: dimension_name_damage = 'fates_damage_class'
   character(len=*), parameter, public :: dimension_name_landuse = 'fates_landuseclass'
   character(len=*), parameter, public :: dimension_name_nemission_compounds = 'fates_nemission_compounds'
-  character(len=*), parameter, public :: dimension_name_nemission_factors = 'fates_nemission_compounds'
+  character(len=*), parameter, public :: dimension_name_nemission_compounds = 'fates_nemission_compounds'
   
   ! Dimensions in the host namespace:
   character(len=*), parameter, public :: dimension_name_host_allpfts = 'allpfts'
