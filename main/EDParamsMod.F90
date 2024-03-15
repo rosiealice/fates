@@ -362,7 +362,7 @@ module EDParamsMod
     use FatesParametersInterface, only : dimension_name_history_size_bins, dimension_name_history_age_bins
     use FatesParametersInterface, only : dimension_name_history_height_bins, dimension_name_hydr_organs
     use FatesParametersInterface, only : dimension_name_history_coage_bins, dimension_name_history_damage_bins
-    use FatesParametersInterface, only : dimension_shape_scalar, dimension_name_landuse, dimension_name_nemission_compounds
+    use FatesParametersInterface, only : dimension_shape_scalar, dimension_name_landuse, dimension_name_nemission_compounds, dimension_name_nemission_compounds
 
 
     implicit none
@@ -572,6 +572,7 @@ module EDParamsMod
     call fates_params%RegisterParameter(name=name_landuse_grazing_rate, dimension_shape=dimension_shape_1d, &
          dimension_names=dim_names_landuse)
     
+        
         
     
   end subroutine FatesRegisterParams
