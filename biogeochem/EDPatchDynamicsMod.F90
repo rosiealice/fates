@@ -3200,6 +3200,7 @@ contains
     !
     ! !USES:
     use FatesSizeAgeTypeIndicesMod, only: get_age_class_index
+    use EDParamsMod, only: num_emission_compounds
     !
     ! !ARGUMENTS:
     type (ed_site_type), intent(inout),target :: csite  ! Current site 
