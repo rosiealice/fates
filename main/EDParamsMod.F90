@@ -572,6 +572,7 @@ module EDParamsMod
     call fates_params%RegisterParameter(name=name_landuse_grazing_rate, dimension_shape=dimension_shape_1d, &
          dimension_names=dim_names_landuse)
     
+        
     
   end subroutine FatesRegisterParams
 
