@@ -944,6 +944,7 @@ contains
 =======
          data=this%fire_emission_heights)
 >>>>>>> 3048976e (Code now should read in the PFT indexed emission variables)
+         data=this%fire_emission_heights)
     
     name = 'fates_allom_frbstor_repro'
     call fates_params%RetrieveParameterAllocate(name=name, &
