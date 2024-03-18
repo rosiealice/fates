@@ -110,6 +110,7 @@ contains
        call crown_damage(currentSite)
        call cambial_damage_kill(currentSite)
        call post_fire_mortality(currentSite)
+       call fire_emissions(currentSite)
     end if
 
   end subroutine fire_model
