@@ -270,9 +270,9 @@ variables:
                fates_fire_emission_factors:units = "kg emission/m2/s" ;
 	       fates_fire_emission_factors:long_name = "Emissions factors for FATES PFTs" ;
 
-        double fates_fire_emission_height(fates_pft) ;
-               fates_fire_emission_height:units = "m" ;
-               fates_fire_emission_height:long_name = "Height of emissions from fire per PFT" ;
+        double fates_fire_emission_heights(fates_pft) ;
+               fates_fire_emission_heights:units = "m" ;
+               fates_fire_emission_heights:long_name = "Height of emissions from fire per PFT" ;
 	       
 	double fates_frag_fnrt_fcel(fates_pft) ;
 		fates_frag_fnrt_fcel:units = "fraction" ;

@@ -715,6 +715,9 @@ module FatesInterfaceTypesMod
       real(r8), allocatable :: htop_pa(:)  ! top of the canopy [m]
       real(r8), allocatable :: hbot_pa(:)  ! bottom of canopy? [m]
 
+      real(r8), allocatable :: fire_emissions_pa(:,:)  ! Fire emissions per compound 
+      real(r8), allocatable :: fire_emission_height_pa(:)  ! Fire emission height in atmosphere (m)
+            
       real(r8), allocatable :: z0m_pa(:)   ! roughness length [m]
       real(r8), allocatable :: displa_pa(:) ! displacement height [m]
       real(r8), allocatable :: dleaf_pa(:)  ! leaf characteristic dimension/width/diameter [m]

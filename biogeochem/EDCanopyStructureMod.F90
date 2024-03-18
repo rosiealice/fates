@@ -1852,6 +1852,8 @@ contains
     use EDTypesMod        , only : ed_site_type, AREA
     use FatesPatchMod,      only : fates_patch_type
     use FatesInterfaceTypesMod , only : bc_out_type
+    use EDParamsMod, only : num_emission_compounds
+    use FatesConstantsMod   , only : sec_per_day
 
     !
     ! !ARGUMENTS
@@ -1879,6 +1881,8 @@ contains
        bc_out(s)%dleaf_pa(:) = 0._r8
        bc_out(s)%z0m_pa(:) = 0._r8
        bc_out(s)%displa_pa(:) = 0._r8
+       bc_out(s)%fire_emissions_pa(:,:) = 0._r8
+       bc_out(s)%fire_emission_height_pa(:) = 0._r8
        
        currentPatch => sites(s)%oldest_patch
        c = fcolumn(s)
@@ -1932,6 +1936,13 @@ contains
                         (currentCohort%treelai + currentCohort%treesai) * currentCohort%c_area
                    currentCohort => currentCohort%taller
                 end do
+
+                do c = 1, num_emission_compounds
+                   !is this in the right place in the code?
+                   !what else do we need to do with restarts to not mess up the first day of emissions?
+                   bc_out(s)%fire_emissions_pa(ifp,c) = currentPatch%fire_emissions(c) / sec_per_day
+                end do
+                bc_out(s)%fire_emission_height_pa(ifp) = currentPatch%fire_emission_height
 
                 ! make sure there is some leaf and stem area
                 if (total_patch_leaf_stem_area > nearzero) then

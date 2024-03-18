@@ -108,6 +108,8 @@ module EDParamsMod
  
    integer, parameter, public :: maxpft = 16      ! maximum number of PFTs allowed
    
+   integer, parameter, public :: num_emission_compounds = 13 ! number of fire emission fields calculated
+   
    real(r8),protected,public  :: q10_mr     ! Q10 for respiration rate (for soil fragmenation and plant respiration)    (unitless)
    real(r8),protected,public  :: q10_froz   ! Q10 for frozen-soil respiration rates (for soil fragmentation)            (unitless)
 
@@ -369,7 +371,7 @@ contains
     use FatesParametersInterface, only : dimension_name_history_size_bins, dimension_name_history_age_bins
     use FatesParametersInterface, only : dimension_name_history_height_bins, dimension_name_hydr_organs
     use FatesParametersInterface, only : dimension_name_history_coage_bins, dimension_name_history_damage_bins
-    use FatesParametersInterface, only : dimension_shape_scalar, dimension_name_landuse
+    use FatesParametersInterface, only : dimension_shape_scalar, dimension_name_landuse, dimension_name_nemission_compounds
 
 
     implicit none
@@ -384,7 +386,8 @@ contains
     character(len=param_string_length), parameter :: dim_names_hydro_organs(1) = (/dimension_name_hydr_organs/)
     character(len=param_string_length), parameter :: dim_names_damageclass(1)= (/dimension_name_history_damage_bins/)
     character(len=param_string_length), parameter :: dim_names_landuse(1)= (/dimension_name_landuse/)
-    
+    character(len=param_string_length), parameter :: dim_names_nemission_compounds(1)= (/dimension_name_nemission_compounds/)
+
     call FatesParamsInit()
 
     call fates_params%RegisterParameter(name=ED_name_photo_temp_acclim_timescale, dimension_shape=dimension_shape_scalar, &
@@ -586,7 +589,8 @@ contains
 
     call fates_params%RegisterParameter(name=ED_name_maxpatches_by_landuse, dimension_shape=dimension_shape_1d, &
          dimension_names=dim_names_landuse)
-
+    
+    
   end subroutine FatesRegisterParams
 
   

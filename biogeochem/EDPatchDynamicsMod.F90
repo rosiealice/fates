@@ -2688,6 +2688,7 @@ contains
     !
     ! !USES:
     use FatesSizeAgeTypeIndicesMod, only: get_age_class_index
+    use EDParamsMod, only: num_emission_compounds
     !
     ! !ARGUMENTS:
     type (ed_site_type), intent(inout),target :: csite  ! Current site 
@@ -2763,6 +2764,10 @@ contains
     rp%tau_l                = (dp%tau_l*dp%area + rp%tau_l*rp%area) * inv_sum_area
     rp%fuel_frac(:)         = (dp%fuel_frac(:)*dp%area + rp%fuel_frac(:)*rp%area) * inv_sum_area
     rp%tfc_ros              = (dp%tfc_ros*dp%area + rp%tfc_ros*rp%area) * inv_sum_area
+    rp%fire_emission_height = (dp%fire_emission_height*dp%area + rp%fire_emission_height*rp%area) * inv_sum_area
+    do c = 1, num_emission_compounds
+       rp%fire_emissions(c) = (dp%fire_emissions(c)*dp%area + rp%fire_emissions(c)*rp%area) * inv_sum_area
+    enddo 
     rp%fi                   = (dp%fi*dp%area + rp%fi*rp%area) * inv_sum_area
     rp%fd                   = (dp%fd*dp%area + rp%fd*rp%area) * inv_sum_area
     rp%ros_back             = (dp%ros_back*dp%area + rp%ros_back*rp%area) * inv_sum_area
