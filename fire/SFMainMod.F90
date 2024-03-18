@@ -1134,7 +1134,7 @@ contains
     integer c
     
     currentPatch => currentSite%oldest_patch
-    if(hlm_use_nocomp.eq..true.)then
+    if(hlm_use_nocomp == itrue)then
        ! Do not do fire emissions if we are not in nocomp mode
        !this capability has not been added yet. 
        
