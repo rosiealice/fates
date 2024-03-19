@@ -1210,6 +1210,7 @@ contains
        allocate( fates_hdim_levpft(1:numpft   ))
        allocate( fates_hdim_levlanduse(1:n_landuse_cats))
        allocate( fates_hdim_levfuel(1:NFSC   ))
+       allocate( fates_hdim_levemis(1:num_emission_compounds   ))
        allocate( fates_hdim_levcwdsc(1:NCWD   ))
        allocate( fates_hdim_levage(1:nlevage   ))
        allocate( fates_hdim_levheight(1:nlevheight   ))

@@ -2786,7 +2786,7 @@ end function levcapf_index
                hio_fire_fuel_sav_si    => this%hvars(ih_fire_fuel_sav_si)%r81d, &
                hio_fire_fuel_mef_si    => this%hvars(ih_fire_fuel_mef_si)%r81d, &
                hio_fire_emissions_si_em    => this%hvars(ih_fire_emissions_si_emis)%r82d, &
-               hio_fire_emission_height_si    => this%hvars(ih_fire_emission_height_si)%r81d, &
+               hio_fire_emission_height_si  => this%hvars(ih_fire_emission_height_si)%r81d, &
                hio_sum_fuel_si         => this%hvars(ih_sum_fuel_si)%r81d,  &
                hio_fragmentation_scaler_sl  => this%hvars(ih_fragmentation_scaler_sl)%r82d,  &
                hio_litter_in_si        => this%hvars(ih_litter_in_si)%r81d, &
