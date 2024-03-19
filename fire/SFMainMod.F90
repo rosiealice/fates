@@ -64,6 +64,7 @@ contains
       call CalculateAreaBurnt(currentSite)
       call CalculateRxFireAreaBurnt(currentSite)
       call CalculatePostFireMortality(currentSite)
+       call fire_emissions(currentSite)
     end if
 
   end subroutine DailyFireModel
@@ -705,7 +706,9 @@ contains
              enddo 
 
              currentPatch%fire_emission_height =  EDPftvarcon_inst%fire_emission_heights(currentPatch%nocomp_pft_label)
-
+             if(currentPatch%fire_emissions(c).gt.0.0_r8)then
+                write(*,*) 'postivie emissionssf',currentPatch%fire_emissions(1),biomass_burned
+             endif
              currentPatch => currentPatch%younger
           endif
        enddo !end patch loop
