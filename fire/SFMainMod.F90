@@ -709,8 +709,9 @@ contains
              if(currentPatch%fire_emissions(c).gt.0.0_r8)then
                 write(*,*) 'postivie emissionssf',currentPatch%fire_emissions(1),biomass_burned
              endif
-             currentPatch => currentPatch%younger
-          endif
+          endif ! bare ground
+          currentPatch => currentPatch%younger
+          
        enddo !end patch loop
     end if ! is nocomp 
 
