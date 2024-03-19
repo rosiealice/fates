@@ -1175,7 +1175,7 @@ contains
        
        use FatesFuelClassesMod, only : num_fuel_classes
        use EDParamsMod, only : nclmax
-       use EDParamsMod, only : nlevleaf
+       use EDParamsMod, only : nlevleaf, num_emission_compounds
        use EDParamsMod, only : ED_val_history_sizeclass_bin_edges
        use EDParamsMod, only : ED_val_history_ageclass_bin_edges
        use EDParamsMod, only : ED_val_history_height_bin_edges
@@ -1194,6 +1194,7 @@ contains
        integer :: ipft
        integer :: icwd
        integer :: ifuel
+       integer :: iemis
        integer :: ican
        integer :: icdam
        integer :: ileaf
@@ -1209,6 +1210,8 @@ contains
        allocate( fates_hdim_levpft(1:numpft   ))
        allocate( fates_hdim_levlanduse(1:n_landuse_cats))
        allocate( fates_hdim_levfuel(1:num_fuel_classes   ))
+       allocate( fates_hdim_levfuel(1:NFSC   ))
+       allocate( fates_hdim_levemis(1:num_emission_compounds   ))
        allocate( fates_hdim_levcwdsc(1:NCWD   ))
        allocate( fates_hdim_levage(1:nlevage   ))
        allocate( fates_hdim_levheight(1:nlevheight   ))
@@ -1264,6 +1267,10 @@ contains
        ! make fuel array
        do ifuel=1,num_fuel_classes
           fates_hdim_levfuel(ifuel) = ifuel
+       end do
+
+       do iemis=1,num_emission_compounds
+          fates_hdim_levemis(iemis) = iemis
        end do
 
        ! make cwd array
