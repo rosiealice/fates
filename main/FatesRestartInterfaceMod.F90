@@ -50,6 +50,7 @@ module FatesRestartInterfaceMod
   use EDTypesMod,              only : area
   use EDTypesMod,              only : set_patchno
   use EDParamsMod,             only : nlevleaf
+  use EDParamsMod,             only : num_emission_compounds    
   use PRTGenericMod,           only : prt_global
   use PRTGenericMod,           only : num_elements
   use PRTGenericMod,           only : element_pos
