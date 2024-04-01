@@ -392,6 +392,8 @@ contains
     fates%bc_out(s)%z0m_pa(:)    = 0.0_r8
     fates%bc_out(s)%dleaf_pa(:)   = 0.0_r8
     fates%bc_out(s)%nocomp_pft_label_pa(:) = 0
+    fates%bc_out(s)%nocomp_MEGAN_pft_label_pa(:) = 0
+    
     
     fates%bc_out(s)%canopy_fraction_pa(:) = 0.0_r8
     fates%bc_out(s)%frac_veg_nosno_alb_pa(:) = 0.0_r8
@@ -713,6 +715,7 @@ contains
       allocate(bc_out%frac_veg_nosno_alb_pa(maxpatch_total))
 
       allocate(bc_out%nocomp_pft_label_pa(maxpatch_total))
+      allocate(bc_out%nocomp_MEGAN_pft_label_pa(maxpatch_total))      
 
       ! Fire emissions
       allocate(bc_out%fire_emissions_pa(maxpatch_total,num_emission_compounds))      
