@@ -2159,12 +2159,6 @@ contains
 
         end if
         
-        if(EDPftvarcon_inst%c3psn(ipft) .le. 0 or DPftvarcon_inst%c3psn(ipft) .gt. 5 ) then
-
-           write(fates_log(),*) 'MEGAN indices must be between 1 and 5'
-           call endrun(msg=errMsg(sourcefile, __LINE__))
-       endif
-        
         if( hlm_use_fixed_biogeog .eq. itrue ) then
            ! check that the host-fates PFT map adds to one along HLM dimension so that all the HLM area
            ! goes to a FATES PFT.  Each FATES PFT can get < or > 1 of an HLM PFT.
