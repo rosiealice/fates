@@ -1988,7 +1988,7 @@ contains
 
              bc_out(s)%nocomp_pft_label_pa(ifp) = currentPatch%nocomp_pft_label
              if(currentPatch%nocomp_pft_label.gt.0)then
-                bc_out(s)%nocomp_MEGAN_pft_label_pa(ifp) = EDPftvarcon_inst%voc_pftindex(currentPatch%nocomp_pft_label)
+                bc_out(s)%nocomp_MEGAN_pft_label_pa(ifp) = int(EDPftvarcon_inst%voc_pftindex(currentPatch%nocomp_pft_label))
              endif 
                 
 
