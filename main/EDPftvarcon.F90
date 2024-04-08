@@ -141,7 +141,7 @@ module EDPftvarcon
      real(r8), allocatable :: rhos(:, :)                 ! Stem reflectance; second dim: 1 = vis, 2 = nir
      real(r8), allocatable :: taul(:, :)                 ! Leaf transmittance; second dim: 1 = vis, 2 = nir
      real(r8), allocatable :: taus(:, :)                 ! Stem transmittance; second dim: 1 = vis, 2 = nir
-     integer,  allocatable :: voc_pftindex(:)            ! Index for MEGAN parameters 
+     real(r8),  allocatable :: voc_pftindex(:)            ! Index for MEGAN parameters 
      
      ! Fire Parameters (No PFT vector capabilities in their own routines)
      ! See fire/SFParamsMod.F90 for bulk of fire parameters
@@ -907,7 +907,7 @@ contains
 
     name = 'fates_voc_pftindex'
     call fates_params%RetrieveParameterAllocate(name=name, &
-         data=this%c3psn)    
+         data=this%voc_pftindex)    
 
     name = 'fates_nonhydro_smpso'
     call fates_params%RetrieveParameterAllocate(name=name, &
