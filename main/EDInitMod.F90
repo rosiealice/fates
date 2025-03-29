@@ -1008,6 +1008,9 @@ contains
           currentPatch%ros_back                   = 0._r8
           currentPatch%scorch_ht(:)               = 0._r8
           currentPatch%frac_burnt                 = 0._r8
+          currentPatch%fire_emissions(:)          = 0._r8
+          currentPatch%fire_emission_height       = 0._r8
+          
           currentPatch => currentPatch%older
        enddo
     enddo

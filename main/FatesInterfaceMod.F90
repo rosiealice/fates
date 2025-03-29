@@ -24,6 +24,7 @@ module FatesInterfaceMod
    use EDParamsMod               , only : maxpft
    use EDTypesMod                , only : do_fates_salinity
    use EDTypesMod                , only : numWaterMem
+   use EDParamsMod                , only : num_emission_compounds
    use EDTypesMod                , only : numlevsoil_max
    use EDTypesMod                , only : ed_site_type
    use FatesPatchMod             , only : fates_patch_type
@@ -388,6 +389,8 @@ contains
     fates%bc_out(s)%htop_pa(:)   = 0.0_r8
     fates%bc_out(s)%hbot_pa(:)   = 0.0_r8
     fates%bc_out(s)%displa_pa(:) = 0.0_r8
+    fates%bc_out(s)%fire_emissions_pa(:,:) = 0.0_r8
+    fates%bc_out(s)%fire_emission_height_pa(:) = 0.0_r8    
     fates%bc_out(s)%z0m_pa(:)    = 0.0_r8
     fates%bc_out(s)%dleaf_pa(:)   = 0.0_r8
     fates%bc_out(s)%nocomp_pft_label_pa(:) = 0
@@ -714,12 +717,16 @@ contains
 
       allocate(bc_out%displa_pa(maxpatch_total))
       allocate(bc_out%z0m_pa(maxpatch_total))
-
+     
       allocate(bc_out%canopy_fraction_pa(maxpatch_total))
       allocate(bc_out%frac_veg_nosno_alb_pa(maxpatch_total))
 
       allocate(bc_out%nocomp_pft_label_pa(maxpatch_total))
 
+      ! Fire emissions
+      allocate(bc_out%fire_emissions_pa(maxpatch_total,num_emission_compounds))      
+      allocate(bc_out%fire_emission_height_pa(maxpatch_total))
+      
       ! Plant-Hydro BC's
       if (hlm_use_planthydro.eq.itrue) then
          allocate(bc_out%qflx_soil2root_sisl(nlevsoil_in))
@@ -1145,7 +1152,7 @@ contains
        
        use FatesFuelClassesMod, only : num_fuel_classes
        use EDParamsMod, only : nclmax
-       use EDParamsMod, only : nlevleaf
+       use EDParamsMod, only : nlevleaf, num_emission_compounds
        use EDParamsMod, only : ED_val_history_sizeclass_bin_edges
        use EDParamsMod, only : ED_val_history_ageclass_bin_edges
        use EDParamsMod, only : ED_val_history_height_bin_edges
@@ -1164,6 +1171,7 @@ contains
        integer :: ipft
        integer :: icwd
        integer :: ifuel
+       integer :: iemis
        integer :: ican
        integer :: icdam
        integer :: ileaf
@@ -1178,6 +1186,7 @@ contains
        allocate( fates_hdim_scmap_levscpf(1:nlevsclass*numpft))
        allocate( fates_hdim_levpft(1:numpft   ))
        allocate( fates_hdim_levlanduse(1:n_landuse_cats))
+       allocate( fates_hdim_levemis(1:num_emission_compounds   ))
        allocate( fates_hdim_levfuel(1:num_fuel_classes   ))
        allocate( fates_hdim_levcwdsc(1:NCWD   ))
        allocate( fates_hdim_levage(1:nlevage   ))
@@ -1234,6 +1243,10 @@ contains
        ! make fuel array
        do ifuel=1,num_fuel_classes
           fates_hdim_levfuel(ifuel) = ifuel
+       end do
+
+       do iemis=1,num_emission_compounds
+          fates_hdim_levemis(iemis) = iemis
        end do
 
        ! make cwd array

@@ -22,6 +22,7 @@ module FatesPatchMod
   use PRTParametersMod,       only : prt_params
   use FatesConstantsMod,      only : nocomp_bareground
   use EDParamsMod,            only : nlevleaf, nclmax, maxpft
+  use EDParamsMod,            only : num_emission_compounds
   use FatesConstantsMod,      only : n_dbh_bins, n_dist_types
   use FatesConstantsMod,      only : t_water_freeze_k_1atm
   use FatesRunningMeanMod,    only : ema_24hr, fixed_24hr, ema_lpa, ema_longterm
@@ -216,6 +217,9 @@ module FatesPatchMod
     ! fire effects      
     real(r8)              :: scorch_ht(maxpft)       ! scorch height [m] 
     real(r8)              :: tfc_ros                 ! total intensity-relevant fuel consumed - no trunks [kgC/m2 of burned ground/day]
+    real(r8)              :: fire_emission_height    ! Height of fire emissions into the atmsophere. m.
+    real(r8)              :: fire_emissions(num_emission_compounds) ! Emissions from fires. g emissions/m2/day
+
     !---------------------------------------------------------------------------
     
     ! PLANT HYDRAULICS (not currently used in hydraulics RGK 03-2018)  
@@ -507,6 +511,9 @@ module FatesPatchMod
       this%scorch_ht(:)                 = nan 
       this%tfc_ros                      = nan
       this%frac_burnt                   = nan
+      this%fire_emissions(:)            = nan
+      this%fire_emission_height         = nan
+
       
     end subroutine NanValues
 
@@ -592,6 +599,8 @@ module FatesPatchMod
       this%fd                                = 0.0_r8
       this%scorch_ht(:)                      = 0.0_r8  
       this%tfc_ros                           = 0.0_r8
+      this%fire_emissions(:)                 = 0.0_r8
+      this%fire_emission_height              = 0.0_r8     
       this%frac_burnt                        = 0.0_r8
 
     end subroutine ZeroValues

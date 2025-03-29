@@ -319,6 +319,7 @@ module FatesInterfaceTypesMod
    integer , public, allocatable :: fates_hdim_levpft(:)           ! plant pft dimension
    integer , public, allocatable :: fates_hdim_levlanduse(:)       ! land use label dimension
    integer , public, allocatable :: fates_hdim_levfuel(:)          ! fire fuel size class (fsc) dimension
+   integer , public, allocatable :: fates_hdim_levemis(:)          ! fire emissions class  dimensionn
    integer , public, allocatable :: fates_hdim_levcwdsc(:)         ! cwd class dimension
    integer , public, allocatable :: fates_hdim_levcan(:)           ! canopy-layer dimension 
    real(r8), public, allocatable :: fates_hdim_levleaf(:)          ! leaf-layer dimension, integrated VAI [m2/m2]
@@ -771,6 +772,9 @@ module FatesInterfaceTypesMod
       real(r8), allocatable :: htop_pa(:)  ! top of the canopy [m]
       real(r8), allocatable :: hbot_pa(:)  ! bottom of canopy? [m]
 
+      real(r8), allocatable :: fire_emissions_pa(:,:)  ! Fire emissions per compound 
+      real(r8), allocatable :: fire_emission_height_pa(:)  ! Fire emission height in atmosphere (m)
+            
       real(r8), allocatable :: z0m_pa(:)   ! roughness length [m]
       real(r8), allocatable :: displa_pa(:) ! displacement height [m]
       real(r8), allocatable :: dleaf_pa(:)  ! leaf characteristic dimension/width/diameter [m]

@@ -49,6 +49,7 @@ module FatesRestartInterfaceMod
   use EDTypesMod,              only : area
   use EDTypesMod,              only : set_patchno
   use EDParamsMod,             only : nlevleaf
+  use EDParamsMod,             only : num_emission_compounds    
   use PRTGenericMod,           only : prt_global
   use PRTGenericMod,           only : num_elements
   use FatesRunningMeanMod,     only : rmean_type
@@ -87,6 +88,7 @@ module FatesRestartInterfaceMod
   ! pa: patch dimension
   ! co: cohort dimension
   ! ft: functional type dimension
+  ! em: emission compounds dimension
   ! cl: canopy layer dimension (upper, lower, etc)
   ! ls: layer sublayer dimension (fine discretization of upper,lower)
   ! wm: the number of memory slots for water (currently 10)
@@ -223,7 +225,11 @@ module FatesRestartInterfaceMod
 
   integer :: ir_scorch_ht_pa_pft
   integer :: ir_litter_moisture_pa_nfsc
-
+ 
+  ! Emission fluxes
+  integer :: ir_fire_emissions_pa_em
+  integer :: ir_fire_emission_height_pa
+  
   ! Site level
   integer :: ir_dd_status_sift
   integer :: ir_dleafondate_sift
@@ -1054,6 +1060,15 @@ contains
        call this%set_restart_var(vname='fates_litter_moisture_pa_nfsc', vtype=cohort_r8, &
             long_name='scorch height', units='m', flushval = flushzero, &
             hlms='CLM:ALM', initialize=initialize_variables, ivar=ivar, index = ir_litter_moisture_pa_nfsc)
+
+       call this%set_restart_var(vname='fates_fire_emissions_pa_em', vtype=cohort_r8, &
+            long_name='fire emissions', units='kg emissions/m2/s', flushval = flushzero, &
+            hlms='CLM:ALM', initialize=initialize_variables, ivar=ivar, index = ir_fire_emissions_pa_em)
+       
+       call this%set_restart_var(vname='fates_fire_emission_height_pa', vtype=cohort_r8, &
+            long_name='fire emissions height', units='m', flushval = flushzero, &
+            hlms='CLM:ALM', initialize=initialize_variables, ivar=ivar, index = ir_fire_emission_height_pa)
+
     end if
     
 
@@ -2051,6 +2066,7 @@ contains
     integer  :: io_idx_co      ! cohort index
     integer  :: io_idx_pa_pft  ! each pft within each patch (pa_pft)
     integer  :: io_idx_pa_cwd  ! each cwd class within each patch (pa_cwd)
+    integer  :: io_idx_pa_em  ! each emission class within each patch (pa_em)
     integer  :: io_idx_pa_cwsl ! each cwd x soil layer
     integer  :: io_idx_pa_dcsl ! each decomposability x soil layer
     integer  :: io_idx_pa_dc   ! each decomposability index
@@ -2595,6 +2611,13 @@ contains
                    io_idx_pa_cwd      = io_idx_pa_cwd + 1
                 end do
 
+                ! Restart fire emissions (to populate the first day until they are recalculated.
+                io_idx_pa_em   = io_idx_co_1st
+                do i = 1,nfsc
+                   this%rvars(ir_fire_emissions_pa_em)%r81d(io_idx_pa_em) = cpatch%fire_emissions(i)
+                   io_idx_pa_em      = io_idx_pa_em + 1
+                end do
+
                 ! --------------------------------------------------------------------------
                 ! Send litter to the restart arrays
                 ! Each element has its own variable, so we have to make sure
@@ -3056,6 +3079,7 @@ contains
      integer  :: io_idx_co      ! cohort index
      integer  :: io_idx_pa_pft  ! each pft within each patch (pa_pft)
      integer  :: io_idx_pa_cwd  ! each cwd class within each patch (pa_cwd)
+     integer  :: io_idx_pa_em  ! each emission class within each patch (pa_em)     
      integer  :: io_idx_pa_cwsl ! each cwd x soil layer
      integer  :: io_idx_pa_dcsl ! each decomposability x soil layer
      integer  :: io_idx_pa_dc   ! each decomposability index
@@ -3574,6 +3598,14 @@ contains
                    io_idx_pa_cwd      = io_idx_pa_cwd + 1
                 end do
 
+                ! Pull fire emissions from the restart arrays.
+                io_idx_pa_em  = io_idx_co_1st
+                do i = 1,num_emission_compounds
+                   cpatch%fire_emissions(i) = this%rvars(ir_fire_emissions_pa_em)%r81d(io_idx_pa_em)
+                   io_idx_pa_em      = io_idx_pa_em + 1
+                end do                
+                cpatch%fire_emission_height = this%rvars(ir_fire_emission_height_pa)%r81d(io_idx_co_1st)
+                
                 ! --------------------------------------------------------------------------
                 ! Pull litter from the restart arrays
                 ! Each element has its own variable, so we have to make sure

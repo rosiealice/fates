@@ -20,6 +20,7 @@ module FatesIODimensionsMod
     character(*), parameter, public  :: levscls = 'fates_levscls'      ! matches histFileMod
     character(*), parameter, public  :: levpft = 'fates_levpft'        ! matches histFileMod
     character(*), parameter, public  :: levage = 'fates_levage'        ! matches histFileMod
+    character(*), parameter, public  :: levemis = 'fates_levemis'        ! matches histFileMod
     character(*), parameter, public  :: levheight = 'fates_levheight'  ! matches histFileMod
     character(*), parameter, public  :: levfuel = 'fates_levfuel'      ! matches histFileMod
     character(*), parameter, public  :: levcwdsc = 'fates_levcwdsc'    ! matches histFileMod
@@ -67,6 +68,9 @@ module FatesIODimensionsMod
     ! levheight = This is a structure that records the boundaries for the
     ! number of height dimension
 
+    ! levemis = This is a structure that records the boundaries for the                        
+    ! number of emission compounds dimension
+    
     ! levfuel = This is a structure that records the boundaries for the
     ! number of fuel-size-class dimension
 
@@ -109,7 +113,7 @@ module FatesIODimensionsMod
     ! levelpft = This records the boundaries for elements x pft
     ! levelcwd = This records the boundaries for element x cwd
     ! levelage = This records the boundaries for element x age
-
+    
     ! levcdsc = This is a structure that records the boundaries for the
     ! number of crown damage x size classes dimension
 
@@ -155,6 +159,8 @@ module FatesIODimensionsMod
        integer :: age_class_end
        integer :: height_begin
        integer :: height_end
+       integer :: emis_class_begin
+       integer :: emis_class_end
        integer :: fuel_begin
        integer :: fuel_end
        integer :: cwdsc_begin

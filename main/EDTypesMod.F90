@@ -88,8 +88,6 @@ module EDTypesMod
                                                                    ! The actual number of soil layers should not exceed this
 
 
-
-
   ! BIOLOGY/BIOGEOCHEMISTRY        
   integer , parameter, public :: num_vegtemp_mem      = 10         ! Window of time over which we track temp for cold sensecence (days)
 
@@ -457,6 +455,7 @@ module EDTypesMod
      real(r8) ::  NF_successful                                ! daily ignitions in km2 that actually lead to fire
      class(fire_weather), pointer :: fireWeather               ! fire weather object
 
+     
      ! PLANT HYDRAULICS
      type(ed_site_hydr_type), pointer :: si_hydr
 
