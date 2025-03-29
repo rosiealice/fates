@@ -37,20 +37,6 @@ module SFMainMod
   implicit none
   private
 
-
-  public :: fire_model
-  public :: fire_danger_index 
-  public :: charecteristics_of_fuel
-  public :: rate_of_spread
-  public :: ground_fuel_consumption
-  public :: wind_effect
-  public :: area_burnt_intensity
-  public :: crown_scorching
-  public :: crown_damage
-  public :: cambial_damage_kill
-  public :: post_fire_mortality
-  public :: fire_emissions
-
   ! The following parameter represents one of the values of hlm_spitfire_mode
   ! and more of these appear in subroutine area_burnt_intensity below
   ! NB. The same parameters are set in /src/biogeochem/CNFireFactoryMod
