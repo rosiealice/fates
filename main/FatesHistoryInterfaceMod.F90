@@ -19,6 +19,7 @@ module FatesHistoryInterfaceMod
   use FatesGlobals             , only : fates_log
   use FatesGlobals             , only : endrun => fates_endrun
   use EDParamsMod              , only : nclmax, maxpft
+  use EDParamsMod,             only : num_emission_compounds 
   use FatesConstantsMod        , only : ican_upper
   use PRTGenericMod            , only : element_pos
   use PRTGenericMod            , only : num_elements
@@ -1372,6 +1373,203 @@ contains
 
   end subroutine set_dim_indices
 
+    ! =======================================================================
+  subroutine set_column_index(this, index)
+    implicit none
+    class(fates_history_interface_type), intent(inout) :: this
+    integer, intent(in) :: index
+    this%column_index_ = index
+  end subroutine set_column_index
+
+  integer function column_index(this)
+    implicit none
+    class(fates_history_interface_type), intent(in) :: this
+    column_index = this%column_index_
+  end function column_index
+
+  ! =======================================================================
+  subroutine set_levsoil_index(this, index)
+    implicit none
+    class(fates_history_interface_type), intent(inout) :: this
+    integer, intent(in) :: index
+    this%levsoil_index_ = index
+  end subroutine set_levsoil_index
+
+  integer function levsoil_index(this)
+    implicit none
+    class(fates_history_interface_type), intent(in) :: this
+    levsoil_index = this%levsoil_index_
+  end function levsoil_index
+
+  ! =======================================================================
+  subroutine set_levscpf_index(this, index)
+    implicit none
+    class(fates_history_interface_type), intent(inout) :: this
+    integer, intent(in) :: index
+    this%levscpf_index_ = index
+  end subroutine set_levscpf_index
+
+  integer function levscpf_index(this)
+    implicit none
+    class(fates_history_interface_type), intent(in) :: this
+    levscpf_index = this%levscpf_index_
+  end function levscpf_index
+
+  ! =======================================================================
+  subroutine set_levscls_index(this, index)
+    implicit none
+    class(fates_history_interface_type), intent(inout) :: this
+    integer, intent(in) :: index
+    this%levscls_index_ = index
+  end subroutine set_levscls_index
+
+  integer function levscls_index(this)
+    implicit none
+    class(fates_history_interface_type), intent(in) :: this
+    levscls_index = this%levscls_index_
+  end function levscls_index
+
+  !=========================================================================
+  subroutine set_levcacls_index(this, index)
+    implicit none
+    class(fates_history_interface_type), intent(inout) :: this
+    integer, intent(in) :: index
+    this%levcacls_index_ = index
+  end subroutine set_levcacls_index
+
+  integer function levcacls_index(this)
+    implicit none
+    class(fates_history_interface_type), intent(in) :: this
+    levcacls_index = this%levcacls_index_
+  end function levcacls_index
+
+  !=========================================================================
+  subroutine set_levcapf_index(this, index)
+    implicit none
+    class(fates_history_interface_type), intent(inout) :: this
+    integer, intent(in) :: index
+    this%levcapf_index_ = index
+  end subroutine set_levcapf_index
+
+  integer function levcapf_index(this)
+    implicit none
+    class(fates_history_interface_type), intent(in) :: this
+    levcapf_index = this%levcapf_index_
+  end function levcapf_index
+
+  ! =======================================================================
+  subroutine set_levpft_index(this, index)
+    implicit none
+    class(fates_history_interface_type), intent(inout) :: this
+    integer, intent(in) :: index
+    this%levpft_index_ = index
+  end subroutine set_levpft_index
+
+  integer function levpft_index(this)
+    implicit none
+    class(fates_history_interface_type), intent(in) :: this
+    levpft_index = this%levpft_index_
+  end function levpft_index
+
+  ! =======================================================================
+  subroutine set_levage_index(this, index)
+    implicit none
+    class(fates_history_interface_type), intent(inout) :: this
+    integer, intent(in) :: index
+    this%levage_index_ = index
+  end subroutine set_levage_index
+
+  integer function levage_index(this)
+    implicit none
+    class(fates_history_interface_type), intent(in) :: this
+    levage_index = this%levage_index_
+  end function levage_index
+
+  subroutine set_levemis_index(this,index)
+    implicit none
+    class(fates_history_interface_type), intent(inout) :: this
+    integer, intent(in) :: index
+    this%levemis_index_ = index
+  end subroutine set_levemis_index    
+
+    integer function levemis_index(this)
+    implicit none
+    class(fates_history_interface_type), intent(in) :: this
+    levemis_index = this%levemis_index_
+  end function levemis_index
+  
+  ! =======================================================================
+  subroutine set_levfuel_index(this, index)
+    implicit none
+    class(fates_history_interface_type), intent(inout) :: this
+    integer, intent(in) :: index
+    this%levfuel_index_ = index
+  end subroutine set_levfuel_index
+
+  integer function levfuel_index(this)
+    implicit none
+    class(fates_history_interface_type), intent(in) :: this
+    levfuel_index = this%levfuel_index_
+  end function levfuel_index
+
+  ! =======================================================================
+  subroutine set_levcwdsc_index(this, index)
+    implicit none
+    class(fates_history_interface_type), intent(inout) :: this
+    integer, intent(in) :: index
+    this%levcwdsc_index_ = index
+  end subroutine set_levcwdsc_index
+
+  integer function levcwdsc_index(this)
+    implicit none
+    class(fates_history_interface_type), intent(in) :: this
+    levcwdsc_index = this%levcwdsc_index_
+  end function levcwdsc_index
+
+  ! =======================================================================
+  subroutine set_levcan_index(this, index)
+    implicit none
+    class(fates_history_interface_type), intent(inout) :: this
+    integer, intent(in) :: index
+    this%levcan_index_ = index
+  end subroutine set_levcan_index
+
+  integer function levcan_index(this)
+    implicit none
+    class(fates_history_interface_type), intent(in) :: this
+    levcan_index = this%levcan_index_
+  end function levcan_index
+
+  ! =======================================================================
+  subroutine set_levcnlf_index(this, index)
+    implicit none
+    class(fates_history_interface_type), intent(inout) :: this
+    integer, intent(in) :: index
+    this%levcnlf_index_ = index
+  end subroutine set_levcnlf_index
+
+  integer function levcnlf_index(this)
+    implicit none
+    class(fates_history_interface_type), intent(in) :: this
+    levcnlf_index = this%levcnlf_index_
+  end function levcnlf_index
+
+  ! =======================================================================
+  subroutine set_levcnlfpft_index(this, index)
+    implicit none
+    class(fates_history_interface_type), intent(inout) :: this
+    integer, intent(in) :: index
+    this%levcnlfpft_index_ = index
+  end subroutine set_levcnlfpft_index
+
+  integer function levcnlfpft_index(this)
+    implicit none
+    class(fates_history_interface_type), intent(in) :: this
+    levcnlfpft_index = this%levcnlfpft_index_
+  end function levcnlfpft_index
+
+  ! =======================================================================
+  
   subroutine set_levcdpf_index(this, index)
     implicit none
     class(fates_history_interface_type), intent(inout) :: this
@@ -2246,6 +2444,7 @@ contains
          hio_fire_fuel_eff_moist_si => this%hvars(ih_fire_fuel_eff_moist_si)%r81d, &
          hio_fire_fuel_sav_si    => this%hvars(ih_fire_fuel_sav_si)%r81d, &
          hio_fire_fuel_mef_si    => this%hvars(ih_fire_fuel_mef_si)%r81d, &
+         hio_fire_emission_height_si => this%hvars(ih_fire_emission_height_si)%r81d, &
          hio_sum_fuel_si         => this%hvars(ih_sum_fuel_si)%r81d,  &
          hio_litter_in_si        => this%hvars(ih_litter_in_si)%r81d, &
          hio_litter_out_si       => this%hvars(ih_litter_out_si)%r81d, &
@@ -2886,6 +3085,7 @@ contains
     integer  :: i_scpf,i_pft,i_scls     ! iterators for scpf, pft, and scls dims
     integer  :: i_cacls, i_capf      ! iterators for cohort age and cohort age x pft
     integer  :: i_fuel            ! iterators for fuel dims
+    integer  :: i_emis             ! iterators for fire emissions class. 
     integer  :: i_heightbin  ! iterator for height bins
     integer  :: iagepft     ! age x pft index
     integer  :: ilyr      ! Soil index for nlevsoil
@@ -3088,6 +3288,7 @@ contains
            hio_burnt_frac_litter_si_fuel      => this%hvars(ih_burnt_frac_litter_si_fuel)%r82d, &
            hio_fuel_amount_si_fuel            => this%hvars(ih_fuel_amount_si_fuel)%r82d, &
            hio_fuel_amount_age_fuel            => this%hvars(ih_fuel_amount_age_fuel)%r82d, &
+           hio_fire_emissions_si_emis          => this%hvars(ih_fire_emissions_si_emis)%r82d, &
            hio_canopy_height_dist_si_height   => this%hvars(ih_canopy_height_dist_si_height)%r82d, &
            hio_leaf_height_dist_si_height     => this%hvars(ih_leaf_height_dist_si_height)%r82d, &
            hio_litter_moisture_si_fuel        => this%hvars(ih_litter_moisture_si_fuel)%r82d, &
@@ -3219,7 +3420,7 @@ contains
              ! Update fire emissions variables
          
              do i_emis = 1,num_emission_compounds
-                hio_fire_emissions_si_em(io_si, i_emis) = hio_fire_emissions_si_em(io_si,i_emis) + &
+                hio_fire_emissions_si_emis(io_si, i_emis) = hio_fire_emissions_si_emis(io_si,i_emis) + &
                    cpatch%fire_emissions(i_emis) * cpatch%area * AREA_INV
              enddo 
 
