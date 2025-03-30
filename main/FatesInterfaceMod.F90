@@ -24,7 +24,7 @@ module FatesInterfaceMod
    use EDParamsMod               , only : maxpft
    use EDTypesMod                , only : do_fates_salinity
    use EDTypesMod                , only : numWaterMem
-   use EDParamsMod                , only : num_emission_compounds
+   use EDParamsMod               , only : num_emission_compounds
    use EDTypesMod                , only : numlevsoil_max
    use EDTypesMod                , only : ed_site_type
    use FatesPatchMod             , only : fates_patch_type

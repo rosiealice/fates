@@ -14,9 +14,8 @@ dimensions:
 	fates_pft = 14 ;
 	fates_plant_organs = 4 ;
 	fates_string_length = 60 ;
-	fates_landuseclass = 5 ;
 	fates_nemission_compounds = 13 ;
-
+variables:
 	double fates_history_ageclass_bin_edges(fates_history_age_bins) ;
 		fates_history_ageclass_bin_edges:units = "yr" ;
 		fates_history_ageclass_bin_edges:long_name = "Lower edges for age class bins used in age-resolved patch history output" ;

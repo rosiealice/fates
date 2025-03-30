@@ -73,7 +73,7 @@ module FatesHistoryInterfaceMod
   use FatesInterfaceTypesMod        , only : hlm_hist_level_hifrq,hlm_hist_level_dynam
   use FatesIOVariableKindMod, only : site_r8, site_soil_r8, site_size_pft_r8
   use FatesIOVariableKindMod, only : site_size_r8, site_pft_r8, site_age_r8
-  use FatesIOVariableKindMod, only : site_coage_r8, site_coage_pft_r8
+  use FatesIOVariableKindMod, only : site_coage_r8, site_coage_pft_r8, site_emis_r8
   use FatesIOVariableKindMod, only : site_fuel_r8, site_cwdsc_r8, site_scag_r8
   use FatesIOVariableKindMod, only : site_scagpft_r8, site_agepft_r8
   use FatesIOVariableKindMod, only : site_can_r8, site_cnlf_r8, site_cnlfpft_r8
@@ -2700,9 +2700,19 @@ contains
             hio_fire_fuel_mef_si(io_si)        = hio_fire_fuel_mef_si(io_si) + cpatch%fuel%MEF_notrunks * cpatch%area * AREA_INV
             hio_sum_fuel_si(io_si)             = hio_sum_fuel_si(io_si) + cpatch%fuel%non_trunk_loading * cpatch%area * AREA_INV
 
+
+             area_frac = cpatch%area * AREA_INV
+
+
             hio_fire_intensity_area_product_si(io_si) = hio_fire_intensity_area_product_si(io_si) + &
                  cpatch%FI * cpatch%frac_burnt * cpatch%area * AREA_INV * J_per_kJ
 
+
+            hio_fire_emission_height_si(io_si) = hio_fire_emission_height_si(io_si) + &
+                cpatch%fire_emission_height * area_frac
+
+
+            
             litt => cpatch%litter(element_pos(carbon12_element))
 
             area_frac = cpatch%area * AREA_INV
@@ -3416,19 +3426,6 @@ contains
 
                 cpatch%age_class  = get_age_class_index(cpatch%age)
 
-
-             ! Update fire emissions variables
-         
-             do i_emis = 1,num_emission_compounds
-                hio_fire_emissions_si_emis(io_si, i_emis) = hio_fire_emissions_si_emis(io_si,i_emis) + &
-                   cpatch%fire_emissions(i_emis) * cpatch%area * AREA_INV
-             enddo 
-
-             hio_fire_emission_height_si(io_si) = hio_fire_emission_height_si(io_si) + &
-                cpatch%fire_emission_height * cpatch%area * AREA_INV
-         
-             hio_fire_intensity_area_product_si(io_si) = hio_fire_intensity_area_product_si(io_si) + &
-                cpatch%FI * cpatch%frac_burnt * cpatch%area * AREA_INV * J_per_kJ
 
                     ! Increment the fractional area in each age class bin
                 hio_area_si_age(io_si,cpatch%age_class) = hio_area_si_age(io_si,cpatch%age_class) &
@@ -4294,8 +4291,13 @@ contains
                    hio_fragmentation_scaler_sl(io_si,ilyr) = hio_fragmentation_scaler_sl(io_si,ilyr) + cpatch%fragmentation_scaler(ilyr) * cpatch%area * AREA_INV
                 end do
 
-                do i_fuel = 1, num_fuel_classes
+                ! Update fire emissions variables
+                do i_emis = 1,num_emission_compounds
+                   hio_fire_emissions_si_emis(io_si, i_emis) = hio_fire_emissions_si_emis(io_si,i_emis) + &
+                   cpatch%fire_emissions(i_emis) * cpatch%area * AREA_INV
+                enddo
 
+             do i_fuel = 1, num_fuel_classes
                    i_agefuel = get_agefuel_class_index(cpatch%age,i_fuel)
                    hio_fuel_amount_age_fuel(io_si,i_agefuel) = hio_fuel_amount_age_fuel(io_si,i_agefuel) + &
                         cpatch%fuel%frac_loading(i_fuel) * cpatch%fuel%non_trunk_loading * cpatch%area * AREA_INV
@@ -6279,6 +6281,13 @@ contains
             use_default='active', avgflag='A', vtype=site_r8, hlms='CLM:ALM',     &
             upfreq=group_dyna_simple, ivar=ivar, initialize=initialize_variables,                 &
             index = ih_sum_fuel_si)
+
+       call this%set_history_var(vname='FATES_EMISSION_HEIGHT', units='kg m-2',       &
+            long='Patch weighted fire emission height into atmopshere. m    '    ,   &
+            use_default='active', avgflag='A', vtype=site_r8, hlms='CLM:ALM',     &
+            upfreq=group_dyna_simple, ivar=ivar, initialize=initialize_variables,                 &
+            index = ih_fire_emission_height_si)
+       
        ! Litter Variables
 
        call this%set_history_var(vname='FATES_LITTER_IN', units='kg m-2 s-1',     &
@@ -7071,6 +7080,12 @@ contains
                hlms='CLM:ALM', upfreq=group_dyna_complx, ivar=ivar, initialize=initialize_variables, &
                index = ih_burnt_frac_litter_si_fuel)
 
+               call this%set_history_var(vname='FATES_FIRE_EMISSIONS_EMIS', units='1', &
+               long='Emissions of different chemical species produced by fires in FATES)', &
+               use_default='active', avgflag='A', vtype=site_emis_r8,                &
+               hlms='CLM:ALM', upfreq=group_dyna_complx, ivar=ivar, initialize=initialize_variables, &
+               index = ih_fire_emissions_si_emis)
+          
           call this%set_history_var(vname='FATES_LITTER_IN_EL', units='kg m-2 s-1',  &
                long='litter flux in in kg element per m2 per second',                &
                use_default='active', avgflag='A', vtype=site_elem_r8,                &

@@ -2613,7 +2613,7 @@ contains
 
                 ! Restart fire emissions (to populate the first day until they are recalculated.
                 io_idx_pa_em   = io_idx_co_1st
-                do i = 1,nfsc
+                do i = 1,num_fuel_classes
                    this%rvars(ir_fire_emissions_pa_em)%r81d(io_idx_pa_em) = cpatch%fire_emissions(i)
                    io_idx_pa_em      = io_idx_pa_em + 1
                 end do
