@@ -182,7 +182,8 @@ module FatesInterfaceMod
    public :: set_bcs
    public :: UpdateFatesRMeansTStep
    public :: InitTimeAveragingGlobals
-
+   public :: set_fates_drydep_indices
+   
    private :: FatesReadParameters
    public :: DetermineGridCellNeighbors
 
@@ -326,6 +327,7 @@ contains
     ! Output boundaries
     fates%bc_out(s)%active_suction_sl(:) = .false.
     fates%bc_out(s)%fsun_pa(:)      = 0.0_r8
+    fates%bc_out(s)%ci_pa(:)        = 0.0_r8    
     fates%bc_out(s)%laisun_pa(:)    = 0.0_r8
     fates%bc_out(s)%laisha_pa(:)    = 0.0_r8
     fates%bc_out(s)%rootr_pasl(:,:) = 0.0_r8
@@ -394,7 +396,9 @@ contains
     fates%bc_out(s)%z0m_pa(:)    = 0.0_r8
     fates%bc_out(s)%dleaf_pa(:)   = 0.0_r8
     fates%bc_out(s)%nocomp_pft_label_pa(:) = 0
-    
+    fates%bc_out(s)%nocomp_MEGAN_pft_label_pa(:) = 0
+    fates%bc_out(s)%wesley_pft_label_pa(:) = 0
+    fates%bc_out(s)%drydep_season_pa(:) = 0
     fates%bc_out(s)%canopy_fraction_pa(:) = 0.0_r8
     fates%bc_out(s)%frac_veg_nosno_alb_pa(:) = 0.0_r8
     
@@ -607,6 +611,7 @@ contains
       
       ! Radiation
       allocate(bc_out%fsun_pa(maxpatch_total))
+      allocate(bc_out%ci_pa(maxpatch_total))
       allocate(bc_out%laisun_pa(maxpatch_total))
       allocate(bc_out%laisha_pa(maxpatch_total))
       
@@ -722,6 +727,9 @@ contains
       allocate(bc_out%frac_veg_nosno_alb_pa(maxpatch_total))
 
       allocate(bc_out%nocomp_pft_label_pa(maxpatch_total))
+      allocate(bc_out%nocomp_MEGAN_pft_label_pa(maxpatch_total))      
+      allocate(bc_out%wesley_pft_label_pa(maxpatch_total))
+      allocate(bc_out%drydep_season_pa(maxpatch_total))
 
       ! Fire emissions
       allocate(bc_out%fire_emissions_pa(maxpatch_total,num_emission_compounds))      
@@ -2007,6 +2015,12 @@ contains
                   write(fates_log(),*) 'Transfering hlm_use_sp= ',ival,' to FATES'
                end if
 
+            case('use_drydep')
+               hlm_use_drydep = ival
+               if (fates_global_verbose()) then
+                  write(fates_log(),*) 'Transfering hlm_use_drydep= ',ival,' to FATES'
+               end if
+
             case('use_planthydro')
                hlm_use_planthydro = ival
                if (fates_global_verbose()) then
@@ -2357,6 +2371,66 @@ contains
 end subroutine UpdateFatesRMeansTStep
 
 ! ========================================================================================
+
+subroutine set_fates_drydep_indices(nsites,sites,bc_out)
+  use EDPftvarcon           , only : EDPftvarcon_inst
+  type(bc_out_type),  intent(inout)         :: bc_out(nsites)
+  type(ed_site_type), pointer :: sites(:)
+  integer :: nsites
+  integer :: s, ifp,  p
+  type (fates_patch_type)  , pointer :: currentPatch
+  
+  do s = 1,nsites
+      ifp=0
+     bc_out(s)%wesley_pft_label_pa(:)=8 !for no vegetation.
+      bc_out(s)%drydep_season_pa(:) = 3 ! bare
+     currentPatch => sites(s)%oldest_patch
+     ifp=ifp+1
+     do while(associated(currentPatch))
+        if(currentPatch%nocomp_pft_label>0)then 
+           bc_out(s)%wesley_pft_label_pa(ifp) = EDPftvarcon_inst%wesley_pft_index_fordrydep(currentPatch%nocomp_pft_label)
+          ! Wesely seasonal "index_season"                                
+          ! 1 - midsummer with lush vegetation                           
+          ! 2 - Autumn with unharvested cropland                         
+          ! 3 - Late autumn after frost, no snow                         
+          ! 4 - Winter, snow on ground and subfreezing                   
+          ! 5 - Transitional spring with partially green short annuals
+          if(bc_out(s)%tlai_pa(ifp) .gt. 2.0_r8)then
+             bc_out(s)%drydep_season_pa(ifp) = 1 ! Summer, or something like it.
+          else ! NOT SUMMER
+             if(sites(s)%lat>0)then ! Northern HS
+                if(hlm_day_of_year .lt. 180)then ! DOY
+                   bc_out(s)%drydep_season_pa(ifp) = 5 ! NH spring
+                else ! autumn
+      	      	   if(bc_out(s)%tlai_pa(ifp) .gt. 1.0_r8)then
+                      bc_out(s)%drydep_season_pa(ifp) = 2 ! NH early autumn
+                   else
+                      bc_out(s)%drydep_season_pa(ifp) = 3 ! NH late autumn
+                   endif
+                endif ! DOY
+             else !Southern HS 
+                if(hlm_day_of_year .gt. 180)then ! spring
+                   bc_out(s)%drydep_season_pa(ifp) = 5 ! SH spring
+                else ! SH autumn
+                   if(bc_out(s)%tlai_pa(ifp) .gt. 1.0_r8)then
+                       bc_out(s)%drydep_season_pa(ifp) = 2 ! SH early autumn
+                   else 
+                      bc_out(s)%drydep_season_pa(ifp) = 3 ! SH late autumn
+                   endif ! autumn
+                endif ! DOY
+             endif ! Hemisphere
+          endif ! summer?
+
+        else ! bare ground
+           bc_out(s)%drydep_season_pa(ifp) = 3
+           bc_out(s)%wesley_pft_label_pa(ifp)= 8
+        endif ! not bare ground.
+        currentPatch => currentPatch%younger
+    end do ! patch
+   end do ! site
+end subroutine set_fates_drydep_indices
+
+! ========================================================================================                 
 
 subroutine SeedlingParPatch(cpatch, & 
      atm_par, & 

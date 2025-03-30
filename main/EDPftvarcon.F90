@@ -123,7 +123,8 @@ module EDPftvarcon
      real(r8), allocatable :: rhos(:, :)                 ! Stem reflectance; second dim: 1 = vis, 2 = nir
      real(r8), allocatable :: taul(:, :)                 ! Leaf transmittance; second dim: 1 = vis, 2 = nir
      real(r8), allocatable :: taus(:, :)                 ! Stem transmittance; second dim: 1 = vis, 2 = nir
-
+     real(r8),  allocatable :: voc_pftindex(:)            ! Index for MEGAN parameters 
+     
      ! Fire Parameters (No PFT vector capabilities in their own routines)
      ! See fire/SFParamsMod.F90 for bulk of fire parameters
      ! -------------------------------------------------------------------------------------------
@@ -266,6 +267,9 @@ module EDPftvarcon
 
      ! Grazing
      real(r8), allocatable :: landuse_grazing_palatability(:) ! Relative intensity of leaf grazing/browsing per PFT (unitless 0-1)
+
+     ! dry deposition
+     real(r8), allocatable :: wesley_pft_index_fordrydep(:)
 
    contains
      procedure, public :: Init => EDpftconInit
@@ -418,6 +422,10 @@ contains
          dimension_names=dim_names, lower_bounds=dim_lower_bound)
 
     name = 'fates_rad_leaf_clumping_index'
+    call fates_params%RegisterParameter(name=name, dimension_shape=dimension_shape_1d, &
+         dimension_names=dim_names, lower_bounds=dim_lower_bound)
+
+    name = 'fates_voc_pftindex'
     call fates_params%RegisterParameter(name=name, dimension_shape=dimension_shape_1d, &
          dimension_names=dim_names, lower_bounds=dim_lower_bound)
 
@@ -760,6 +768,10 @@ contains
     call fates_params%RegisterParameter(name=name, dimension_shape=dimension_shape_1d, &
           dimension_names=dim_names, lower_bounds=dim_lower_bound)
 
+    name = 'fates_wesley_pft_index_fordrydep'
+    call fates_params%RegisterParameter(name=name, dimension_shape=dimension_shape_1d, &
+          dimension_names=dim_names, lower_bounds=dim_lower_bound)
+
     ! adding the hlm_pft_map variable with two dimensions - FATES PFTno and HLM PFTno
     pftmap_dim_names(1) = dimension_name_pft
     pftmap_dim_names(2) = dimension_name_hlm_pftno
@@ -841,6 +853,10 @@ contains
     name = 'fates_rad_leaf_clumping_index'
     call fates_params%RetrieveParameterAllocate(name=name, &
          data=this%clumping_index)
+
+    name = 'fates_voc_pftindex'
+    call fates_params%RetrieveParameterAllocate(name=name, &
+         data=this%voc_pftindex)    
 
     name = 'fates_nonhydro_smpso'
     call fates_params%RetrieveParameterAllocate(name=name, &
@@ -1167,6 +1183,10 @@ contains
     name = 'fates_cnp_eca_lambda_ptase'
     call fates_params%RetrieveParameterAllocate(name=name, &
          data=this%eca_lambda_ptase)
+
+    name = 'fates_wesley_pft_index_fordrydep'
+    call fates_params%RetrieveParameterAllocate(name=name, &
+         data=this%wesley_pft_index_fordrydep)
 
     name = 'fates_hlm_pft_map'
     call fates_params%RetrieveParameterAllocate(name=name, &
@@ -1613,7 +1633,8 @@ contains
         write(fates_log(),fmt0) 'fr_flig = ',EDPftvarcon_inst%fr_flig
         write(fates_log(),fmt0) 'xl = ',EDPftvarcon_inst%xl
         write(fates_log(),fmt0) 'clumping_index = ',EDPftvarcon_inst%clumping_index
-        
+        write(fates_log(),fmt0) 'voc_pftindex = ',EDPftvarcon_inst%voc_pftindex        
+
         write(fates_log(),fmt0) 'vcmax25top = ',EDPftvarcon_inst%vcmax25top
         write(fates_log(),fmt0) 'smpso = ',EDPftvarcon_inst%smpso
         write(fates_log(),fmt0) 'smpsc = ',EDPftvarcon_inst%smpsc
@@ -1678,6 +1699,7 @@ contains
         write(fates_log(),fmt0) 'hydro_pinot_node = ',EDPftvarcon_inst%hydr_pinot_node
         write(fates_log(),fmt0) 'hydro_kmax_node = ',EDPftvarcon_inst%hydr_kmax_node
         write(fates_log(),fmt0) 'hlm_pft_map = ', EDPftvarcon_inst%hlm_pft_map
+        write(fates_log(),fmt0) 'wesley_pft_index_fordrydep = ', EDPftvarcon_inst%wesley_pft_index_fordrydep
         write(fates_log(),fmt0) 'hydro_vg_alpha_node  = ',EDPftvarcon_inst%hydr_vg_alpha_node
         write(fates_log(),fmt0) 'hydro_vg_m_node  = ',EDPftvarcon_inst%hydr_vg_m_node
         write(fates_log(),fmt0) 'hydro_vg_n_node  = ',EDPftvarcon_inst%hydr_vg_n_node
@@ -2081,7 +2103,12 @@ contains
            call endrun(msg=errMsg(sourcefile, __LINE__))
 
         end if
-
+        write(*,*)  EDPftvarcon_inst%voc_pftindex(:)
+        if(EDPftvarcon_inst%voc_pftindex(ipft) .le. 0 .or. EDPftvarcon_inst%voc_pftindex(ipft) .gt. 16 ) then
+           write(fates_log(),*) 'MEGAN indices must be between 1 and 16',ipft,EDPftvarcon_inst%voc_pftindex(ipft)
+           call endrun(msg=errMsg(sourcefile, __LINE__))
+       endif
+        
         if( hlm_use_fixed_biogeog .eq. itrue ) then
            ! check that the host-fates PFT map adds to one along HLM dimension so that all the HLM area
            ! goes to a FATES PFT.  Each FATES PFT can get < or > 1 of an HLM PFT.

@@ -240,6 +240,8 @@ module FatesInterfaceTypesMod
 
   integer, public ::  hlm_use_sp                                    !  Flag to use FATES satellite phenology (LAI) mode
                                                                     !  1 = TRUE, 0 = FALSE
+  integer, public ::  hlm_use_drydep                                !  Flag to use calculate drydep-related variables in FATES
+                                                                    !  1 = TRUE, 0 = FALSE
 
   
   ! Flag specifying what types of history fields to allocate and prepare
@@ -635,6 +637,10 @@ module FatesInterfaceTypesMod
       
       ! Shaded canopy LAI
       real(r8),allocatable :: laisha_pa(:)
+
+      ! Average internal CO2 concentration
+      real(r8), allocatable :: ci_pa(:)
+      
       
       ! Logical stating whether a soil layer can have water uptake by plants
       ! The only condition right now is that liquid water exists
@@ -790,7 +796,11 @@ module FatesInterfaceTypesMod
                                                         ! [0,1]
 
      integer, allocatable :: nocomp_pft_label_pa(:) ! in nocomp and SP mode, each patch has a PFT identity. 
+     integer, allocatable :: wesley_pft_label_pa(:) ! For dry deposition, each FATES PFT needs to correspond to a PFT from the 'wesley 1989' scheme 
+     integer, allocatable :: drydep_season_pa(:) ! For dry deposition, we need to define the season index, from 1-5, for the purposes of detrmining the deposition velocity parameters. See drydep code for details of season indices. 
 
+     integer, allocatable :: nocomp_MEGAN_pft_label_pa(:) ! Index to map from FATES NOCOMP PFT identity into MEGAN PFT space. 
+          
       ! FATES Hydraulics
 
 
