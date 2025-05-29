@@ -682,7 +682,11 @@ contains
                currentCohort%resp_m_acc*currentCohort%n + & 
                (currentCohort%resp_g_acc_hold+currentCohort%resp_excess_hold) * &
                currentCohort%n/real( hlm_days_per_year,r8)
+          
+          write(*,*) 'EDM:acc stgpp',site_cmass%gpp_acc, currentCohort%gpp_acc * currentCohort%n
 
+          write(*,*) 'EDM:acc stresp',site_cmass%aresp_acc ,
+          
           call currentCohort%prt%CheckMassConservation(ft,5)
 
           ! Update the leaf biophysical rates based on proportion of leaf
@@ -827,6 +831,8 @@ contains
     !
     ! !USES:
     use EDCanopyStructureMod , only : canopy_spread, canopy_structure
+    use EDTypesMod , only : AREA ! m2. Area of site
+    use FatesConstantsMod        , only : g_per_kg
     !
     ! !ARGUMENTS:
     type(ed_site_type) , intent(inout), target :: currentSite
@@ -861,7 +867,9 @@ contains
     call TotalBalanceCheck(currentSite,final_check_id)
 
     call SiteMassStock(currentSite,1,total_stock,biomass_stock,litter_stock,seed_stock)
-    bc_out%fates_total_carbon_site = total_stock
+    ! convert from kgC/site to gC/m2 
+    bc_out%fates_total_carbon_site = total_stock * g_per_kg/AREA
+    write(*,*) 'total_stock F3, B-L-S',total_stock*g_per_kg/AREA,biomass_stock* g_per_kg/AREA,litter_stock* g_per_kg/AREA,seed_stock* g_per_kg/AREA
     
     ! Update recruit L2FRs based on new canopy position
     call SetRecruitL2FR(currentSite)
@@ -994,7 +1002,9 @@ contains
        net_flux        = flux_in - flux_out
        error           = abs(net_flux - change_in_stock)
 
-
+       write(*,*) 'fatesBALC: netf,chst',net_flux/10._r8,change_in_stock/10._r8
+       write(*,*) 'fatesBALC: net npp',(site_mass%gpp_acc - site_mass%aresp_acc)/10._r8
+       write(*,*) 'fatesBALC: news, olds', total_stock/10._r8, site_mass%old_stock/10._r8
        if(change_in_stock>0.0)then
           error_frac      = error/abs(total_stock)
        else

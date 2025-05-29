@@ -823,7 +823,8 @@ module FatesInterfaceTypesMod
       real(r8) :: gpp_site  ! Site level GPP, for NBP diagnosis in HLM [Site-Level, gC m-2 s-1]
       real(r8) :: ar_site   ! Site level Autotrophic Resp, for NBP diagnosis in HLM [Site-Level, gC m-2 s-1]
       real(r8) :: npp_site  ! Site level timestep-specific NPP, for NBP diagnosis in HLM [Site-Level, gC m-2 s-1]
-      real(r8) :: npp_acc_site ! Sitelevel, timestep-specific accumulated NPP to account for assimilate but not allocated C in HLM balance check. gC/m2 
+      real(r8) :: npp_acc_site ! Sitelevel, timestep-specific accumulated NPP to account for assimilate but not allocated C in HLM balance check. gC/m2
+      real(r8) :: gresp_site ! Sitelevel, daily growth respiration flux gC/m2/day to be added to unreleased carbon pool. 
       real(r8) :: fates_total_carbon_site ! Site level total carbon in FATES (g/m2) for  HLM balance check
       
       ! direct carbon loss to atm pathways
