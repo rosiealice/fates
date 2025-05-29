@@ -2255,7 +2255,7 @@ contains
 
           ! Default seed decay (TRS is off)
           litt%seed_decay(pft) = litt%seed(pft) * &
-               EDPftvarcon_inst%seed_decay_rate(pft)*years_per_day
+               EDPftvarcon_inst%seed_decay_rate(pft)*years_per_day * 0._r8 !THIS IS A HACK 
 
        end if
 
@@ -3238,7 +3238,7 @@ contains
       endif ! scalar
 
     endif ! not bare ground
-
+     currentPatch%fragmentation_scaler(:) =0._r8 !this is a hack
   end subroutine fragmentation_scaler
 
   ! ============================================================================
@@ -3278,7 +3278,7 @@ contains
     do c = 1,ncwd
 
        litt%ag_cwd_frag(c)   = litt%ag_cwd(c) * SF_val_max_decomp(c) * &
-             years_per_day * fragmentation_scaler(soil_layer_index)
+             years_per_day * fragmentation_scaler(soil_layer_index) * 0.0_r8 ! THIS IS A HACK
 
        do ilyr = 1,nlev_eff_decomp
            litt%bg_cwd_frag(c,ilyr) = litt%bg_cwd(c,ilyr) * SF_val_max_decomp(c) * &

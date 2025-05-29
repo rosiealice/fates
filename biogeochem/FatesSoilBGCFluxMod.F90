@@ -744,10 +744,10 @@ contains
 
              do id = 1,nlev_eff_decomp
                 flux_cel_si(id) = flux_cel_si(id) + &
-                     litt%ag_cwd_frag(ic) * ED_val_cwd_fcel * area_frac * surface_prof(id)
+                     litt%ag_cwd_frag(ic) * ED_val_cwd_fcel * area_frac * surface_prof(id) *0._r8 !THIS IS A HACK
 
                 flux_lig_si(id) = flux_lig_si(id) + & 
-                     litt%ag_cwd_frag(ic) * ED_val_cwd_flig * area_frac * surface_prof(id)
+                     litt%ag_cwd_frag(ic) * ED_val_cwd_flig * area_frac * surface_prof(id) *0._r8 ! this is a hack
                 
              end do
 
@@ -809,6 +809,7 @@ contains
              flux_lig_si(id) = flux_lig_si(id) + &
                   litt%root_fines_frag(ilignin,j) * area_frac
           enddo
+          
 
           currentPatch => currentPatch%younger
        end do
