@@ -420,7 +420,8 @@ contains
     ! Clear site GPP and AR passing to HLM
     bc_out%gpp_site = 0._r8
     bc_out%ar_site = 0._r8
-
+    bc_out%grazing_closs_to_atm_si = 0._r8
+    
     ! Patch level biomass are required for C-based harvest
     call get_harvestable_carbon(currentSite, bc_in%site_area, bc_in%hlm_harvest_catnames, harvestable_forest_c)
 

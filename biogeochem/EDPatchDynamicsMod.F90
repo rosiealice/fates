@@ -570,7 +570,6 @@ contains
     ! zero the diagnostic disturbance rate fields
     currentSite%disturbance_rates(:,:,:) = 0._r8
     bc_out%fire_closs_to_atm_si = 0._r8
-    bc_out%grazing_closs_to_atm_si = 0._r8
     ! get rules for vegetation clearing during land use change
     call GetLanduseChangeRules(clearing_matrix)
     
