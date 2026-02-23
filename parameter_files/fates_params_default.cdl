@@ -979,7 +979,7 @@ data:
   "arctic_c3_grass                            ",
   "cool_c3_grass                              ",
   "c4_grass                                   ",
-  "cool_c3_grass                              " ;
+  "crops                              " ;
 
  fates_alloc_storage_cushion = 3.4, 2.4, 2.4, 2.4, 2.4, 3.4, 2.4, 2.4, 2.4, 
     2.4, 2.4, 2.4, 2.4, 2.4, 2.4 ;
