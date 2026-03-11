@@ -2434,899 +2434,6 @@ contains
     real(r8) :: patch_fracarea  ! Fraction of area for this patch
     
     associate( hio_npatches_si         => this%hvars(ih_npatches_si)%r81d, &
-         hio_ncohorts_si         => this%hvars(ih_ncohorts_si)%r81d, &
-         hio_ncl_si              => this%hvars(ih_ncl_si)%r81d, &
-         hio_zstar_si            => this%hvars(ih_zstar_si)%r81d, &
-         hio_trimming_si         => this%hvars(ih_trimming_si)%r81d, &
-         hio_fracarea_plant_si   => this%hvars(ih_fracarea_plant_si)%r81d, &
-         hio_fracarea_trees_si  => this%hvars(ih_fracarea_trees_si)%r81d, &
-         hio_fates_fraction_si   => this%hvars(ih_fates_fraction_si)%r81d, &
-         hio_ba_weighted_height_si  => this%hvars(ih_ba_weighted_height_si)%r81d, &
-         hio_ca_weighted_height_si  => this%hvars(ih_ca_weighted_height_si)%r81d, &
-         hio_canopy_spread_si    => this%hvars(ih_canopy_spread_si)%r81d, &
-         hio_nesterov_fire_danger_si => this%hvars(ih_nesterov_fire_danger_si)%r81d, &
-         hio_rx_burn_window_si => this%hvars(ih_rx_burn_window_si)%r81d, &
-         hio_fire_nignitions_si => this%hvars(ih_fire_nignitions_si)%r81d, &
-         hio_fire_fdi_si => this%hvars(ih_fire_fdi_si)%r81d, &
-         hio_spitfire_ros_si     => this%hvars(ih_spitfire_ros_si)%r81d, &
-         hio_tfc_ros_si          => this%hvars(ih_tfc_ros_si)%r81d, &
-         hio_effect_wspeed_si    => this%hvars(ih_effect_wspeed_si)%r81d, &
-         hio_fire_intensity_si   => this%hvars(ih_fire_intensity_si)%r81d, &
-         hio_fire_intensity_fracarea_product_si => this%hvars(ih_fire_intensity_fracarea_product_si)%r81d, &
-         hio_fire_fracarea_si    => this%hvars(ih_fire_fracarea_si)%r81d, &
-         hio_fire_fuel_bulkd_si  => this%hvars(ih_fire_fuel_bulkd_si)%r81d, &
-         hio_fire_fuel_eff_moist_si => this%hvars(ih_fire_fuel_eff_moist_si)%r81d, &
-         hio_fire_fuel_sav_si    => this%hvars(ih_fire_fuel_sav_si)%r81d, &
-         hio_fire_fuel_mef_si    => this%hvars(ih_fire_fuel_mef_si)%r81d, &
-         hio_sum_fuel_si         => this%hvars(ih_sum_fuel_si)%r81d,  &
-         hio_nonrx_intensity_si  => this%hvars(ih_nonrx_intensity_si)%r81d, &
-         hio_nonrx_intensity_fracarea_product_si => this%hvars(ih_nonrx_intensity_fracarea_product_si)%r81d, &
-         hio_nonrx_fracarea_si       => this%hvars(ih_nonrx_fracarea_si)%r81d, &
-         hio_rx_intensity_si     => this%hvars(ih_rx_intensity_si)%r81d, &
-         hio_rx_intensity_fracarea_product_si => this%hvars(ih_rx_intensity_fracarea_product_si)%r81d, &
-         hio_rx_fracarea_si          => this%hvars(ih_rx_fracarea_si)%r81d, &
-         hio_rx_fracarea_fuel_si     => this%hvars(ih_rx_fracarea_fuel_si)%r81d, &
-         hio_rx_fracarea_fi_si       => this%hvars(ih_rx_fracarea_fi_si)%r81d, &
-         hio_rx_fracarea_final_si    => this%hvars(ih_rx_fracarea_final_si)%r81d, &
-         hio_litter_in_si        => this%hvars(ih_litter_in_si)%r81d, &
-         hio_litter_out_si       => this%hvars(ih_litter_out_si)%r81d, &
-         hio_npp_si              => this%hvars(ih_npp_si)%r81d, &
-         hio_aresp_si            => this%hvars(ih_aresp_si)%r81d, &
-         hio_growth_resp_si      => this%hvars(ih_growth_resp_si)%r81d, &
-         hio_seed_bank_si        => this%hvars(ih_seed_bank_si)%r81d, &
-         hio_ungerm_seed_bank_si => this%hvars(ih_ungerm_seed_bank_si)%r81d, &
-         hio_seedling_pool_si    => this%hvars(ih_seedling_pool_si)%r81d, &
-         hio_seeds_in_si         => this%hvars(ih_seeds_in_si)%r81d, &
-         hio_seeds_in_local_si   => this%hvars(ih_seeds_in_local_si)%r81d, &
-         hio_bdead_si            => this%hvars(ih_bdead_si)%r81d, &
-         hio_balive_si           => this%hvars(ih_balive_si)%r81d, &
-         hio_agb_si              => this%hvars(ih_agb_si)%r81d, &
-         hio_canopy_biomass_si   => this%hvars(ih_canopy_biomass_si)%r81d, &
-         hio_ustory_biomass_si   => this%hvars(ih_understory_biomass_si)%r81d, &
-         hio_primaryland_fusion_error_si    => this%hvars(ih_primaryland_fusion_error_si)%r81d, &
-         hio_fire_disturbance_rate_si      => this%hvars(ih_fire_disturbance_rate_si)%r81d, &
-         hio_logging_disturbance_rate_si   => this%hvars(ih_logging_disturbance_rate_si)%r81d, &
-         hio_fall_disturbance_rate_si      => this%hvars(ih_fall_disturbance_rate_si)%r81d, &
-         hio_harvest_debt_si     => this%hvars(ih_harvest_debt_si)%r81d, &
-         hio_harvest_debt_sec_si => this%hvars(ih_harvest_debt_sec_si)%r81d, &
-         hio_npp_leaf_si         => this%hvars(ih_npp_leaf_si)%r81d, &
-         hio_npp_seed_si         => this%hvars(ih_npp_seed_si)%r81d, &
-         hio_npp_stem_si         => this%hvars(ih_npp_stem_si)%r81d, &
-         hio_npp_froot_si        => this%hvars(ih_npp_froot_si)%r81d, &
-         hio_npp_croot_si        => this%hvars(ih_npp_croot_si)%r81d, &
-         hio_npp_stor_si         => this%hvars(ih_npp_stor_si)%r81d, &
-         hio_grazing_si          => this%hvars(ih_grazing_si)%r81d, &
-         hio_canopy_mortality_crownarea_si     => this%hvars(ih_canopy_mortality_crownarea_si)%r81d, &
-         hio_ustory_mortality_crownarea_si => this%hvars(ih_understory_mortality_crownarea_si)%r81d, &
-         hio_fire_c_to_atm_si  => this%hvars(ih_fire_c_to_atm_si)%r81d, &
-         hio_demotion_carbonflux_si        => this%hvars(ih_demotion_carbonflux_si)%r81d, &
-         hio_promotion_carbonflux_si       => this%hvars(ih_promotion_carbonflux_si)%r81d, &
-         hio_canopy_mortality_carbonflux_si     => this%hvars(ih_canopy_mortality_carbonflux_si)%r81d, &
-         hio_ustory_mortality_carbonflux_si => this%hvars(ih_understory_mortality_carbonflux_si)%r81d, &
-         hio_gdd_si                           => this%hvars(ih_gdd_si)%r81d, &
-         hio_site_ncolddays_si                => this%hvars(ih_site_ncolddays_si)%r81d, &
-         hio_site_nchilldays_si               => this%hvars(ih_site_nchilldays_si)%r81d, &
-         hio_site_cstatus_si                  => this%hvars(ih_site_cstatus_si)%r81d, &
-         hio_cleafoff_si                      => this%hvars(ih_cleafoff_si)%r81d, &
-         hio_cleafon_si                       => this%hvars(ih_cleafon_si)%r81d, &
-         hio_cbal_err_fates_si                => this%hvars(ih_cbal_err_fates_si)%r81d, &
-         hio_tveg24                           => this%hvars(ih_tveg24_si)%r81d, &
-         hio_tlongterm                        => this%hvars(ih_tlongterm_si)%r81d, &
-         hio_tgrowth                          => this%hvars(ih_tgrowth_si)%r81d, &
-         hio_lai_si                           => this%hvars(ih_lai_si)%r81d, &
-         hio_elai_si                          => this%hvars(ih_elai_si)%r81d, &
-         hio_harvest_woodprod_carbonflux_si   => this%hvars(ih_harvest_woodprod_carbonflux_si)%r81d, &
-         hio_luchange_woodprod_carbonflux_si => this%hvars(ih_luchange_woodprod_carbonflux_si)%r81d)
-
-      ! ---------------------------------------------------------------------------------
-      ! Loop through the FATES scale hierarchy and fill the history IO arrays
-      ! ---------------------------------------------------------------------------------
-
-      siteloop: do s = 1,nsites
-
-         io_si  = sites(s)%h_gid
-
-         site_ba = 0._r8
-         site_ca = 0._r8
-
-         call this%zero_site_hvars(sites(s),upfreq_in=group_dyna_simple)
-         
-         ! set the fates fraction to one, since it is zero on non-fates columns, &
-         ! the average is the total gridcell fates fraction
-         hio_fates_fraction_si(io_si) = 1._r8
-
-         ! Total carbon model error [kgC/day -> kgC/s]
-         hio_cbal_err_fates_si(io_si) = &
-              sites(s)%mass_balance(element_pos(carbon12_element))%err_fates / sec_per_day
-
-         
-         
-         ! Total carbon lost to atmosphere from burning (kgC/site/day -> kgC/m2/s)
-         hio_fire_c_to_atm_si(io_si) = &
-              sites(s)%mass_balance(element_pos(carbon12_element))%burn_flux_to_atm * &
-              ha_per_m2 * days_per_sec
-
-         ! damage variables - site level - this needs to be OUT of the patch loop 
-         if(hlm_use_tree_damage .eq. itrue) then
-
-            this%hvars(ih_crownarea_canopy_damage_si)%r81d(io_si) = &
-                 this%hvars(ih_crownarea_canopy_damage_si)%r81d(io_si) + &
-                 sites(s)%crownarea_canopy_damage  * days_per_year * 1 / m2_per_ha
-
-            this%hvars(ih_crownarea_ustory_damage_si)%r81d(io_si) = &
-                 this%hvars(ih_crownarea_ustory_damage_si)%r81d(io_si) + &
-                 sites(s)%crownarea_ustory_damage  * days_per_year * 1 / m2_per_ha
-
-         end if
-
-         ! Canopy spread index (0-1)
-         hio_canopy_spread_si(io_si) = sites(s)%spread
-
-         ! Update the site status for cold deciduous (drought deciduous is now PFT dependent)
-         hio_site_cstatus_si(io_si)   = real(sites(s)%cstatus,r8)
-
-         ! Number of chill days and cold days
-         hio_site_nchilldays_si(io_si) = real(sites(s)%nchilldays,r8)
-         hio_site_ncolddays_si(io_si)  = real(sites(s)%ncolddays,r8)
-
-         ! Growing degree-days
-         hio_gdd_si(io_si) = sites(s)%grow_deg_days
-
-         ! Model days elapsed since leaf on/off for cold-deciduous
-         hio_cleafoff_si(io_si) = real(sites(s)%phen_model_date - sites(s)%cleafoffdate,r8)
-         hio_cleafon_si(io_si)  = real(sites(s)%phen_model_date - sites(s)%cleafondate,r8)
-
-         ! site-level fire variables:
-
-         ! Nesterov index (unitless)
-         hio_nesterov_fire_danger_si(io_si) = sites(s)%fireWeather%fire_weather_index
-         
-         hio_effect_wspeed_si(io_si) = sites(s)%fireWeather%effective_windspeed/sec_per_min
-
-         ! Prescribed fire burn window
-         hio_rx_burn_window_si(io_si) = hio_rx_burn_window_si(io_si) + sites(s)%fireWeather%rx_flag
-
-         ! number of ignitions [#/km2/day -> #/m2/s]
-         hio_fire_nignitions_si(io_si) = sites(s)%NF_successful / m2_per_km2 /  &
-              sec_per_day
-
-         ! Fire danger index (FDI) (0-1)
-         hio_fire_fdi_si(io_si) = sites(s)%FDI
-
-         ! total rx burnable fraction when fuel condition met
-         hio_rx_fracarea_fuel_si(io_si) = sites(s)%rxfire_area_fuel * AREA_INV
-
-         ! total rx burnable fraction when fuel and FI conditions met
-         hio_rx_fracarea_fi_si(io_si) = sites(s)%rxfire_area_fi * AREA_INV
-
-         ! total rx burnable fraction when all conditions met
-         hio_rx_fracarea_final_si(io_si) = sites(s)%rxfire_area_final * AREA_INV
-
-         ! If hydraulics are turned on, track the error terms associated with
-         ! dynamics [kg/m2]
-         if(hlm_use_planthydro.eq.itrue)then
-            this%hvars(ih_h2oveg_dead_si)%r81d(io_si)         = sites(s)%si_hydr%h2oveg_dead
-            this%hvars(ih_h2oveg_recruit_si)%r81d(io_si)      = sites(s)%si_hydr%h2oveg_recruit
-            this%hvars(ih_h2oveg_growturn_err_si)%r81d(io_si) = sites(s)%si_hydr%h2oveg_growturn_err
-         end if
-
-         hio_harvest_debt_si(io_si) = sites(s)%resources_management%harvest_debt
-         hio_harvest_debt_sec_si(io_si) = sites(s)%resources_management%harvest_debt_sec
-
-         ! error in primary lands from patch fusion [m2 m-2 day-1] -> [m2 m-2 yr-1]
-         hio_primaryland_fusion_error_si(io_si) = sites(s)%primary_land_patchfusion_error * days_per_year
-
-         ! output site-level disturbance rates [m2 m-2 day-1] -> [m2 m-2 yr-1] - TO DO rework this
-
-         hio_fire_disturbance_rate_si(io_si) = &
-              sum(sites(s)%disturbance_rates(dtype_ifire,1:n_landuse_cats,1:n_landuse_cats)) * &
-              days_per_year
-
-         hio_logging_disturbance_rate_si(io_si) = &
-              sum(sites(s)%disturbance_rates(dtype_ilog,1:n_landuse_cats,1:n_landuse_cats)) * &
-              days_per_year
-
-         hio_fall_disturbance_rate_si(io_si) = &
-              sum(sites(s)%disturbance_rates(dtype_ifall,1:n_landuse_cats,1:n_landuse_cats)) * &
-              days_per_year
-
-         hio_harvest_woodprod_carbonflux_si(io_si) = AREA_INV * &
-              sum(sites(s)%mass_balance(element_pos(carbon12_element))%wood_product_harvest(1:numpft))
-
-         hio_luchange_woodprod_carbonflux_si(io_si) = AREA_INV * &
-              sum(sites(s)%mass_balance(element_pos(carbon12_element))%wood_product_landusechange(1:numpft))
-          
-
-         ! carbon flux associated with mortality of trees dying by fire
-         hio_canopy_mortality_carbonflux_si(io_si) = hio_canopy_mortality_carbonflux_si(io_si) + &
-              sum(sites(s)%fmort_carbonflux_canopy(:)) / g_per_kg
-
-         
-         hio_ustory_mortality_carbonflux_si(io_si) = hio_ustory_mortality_carbonflux_si(io_si) + &
-              sum(sites(s)%fmort_carbonflux_ustory(:)) / g_per_kg
-
-         ! treat carbon flux from imort the same way
-         hio_ustory_mortality_carbonflux_si(io_si) = hio_ustory_mortality_carbonflux_si(io_si) + &
-              sum(sites(s)%imort_carbonflux(:))
-
-         ! convert kg C / ha / day to kgc / m2 / sec
-         hio_demotion_carbonflux_si(io_si) = sites(s)%demotion_carbonflux * ha_per_m2 * days_per_sec
-         hio_promotion_carbonflux_si(io_si) = sites(s)%promotion_carbonflux * ha_per_m2 * days_per_sec
-         !
-         ! mortality-associated carbon fluxes
-
-         hio_canopy_mortality_carbonflux_si(io_si) = hio_canopy_mortality_carbonflux_si(io_si) + &
-              sum(sites(s)%term_carbonflux_canopy(:,:)) * days_per_sec * ha_per_m2
-         
-         hio_ustory_mortality_carbonflux_si(io_si) = hio_ustory_mortality_carbonflux_si(io_si) + &
-              sum(sites(s)%term_carbonflux_ustory(:,:)) * days_per_sec * ha_per_m2
-
-         ! add site level mortality counting to crownarea diagnostic
-         hio_canopy_mortality_crownarea_si(io_si) = hio_canopy_mortality_crownarea_si(io_si) + &
-              sites(s)%fmort_crownarea_canopy + &
-              sites(s)%term_crownarea_canopy * days_per_year
-
-         hio_ustory_mortality_crownarea_si(io_si) = hio_ustory_mortality_crownarea_si(io_si) + &
-              sites(s)%fmort_crownarea_ustory + &
-              sites(s)%term_crownarea_ustory * days_per_year + &
-              sites(s)%imort_crownarea
-
-
-         elflux_diags_c => sites(s)%flux_diags%elem(element_pos(carbon12_element))
-
-         hio_litter_in_si(io_si) = (sum(elflux_diags_c%cwd_ag_input(:)) + &
-              sum(elflux_diags_c%cwd_bg_input(:)) + &
-              sum(elflux_diags_c%surf_fine_litter_input(:)) + &
-              sum(elflux_diags_c%root_litter_input(:))) * &
-              AREA_INV * days_per_sec
-
-         ! Loop through patches to sum up diagonistics
-         cpatch => sites(s)%oldest_patch
-         patchloop: do while(associated(cpatch))
-
-            ! Increment the number of patches per site
-            hio_npatches_si(io_si) = hio_npatches_si(io_si) + 1._r8
-
-            hio_lai_si(io_si) = hio_lai_si(io_si) + sum( cpatch%canopy_area_profile(:,:,:) * cpatch%tlai_profile(:,:,:) ) * &
-                 cpatch%total_canopy_area * AREA_INV
-            
-            hio_elai_si(io_si) = hio_elai_si(io_si) + sum( cpatch%canopy_area_profile(:,:,:) * cpatch%elai_profile(:,:,:) ) * &
-                 cpatch%total_canopy_area * AREA_INV
-            
-            hio_ncl_si(io_si) = hio_ncl_si(io_si) + cpatch%ncl_p * cpatch%area * AREA_INV
-
-            ! only valid when "strict ppa" enabled
-            if ( comp_excln_exp .lt. 0._r8 ) then
-               hio_zstar_si(io_si) = hio_zstar_si(io_si) &
-                    + cpatch%zstar * cpatch%area * AREA_INV
-            end if
-
-            ! 24hr veg temperature
-            hio_tveg24(io_si) = hio_tveg24(io_si) + &
-                 (cpatch%tveg24%GetMean()- t_water_freeze_k_1atm)*cpatch%area*AREA_INV
-
-            ! long-term veg temperature
-            hio_tlongterm(io_si) = hio_tlongterm(io_si) + &
-                 (cpatch%tveg_longterm%GetMean()- t_water_freeze_k_1atm)*cpatch%area*AREA_INV
-
-            ! long-term running mean veg temperature (tgrowth)
-            hio_tgrowth(io_si) = hio_tgrowth(io_si) + &
-                 (cpatch%tveg_lpa%GetMean()- t_water_freeze_k_1atm)*cpatch%area*AREA_INV
-
-            ! Canopy trimming - degree to which canopy expansion is limited by leaf economics (0-1)
-            if(associated(cpatch%tallest))then
-               hio_trimming_si(io_si) = hio_trimming_si(io_si) + cpatch%tallest%canopy_trim * cpatch%area * AREA_INV
-            endif
-
-            ! fractional area occupied by plants and trees [m2/m2]
-            hio_fracarea_plant_si(io_si) = hio_fracarea_plant_si(io_si) + min(cpatch%total_canopy_area,cpatch%area) * AREA_INV
-            hio_fracarea_trees_si(io_si) = hio_fracarea_trees_si(io_si) + min(cpatch%total_tree_area,cpatch%area) * AREA_INV
-
-            ! Patch specific variables that are already calculated
-            ! These things are all duplicated. Should they all be converted to LL or array structures RF?
-            ! define scalar to counteract the patch albedo scaling logic for conserved quantities
-
-            ! Update Fire Variables
-            hio_spitfire_ros_si(io_si)         = hio_spitfire_ros_si(io_si) + cpatch%ROS_front * cpatch%area * AREA_INV / sec_per_min
-            hio_tfc_ros_si(io_si)              = hio_tfc_ros_si(io_si) + cpatch%TFC_ROS * cpatch%area * AREA_INV
-            hio_fire_intensity_si(io_si)       = hio_fire_intensity_si(io_si) + cpatch%FI * cpatch%area * AREA_INV * J_per_kJ
-            hio_fire_fracarea_si(io_si)        = hio_fire_fracarea_si(io_si) + cpatch%frac_burnt * cpatch%area * AREA_INV / sec_per_day
-            hio_nonrx_intensity_si(io_si)      = hio_nonrx_intensity_si(io_si) + cpatch%nonrx_FI * cpatch%area * AREA_INV * J_per_kJ
-            hio_nonrx_fracarea_si(io_si)       = hio_nonrx_fracarea_si(io_si) + cpatch%nonrx_frac_burnt * cpatch%area * AREA_INV / sec_per_day
-            hio_rx_intensity_si(io_si)         = hio_rx_intensity_si(io_si) + cpatch%rx_FI * cpatch%area * AREA_INV * J_per_kJ
-            hio_rx_fracarea_si(io_si)          = hio_rx_fracarea_si(io_si) + cpatch%rx_frac_burnt * cpatch%area * AREA_INV / sec_per_day
-            hio_fire_fuel_bulkd_si(io_si)      = hio_fire_fuel_bulkd_si(io_si) + cpatch%fuel%bulk_density_notrunks * cpatch%area * AREA_INV
-            hio_fire_fuel_eff_moist_si(io_si)  = hio_fire_fuel_eff_moist_si(io_si) + cpatch%fuel%average_moisture_notrunks * cpatch%area * AREA_INV
-            hio_fire_fuel_sav_si(io_si)        = hio_fire_fuel_sav_si(io_si) + cpatch%fuel%SAV_notrunks * cpatch%area * AREA_INV / m_per_cm
-            hio_fire_fuel_mef_si(io_si)        = hio_fire_fuel_mef_si(io_si) + cpatch%fuel%MEF_notrunks * cpatch%area * AREA_INV
-            hio_sum_fuel_si(io_si)             = hio_sum_fuel_si(io_si) + cpatch%fuel%non_trunk_loading * cpatch%area * AREA_INV
-
-            hio_nonrx_intensity_fracarea_product_si(io_si) = hio_nonrx_intensity_fracarea_product_si(io_si) + &
-                 cpatch%nonrx_FI * cpatch%nonrx_frac_burnt * cpatch%area * AREA_INV * J_per_kJ
-           
-            hio_rx_intensity_fracarea_product_si(io_si) = hio_rx_intensity_fracarea_product_si(io_si) + &
-                 cpatch%rx_FI * cpatch%rx_frac_burnt * cpatch%area * AREA_INV * J_per_kJ
-
-            hio_fire_intensity_fracarea_product_si(io_si) = hio_fire_intensity_fracarea_product_si(io_si) + &
-                 cpatch%FI * cpatch%frac_burnt * cpatch%area * AREA_INV * J_per_kJ
-
-            litt => cpatch%litter(element_pos(carbon12_element))
-
-            patch_fracarea = cpatch%area * AREA_INV
-
-            ! Sum up all output fluxes (fragmentation) kgC/m2/day -> kgC/m2/s
-            hio_litter_out_si(io_si) = hio_litter_out_si(io_si) + &
-                 (sum(litt%leaf_fines_frag(:)) + &
-                 sum(litt%root_fines_frag(:,:)) + &
-                 sum(litt%ag_cwd_frag(:)) + &
-                 sum(litt%bg_cwd_frag(:,:)) + &
-                 sum(litt%seed_decay(:)) + &
-                 sum(litt%seed_germ_decay(:))) * &
-                 patch_fracarea * days_per_sec
-
-            ! Sum up total seed bank (germinated and ungerminated)
-            hio_seed_bank_si(io_si) = hio_seed_bank_si(io_si) + &
-                 (sum(litt%seed(:))+sum(litt%seed_germ(:))) * &
-                 patch_fracarea
-
-            ! Sum up total seed bank (just ungerminated)
-            hio_ungerm_seed_bank_si(io_si) = hio_ungerm_seed_bank_si(io_si) + &
-                 sum(litt%seed(:)) * patch_fracarea
-
-            ! Sum up total seedling pool  
-            hio_seedling_pool_si(io_si) = hio_seedling_pool_si(io_si) + &
-                 sum(litt%seed_germ(:)) * patch_fracarea
-
-            ! Sum up the input flux into the seed bank (local and external)
-            hio_seeds_in_si(io_si) = hio_seeds_in_si(io_si) + &
-                 (sum(litt%seed_in_local(:)) + sum(litt%seed_in_extern(:))) * &
-                 patch_fracarea * days_per_sec
-
-            hio_seeds_in_local_si(io_si) = hio_seeds_in_local_si(io_si) + &
-                 sum(litt%seed_in_local(:)) * &
-                 patch_fracarea * days_per_sec
-
-            ! loop through cohorts on patch
-            ccohort => cpatch%shortest
-            cohortloop: do while(associated(ccohort))
-
-               ft = ccohort%pft
-               n_perm2 = ccohort%n * AREA_INV
-
-               ! Increment the number of cohorts per site
-               hio_ncohorts_si(io_si) = hio_ncohorts_si(io_si) + 1._r8
-
-               ! Update biomass components
-               ! Mass pools [kg]
-               elloop: do el = 1, num_elements
-
-                  call ccohort%prt%GetBiomass(element_list(el), &
-                       sapw_m, struct_m, leaf_m, fnrt_m, store_m, repro_m, alive_m, total_m)
-
-                  ! Plant multi-element states and fluxes
-                  ! Zero states, and set the fluxes
-                  if( element_list(el).eq.carbon12_element )then
-
-                     ! mass in different tissues [kg/ha] -> [kg/m2]
-                     this%hvars(ih_storec_si)%r81d(io_si) =                       &
-                          this%hvars(ih_storec_si)%r81d(io_si) + ccohort%n *        &
-                          store_m / m2_per_ha
-                     this%hvars(ih_leafc_si)%r81d(io_si) =                        &
-                          this%hvars(ih_leafc_si)%r81d(io_si) + ccohort%n *         &
-                          leaf_m / m2_per_ha
-                     this%hvars(ih_fnrtc_si)%r81d(io_si) =                        &
-                          this%hvars(ih_fnrtc_si)%r81d(io_si) + ccohort%n *         &
-                          fnrt_m / m2_per_ha
-                     this%hvars(ih_reproc_si)%r81d(io_si) =                       &
-                          this%hvars(ih_reproc_si)%r81d(io_si)+ ccohort%n *         &
-                          repro_m / m2_per_ha
-                     this%hvars(ih_sapwc_si)%r81d(io_si) =                        &
-                          this%hvars(ih_sapwc_si)%r81d(io_si) + ccohort%n *         &
-                          sapw_m / m2_per_ha
-                     this%hvars(ih_totvegc_si)%r81d(io_si) =                      &
-                          this%hvars(ih_totvegc_si)%r81d(io_si)+ ccohort%n *        &
-                          total_m / m2_per_ha
-
-                     call bstore_allom(ccohort%dbh,ccohort%pft,ccohort%crowndamage,ccohort%canopy_trim, &
-                          store_max)
-
-                     this%hvars(ih_storectfrac_si)%r81d(io_si)  = &
-                          this%hvars(ih_storectfrac_si)%r81d(io_si) + ccohort%n * store_max/m2_per_ha
-
-                     hio_bdead_si(io_si) = hio_bdead_si(io_si)  + n_perm2 * struct_m
-                     hio_balive_si(io_si) = hio_balive_si(io_si) + n_perm2 * alive_m
-
-                     hio_agb_si(io_si) = hio_agb_si(io_si) + n_perm2 *            &
-                          ( leaf_m + (sapw_m + struct_m + store_m) * prt_params%allom_agb_frac(ccohort%pft) )
-
-                     if( hlm_parteh_mode == prt_cnp_flex_allom_hyp) then
-                        this%hvars(ih_l2fr_si)%r81d(io_si) = &
-                             this%hvars(ih_l2fr_si)%r81d(io_si) + &
-                             ccohort%l2fr *ccohort%n * fnrt_m / m2_per_ha
-                     else
-                        this%hvars(ih_l2fr_si)%r81d(io_si) = &
-                             this%hvars(ih_l2fr_si)%r81d(io_si) + &
-                             prt_params%allom_l2fr(ft) *ccohort%n * fnrt_m / m2_per_ha
-                     end if
-
-                  elseif(element_list(el).eq.nitrogen_element)then
-
-                     store_max = ccohort%prt%GetNutrientTarget(element_list(el),store_organ,stoich_growth_min)
-
-                     this%hvars(ih_storen_si)%r81d(io_si)  =                      &
-                          this%hvars(ih_storen_si)%r81d(io_si) + ccohort%n *        &
-                          store_m / m2_per_ha
-                     this%hvars(ih_storentfrac_si)%r81d(io_si)  =                 &
-                          this%hvars(ih_storentfrac_si)%r81d(io_si) + ccohort%n *   &
-                          store_max / m2_per_ha
-                     this%hvars(ih_leafn_si)%r81d(io_si)   =                      &
-                          this%hvars(ih_leafn_si)%r81d(io_si) + ccohort%n *         &
-                          leaf_m / m2_per_ha
-                     this%hvars(ih_fnrtn_si)%r81d(io_si)   =                      &
-                          this%hvars(ih_fnrtn_si)%r81d(io_si) + ccohort%n *         &
-                          fnrt_m / m2_per_ha
-                     this%hvars(ih_repron_si)%r81d(io_si)  =                      &
-                          this%hvars(ih_repron_si)%r81d(io_si) + ccohort%n *        &
-                          repro_m / m2_per_ha
-                     this%hvars(ih_sapwn_si)%r81d(io_si)   =                      &
-                          this%hvars(ih_sapwn_si)%r81d(io_si) + ccohort%n *         &
-                          sapw_m / m2_per_ha
-                     this%hvars(ih_totvegn_si)%r81d(io_si) =                      &
-                          this%hvars(ih_totvegn_si)%r81d(io_si) + ccohort%n *       &
-                          total_m / m2_per_ha
-
-                  elseif(element_list(el).eq.phosphorus_element) then
-
-                     store_max = ccohort%prt%GetNutrientTarget(element_list(el),store_organ,stoich_growth_min)
-
-                     this%hvars(ih_storep_si)%r81d(io_si)  =                      &
-                          this%hvars(ih_storep_si)%r81d(io_si) + ccohort%n *        &
-                          store_m / m2_per_ha
-                     this%hvars(ih_storeptfrac_si)%r81d(io_si)  =                 &
-                          this%hvars(ih_storeptfrac_si)%r81d(io_si) + ccohort%n *   &
-                          store_max / m2_per_ha
-                     this%hvars(ih_leafp_si)%r81d(io_si)   =                      &
-                          this%hvars(ih_leafp_si)%r81d(io_si) + ccohort%n *         &
-                          leaf_m / m2_per_ha
-                     this%hvars(ih_fnrtp_si)%r81d(io_si)   =                      &
-                          this%hvars(ih_fnrtp_si)%r81d(io_si) + ccohort%n *         &
-                          fnrt_m / m2_per_ha
-                     this%hvars(ih_reprop_si)%r81d(io_si)  =                      &
-                          this%hvars(ih_reprop_si)%r81d(io_si) + ccohort%n *        &
-                          repro_m / m2_per_ha
-                     this%hvars(ih_sapwp_si)%r81d(io_si)   =                      &
-                          this%hvars(ih_sapwp_si)%r81d(io_si) + ccohort%n *         &
-                          sapw_m / m2_per_ha
-                     this%hvars(ih_totvegp_si)%r81d(io_si) =                      &
-                          this%hvars(ih_totvegp_si)%r81d(io_si)+ ccohort%n *        &
-                          total_m / m2_per_ha
-                  end if
-               end do elloop
-
-               ! Carbon FLUXES ---
-               ! Flux Variables (cohorts must had experienced a day before any of these values
-               ! have any meaning, otherwise they are just inialization values
-
-               call ccohort%prt%GetBiomass(carbon12_element , &
-                    sapw_m, struct_m, leaf_m, fnrt_m, store_m, repro_m, alive_m, total_m)
-               
-               notnew: if( .not.(ccohort%isnew) ) then
-                  
-                  hio_npp_si(io_si) = hio_npp_si(io_si) + &
-                       ccohort%npp_acc_hold * n_perm2 / days_per_year / sec_per_day
-
-                  hio_growth_resp_si(io_si) =  hio_growth_resp_si(io_si) + &
-                       ccohort%resp_g_acc_hold * n_perm2 / days_per_year / sec_per_day
-
-                  hio_aresp_si(io_si) = hio_aresp_si(io_si) + &
-                       (ccohort%resp_g_acc_hold + ccohort%resp_m_acc_hold) * n_perm2 / days_per_year / sec_per_day  + &
-                       ccohort%resp_excess_hold * n_perm2 / sec_per_day
-
-                  ! Turnover pools [kgC/day] * [day/yr] = [kgC/yr]
-                  sapw_m_turnover   = ccohort%prt%GetTurnover(sapw_organ, carbon12_element) * days_per_year
-                  store_m_turnover  = ccohort%prt%GetTurnover(store_organ, carbon12_element) * days_per_year
-                  leaf_m_turnover   = ccohort%prt%GetTurnover(leaf_organ, carbon12_element) * days_per_year
-                  fnrt_m_turnover   = ccohort%prt%GetTurnover(fnrt_organ, carbon12_element) * days_per_year
-                  struct_m_turnover = ccohort%prt%GetTurnover(struct_organ, carbon12_element) * days_per_year
-
-                  ! Net change from allocation and transport [kgC/day] * [day/yr] = [kgC/yr]
-                  sapw_m_net_alloc   = ccohort%prt%GetNetAlloc(sapw_organ, carbon12_element) * days_per_year
-                  store_m_net_alloc  = ccohort%prt%GetNetAlloc(store_organ, carbon12_element) * days_per_year
-                  leaf_m_net_alloc   = ccohort%prt%GetNetAlloc(leaf_organ, carbon12_element) * days_per_year
-                  fnrt_m_net_alloc   = ccohort%prt%GetNetAlloc(fnrt_organ, carbon12_element) * days_per_year
-                  struct_m_net_alloc = ccohort%prt%GetNetAlloc(struct_organ, carbon12_element) * days_per_year
-                  repro_m_net_alloc  = ccohort%prt%GetNetAlloc(repro_organ, carbon12_element) * days_per_year
-
-                  ! ecosystem-level, organ-partitioned NPP/allocation fluxes
-                  ! [kgC/yr] -> [kgC/sec]
-                  hio_npp_leaf_si(io_si) = hio_npp_leaf_si(io_si) +               &
-                       leaf_m_net_alloc * n_perm2 / days_per_year / sec_per_day
-                  hio_npp_seed_si(io_si) = hio_npp_seed_si(io_si) +               &
-                       repro_m_net_alloc * n_perm2 / days_per_year / sec_per_day
-                  hio_npp_stem_si(io_si) = hio_npp_stem_si(io_si) +               &
-                       (sapw_m_net_alloc + struct_m_net_alloc) * n_perm2 *          &
-                       (prt_params%allom_agb_frac(ccohort%pft)) /                   &
-                       days_per_year / sec_per_day
-                  hio_npp_froot_si(io_si) = hio_npp_froot_si(io_si) +             &
-                       fnrt_m_net_alloc * n_perm2 / days_per_year / sec_per_day
-                  hio_npp_croot_si(io_si) = hio_npp_croot_si(io_si) +             &
-                       (sapw_m_net_alloc + struct_m_net_alloc) * n_perm2 *          &
-                       (1._r8-prt_params%allom_agb_frac(ccohort%pft)) /             &
-                       days_per_year / sec_per_day
-                  hio_npp_stor_si(io_si) = hio_npp_stor_si(io_si) +               &
-                       store_m_net_alloc * n_perm2 / days_per_year / sec_per_day
-
-                  leaf_herbivory   = ccohort%prt%GetHerbivory(leaf_organ, carbon12_element) * days_per_year  !cdkcdk
-                  hio_grazing_si(io_si) = hio_grazing_si(io_si) + leaf_herbivory * n_perm2 / days_per_year / sec_per_day
-
-                  ! Woody State Variables (basal area growth increment)
-                  if ( prt_params%woody(ft) == itrue) then
-
-                     cohort_ba = 0.25_r8*pi_const*((ccohort%dbh/100.0_r8)**2.0_r8)*ccohort%n
-
-                     hio_ba_weighted_height_si(io_si) = hio_ba_weighted_height_si(io_si) + &
-                          ccohort%height * cohort_ba
-
-                     site_ba = site_ba + cohort_ba
-
-                  end if
-
-                  ! THIS NEEDS TO BE NORMALIZED
-                  hio_ca_weighted_height_si(io_si) = hio_ca_weighted_height_si(io_si) + &
-                       ccohort%height * ccohort%c_area / m2_per_ha
-
-                  site_ca = site_ca + ccohort%c_area / m2_per_ha
-
-                  
-                  ! Mortality Carbon Flux by layer
-                  ! ----------------------------------------------------------------------------------
-                  if (ccohort%canopy_layer .eq. 1) then
-
-                     hio_canopy_mortality_carbonflux_si(io_si) = hio_canopy_mortality_carbonflux_si(io_si) + &
-                          ccohort%SumMortForHistory(per_year = .false.) * total_m * ccohort%n * ha_per_m2
-
-                     hio_canopy_mortality_crownarea_si(io_si) = hio_canopy_mortality_crownarea_si(io_si) + &
-                          ccohort%SumMortForHistory(per_year = .true.) * ccohort%c_area
-
-                  else
-
-                     hio_ustory_mortality_carbonflux_si(io_si) = hio_ustory_mortality_carbonflux_si(io_si) + &
-                          ccohort%SumMortForHistory(per_year = .false.) * total_m * ccohort%n * ha_per_m2
-
-                     hio_ustory_mortality_crownarea_si(io_si) = hio_ustory_mortality_crownarea_si(io_si) + &
-                          ccohort%SumMortForHistory(per_year = .true.) * ccohort%c_area
-
-                  end if
-                  
-               end if notnew
-
-               if (ccohort%canopy_layer .eq. 1) then
-                  hio_canopy_biomass_si(io_si) = hio_canopy_biomass_si(io_si) + n_perm2 * total_m
-               else
-                  hio_ustory_biomass_si(io_si) = hio_ustory_biomass_si(io_si) + n_perm2 * total_m
-               end if
-               
-               ccohort => ccohort%taller
-            enddo cohortloop ! cohort loop
-
-            cpatch => cpatch%younger
-         end do patchloop !patch loop
-
-         ! Perform any necessary normalizations
-         ! ----------------------------------------------------------------------------------------
-
-         ! Normalize crown-area weighted height
-         if(site_ca>nearzero)then
-            hio_ca_weighted_height_si(io_si) = hio_ca_weighted_height_si(io_si)/site_ca
-         end if
-
-         ! divide basal-area-weighted height by basal area to get mean
-         if ( site_ba .gt. nearzero ) then
-            hio_ba_weighted_height_si(io_si) = hio_ba_weighted_height_si(io_si)/site_ba
-         endif
-         
-         elloop2: do el = 1, num_elements
-            if( element_list(el).eq.carbon12_element )then
-               if( this%hvars(ih_storectfrac_si)%r81d(io_si)>nearzero ) then
-                  this%hvars(ih_storectfrac_si)%r81d(io_si) = this%hvars(ih_storec_si)%r81d(io_si) / &
-                       this%hvars(ih_storectfrac_si)%r81d(io_si)
-               end if
-            elseif( element_list(el).eq.nitrogen_element )then
-               if( this%hvars(ih_storentfrac_si)%r81d(io_si)>nearzero ) then
-                  this%hvars(ih_storentfrac_si)%r81d(io_si)  = this%hvars(ih_storen_si)%r81d(io_si) / &
-                       this%hvars(ih_storentfrac_si)%r81d(io_si)
-               end if
-            elseif( element_list(el).eq.phosphorus_element )then
-               if( this%hvars(ih_storeptfrac_si)%r81d(io_si)>nearzero ) then
-                  this%hvars(ih_storeptfrac_si)%r81d(io_si) = this%hvars(ih_storep_si)%r81d(io_si) / &
-                       this%hvars(ih_storeptfrac_si)%r81d(io_si)
-               end if
-            end if
-         end do elloop2
-
-
-         if(this%hvars(ih_fnrtc_si)%r81d(io_si)>nearzero)then
-            this%hvars(ih_l2fr_si)%r81d(io_si) = this%hvars(ih_l2fr_si)%r81d(io_si) / &
-                 this%hvars(ih_fnrtc_si)%r81d(io_si)
-         else
-            this%hvars(ih_l2fr_si)%r81d(io_si) = hlm_hio_ignore_val
-         end if
-         
-         ! zero the site-level termination carbon flux variable
-         sites(s)%term_carbonflux_canopy(:,:) = 0._r8
-         sites(s)%term_carbonflux_ustory(:,:) = 0._r8
-         sites(s)%crownarea_canopy_damage = 0._r8
-         sites(s)%crownarea_ustory_damage = 0._r8
-
-      end do siteloop
-
-    end associate
-    return
-  end subroutine update_history_dyn_sitelevel
-
-  ! =========================================================================================
-
-  subroutine update_history_dyn_subsite(this,nc,nsites,sites,bc_in)
-
-    ! ---------------------------------------------------------------------------------
-    ! This subroutine is intended to update all history variables with upfreq ==
-    ! group_dyna_complx (i.e., that have a dimension in addition to that for the site
-    ! level) that do NOT include age class. So, eg., FATES_VEGC_PF is updated here,
-    ! but not FATES_VEGC or FATES_VEGC_APPF.
-    ! ---------------------------------------------------------------------------------
-
-    ! Arguments
-    class(fates_history_interface_type)             :: this
-    integer                 , intent(in)            :: nc   ! clump index
-    integer                 , intent(in)            :: nsites
-    type(ed_site_type)      , intent(inout), target :: sites(nsites)
-    type(bc_in_type)        , intent(in)            :: bc_in(nsites)
-
-    type(fates_cohort_type), pointer :: ccohort
-    type(fates_patch_type),  pointer :: cpatch
-    type(litter_type), pointer :: litt_c   ! Pointer to the carbon12 litter pool
-    type(litter_type), pointer :: litt     ! Generic pointer to any litter pool
-    integer  :: s                  ! site counter
-    integer  :: ipa2           ! patch index matching host model array space
-    integer  :: io_si              ! site's index in the history output array space
-    integer  :: el                 ! element index
-    integer  :: ft                 ! pft index
-    real(r8) :: site_ba            ! Site basal area used for weighting
-    integer  :: model_day_int      ! Integer model day since simulation start
-    real(r8) :: store_max          ! Maximum storage capacity for carbon and nutrients
-    real(r8) :: sapw_m             ! Sapwood mass (elemental, c,n or p) [kg/plant]
-    real(r8) :: struct_m           ! Structural mass ""
-    real(r8) :: leaf_m             ! Leaf mass ""
-    real(r8) :: fnrt_m             ! Fineroot mass ""
-    real(r8) :: store_m            ! Storage mass ""
-    real(r8) :: alive_m            ! Alive biomass (sap+leaf+fineroot+repro+storage) ""
-    real(r8) :: total_m            ! Total vegetation mass
-    real(r8) :: repro_m            ! Total reproductive mass (on plant) ""
-    real(r8) :: sapw_m_turnover    ! sapwood turnover rate [kg/yr]
-    real(r8) :: store_m_turnover   ! storage turnover rate [kg/yr]
-    real(r8) :: leaf_m_turnover    ! leaf turnover rate [kg/yr]
-    real(r8) :: fnrt_m_turnover    ! fine-root turnover rate [kg/yr]
-    real(r8) :: struct_m_turnover  ! structural turnover rate [kg/yr]
-    real(r8) :: sapw_m_net_alloc   ! mass allocated to sapwood [kg/yr]
-    real(r8) :: store_m_net_alloc  ! mass allocated to storage [kg/yr]
-    real(r8) :: leaf_m_net_alloc   ! mass allocated to leaf [kg/yr]
-    real(r8) :: fnrt_m_net_alloc   ! mass allocated to fine-root [kg/yr]
-    real(r8) :: struct_m_net_alloc ! mass allocated to structure [kg/yr]
-    real(r8) :: repro_m_net_alloc  ! mass allocated to reproduction [kg/yr]
-    real(r8) :: n_perm2            ! abundance per m2
-    integer  :: iscag_anthrodist  ! what is the equivalent age class for
-                                  ! time-since-anthropogenic-disturbance of secondary forest
-    real(r8) :: patch_fracarea  ! Fraction of area for this patch
-    real(r8) :: frac_canopy_in_bin  ! fraction of a leaf's canopy that is within a given height bin
-    real(r8) :: binbottom,bintop    ! edges of height bins
-    integer  :: height_bin_max, height_bin_min   ! which height bin a given cohort's canopy is in
-    integer  :: ican, ileaf, cnlf_indx  ! iterators for leaf and canopy level
-    integer  :: elcwd, i_cwd            ! combined index of element and pft or cwd
-    integer  :: i_scpf,i_pft,i_scls     ! iterators for scpf, pft, and scls dims
-    integer  :: i_cacls, i_capf      ! iterators for cohort age and cohort age x pft
-    integer  :: i_fuel            ! iterators for fuel dims
-    integer  :: i_heightbin  ! iterator for height bins
-    integer  :: ilyr      ! Soil index for nlevsoil
-    integer  :: icdpf, icdsc, icdam ! iterators for the crown damage level
-    real(r8) :: gpp_cached    ! gpp from previous timestep, for c13 discrimination
-    real(r8) :: crown_depth   ! Depth of the crown [m]
-    real(r8) :: gpp_cached_scpf(numpft*nlevsclass)  ! variable used to cache gpp value in previous time step; for C13 discrimination
-    real(r8) :: storen_canopy_scpf(numpft*nlevsclass)
-    real(r8) :: storen_understory_scpf(numpft*nlevsclass)
-    real(r8) :: storep_canopy_scpf(numpft*nlevsclass)
-    real(r8) :: storep_understory_scpf(numpft*nlevsclass)
-    real(r8) :: storec_canopy_scpf(numpft*nlevsclass)
-    real(r8) :: storec_understory_scpf(numpft*nlevsclass)
-    real(r8) :: a_sapw ! sapwood area [m^2]
-    real(r8) :: c_sapw ! sapwood biomass [kgC]
-
-    integer  :: i_dist, j_dist
-
-    type(elem_diag_type), pointer :: elflux_diags
-    type(elem_diag_type), pointer :: elflux_diags_c
-
-
-    real(r8), parameter :: reallytalltrees = 1000.   ! some large number (m)
-
-    associate( hio_biomass_si_pft      => this%hvars(ih_biomass_si_pft)%r82d, &
-         hio_leafbiomass_si_pft  => this%hvars(ih_leafbiomass_si_pft)%r82d, &
-         hio_lai_si_pft  => this%hvars(ih_lai_si_pft)%r82d, &         
-         hio_storebiomass_si_pft => this%hvars(ih_storebiomass_si_pft)%r82d, &
-         hio_nindivs_si_pft      => this%hvars(ih_nindivs_si_pft)%r82d, &
-         hio_recruitment_si_pft  => this%hvars(ih_recruitment_si_pft)%r82d, &
-         hio_recruitment_cflux_si_pft  => this%hvars(ih_recruitment_cflux_si_pft)%r82d, &
-         hio_seeds_out_gc_si_pft => this%hvars(ih_seeds_out_gc_si_pft)%r82d, &
-         hio_seeds_in_gc_si_pft  => this%hvars(ih_seeds_in_gc_si_pft)%r82d, &
-         hio_mortality_si_pft    => this%hvars(ih_mortality_si_pft)%r82d, &
-         hio_mortality_carbonflux_si_pft  => this%hvars(ih_mortality_carbonflux_si_pft)%r82d, &
-         hio_cstarvmortality_carbonflux_si_pft  => this%hvars(ih_cstarvmortality_carbonflux_si_pft)%r82d, &
-         hio_hydraulicmortality_carbonflux_si_pft  => this%hvars(ih_hydraulicmortality_carbonflux_si_pft)%r82d, &
-         hio_firemortality_carbonflux_si_pft  => this%hvars(ih_firemortality_carbonflux_si_pft)%r82d, &
-         hio_backgroundmortality_carbonflux_si_pft  => this%hvars(ih_backgroundmortality_carbonflux_si_pft)%r82d, &
-         hio_senescencemortality_carbonflux_si_pft  => this%hvars(ih_senescencemortality_carbonflux_si_pft)%r82d, &
-         hio_crownarea_si_pft    => this%hvars(ih_crownarea_si_pft)%r82d, &
-         hio_canopycrownarea_si_pft  => this%hvars(ih_canopycrownarea_si_pft)%r82d, &
-         hio_gpp_si_pft  => this%hvars(ih_gpp_si_pft)%r82d, &
-         hio_npp_si_pft  => this%hvars(ih_npp_si_pft)%r82d, &
-         hio_fragmentation_scaler_sl  => this%hvars(ih_fragmentation_scaler_sl)%r82d,  &
-         hio_litter_in_elem      => this%hvars(ih_litter_in_elem)%r82d, &
-         hio_litter_out_elem     => this%hvars(ih_litter_out_elem)%r82d, &
-         hio_seed_bank_elem      => this%hvars(ih_seed_bank_elem)%r82d, &
-         hio_seeds_in_local_elem => this%hvars(ih_seeds_in_local_elem)%r82d, &
-         hio_seed_in_extern_elem => this%hvars(ih_seeds_in_extern_elem)%r82d, &
-         hio_seed_decay_elem     => this%hvars(ih_seed_decay_elem)%r82d, &
-         hio_seed_germ_elem      => this%hvars(ih_seed_germ_elem)%r82d, &
-         hio_gpp_si_scpf         => this%hvars(ih_gpp_si_scpf)%r82d, &
-         hio_npp_totl_si_scpf    => this%hvars(ih_npp_totl_si_scpf)%r82d, &
-         hio_npp_leaf_si_scpf    => this%hvars(ih_npp_leaf_si_scpf)%r82d, &
-         hio_npp_seed_si_scpf    => this%hvars(ih_npp_seed_si_scpf)%r82d, &
-         hio_npp_fnrt_si_scpf    => this%hvars(ih_npp_fnrt_si_scpf)%r82d, &
-         hio_npp_bgsw_si_scpf    => this%hvars(ih_npp_bgsw_si_scpf)%r82d, &
-         hio_npp_bgdw_si_scpf    => this%hvars(ih_npp_bgdw_si_scpf)%r82d, &
-         hio_npp_agsw_si_scpf    => this%hvars(ih_npp_agsw_si_scpf)%r82d, &
-         hio_npp_agdw_si_scpf    => this%hvars(ih_npp_agdw_si_scpf)%r82d, &
-         hio_npp_stor_si_scpf    => this%hvars(ih_npp_stor_si_scpf)%r82d, &
-         hio_bstor_canopy_si_scpf      => this%hvars(ih_bstor_canopy_si_scpf)%r82d, &
-         hio_bstor_understory_si_scpf  => this%hvars(ih_bstor_understory_si_scpf)%r82d, &
-         hio_bleaf_canopy_si_scpf      => this%hvars(ih_bleaf_canopy_si_scpf)%r82d, &
-         hio_bleaf_understory_si_scpf  => this%hvars(ih_bleaf_understory_si_scpf)%r82d, &
-         hio_lai_canopy_si_scpf        => this%hvars(ih_lai_canopy_si_scpf)%r82d, &
-         hio_lai_understory_si_scpf    => this%hvars(ih_lai_understory_si_scpf)%r82d, &
-         hio_crownarea_canopy_si_scpf     => this%hvars(ih_crownarea_canopy_si_scpf)%r82d, &
-         hio_crownarea_understory_si_scpf => this%hvars(ih_crownarea_understory_si_scpf)%r82d, &
-         hio_mortality_canopy_si_scpf         => this%hvars(ih_mortality_canopy_si_scpf)%r82d, &
-         hio_mortality_canopy_secondary_si_scls      => this%hvars(ih_mortality_canopy_secondary_si_scls)%r82d, &
-         hio_mortality_understory_si_scpf     => this%hvars(ih_mortality_understory_si_scpf)%r82d, &
-         hio_m3_mortality_canopy_si_scpf      => this%hvars(ih_m3_mortality_canopy_si_scpf)%r82d, &
-         hio_m3_mortality_understory_si_scpf  => this%hvars(ih_m3_mortality_understory_si_scpf)%r82d, &
-         hio_m3_mortality_canopy_si_scls    => this%hvars(ih_m3_mortality_canopy_si_scls)%r82d, &
-         hio_m3_mortality_understory_si_scls => this%hvars(ih_m3_mortality_understory_si_scls)%r82d, &
-         hio_nplant_canopy_si_scpf     => this%hvars(ih_nplant_canopy_si_scpf)%r82d, &
-         hio_nplant_understory_si_scpf => this%hvars(ih_nplant_understory_si_scpf)%r82d, &
-         hio_ddbh_canopy_si_scpf       => this%hvars(ih_ddbh_canopy_si_scpf)%r82d, &
-         hio_ddbh_understory_si_scpf   => this%hvars(ih_ddbh_understory_si_scpf)%r82d, &
-         hio_ddbh_canopy_si_scls       => this%hvars(ih_ddbh_canopy_si_scls)%r82d, &
-         hio_ddbh_understory_si_scls   => this%hvars(ih_ddbh_understory_si_scls)%r82d, &
-         hio_gpp_canopy_si_scpf        => this%hvars(ih_gpp_canopy_si_scpf)%r82d, &
-         hio_gpp_understory_si_scpf    => this%hvars(ih_gpp_understory_si_scpf)%r82d, &
-         hio_ar_canopy_si_scpf         => this%hvars(ih_ar_canopy_si_scpf)%r82d, &
-         hio_ar_understory_si_scpf     => this%hvars(ih_ar_understory_si_scpf)%r82d, &
-         hio_ddbh_si_scpf        => this%hvars(ih_ddbh_si_scpf)%r82d, &
-         hio_growthflux_si_scpf        => this%hvars(ih_growthflux_si_scpf)%r82d, &
-         hio_growthflux_fusion_si_scpf        => this%hvars(ih_growthflux_fusion_si_scpf)%r82d, &
-         hio_ba_si_scpf          => this%hvars(ih_ba_si_scpf)%r82d, &
-         hio_agb_si_scpf         => this%hvars(ih_agb_si_scpf)%r82d, &
-         hio_nplant_si_scpf      => this%hvars(ih_nplant_si_scpf)%r82d, &
-         hio_nplant_si_capf      => this%hvars(ih_nplant_si_capf)%r82d, &
-         hio_m1_si_scpf          => this%hvars(ih_m1_si_scpf)%r82d, &
-         hio_m2_si_scpf          => this%hvars(ih_m2_si_scpf)%r82d, &
-         hio_m3_si_scpf          => this%hvars(ih_m3_si_scpf)%r82d, &
-         hio_m4_si_scpf          => this%hvars(ih_m4_si_scpf)%r82d, &
-         hio_m5_si_scpf          => this%hvars(ih_m5_si_scpf)%r82d, &
-         hio_m6_si_scpf          => this%hvars(ih_m6_si_scpf)%r82d, &
-         hio_m7_si_scpf          => this%hvars(ih_m7_si_scpf)%r82d, &
-         hio_m8_si_scpf          => this%hvars(ih_m8_si_scpf)%r82d, &
-         hio_m9_si_scpf          => this%hvars(ih_m9_si_scpf)%r82d, &
-         hio_m10_si_scpf         => this%hvars(ih_m10_si_scpf)%r82d, &
-         hio_m12_si_scpf         => this%hvars(ih_m12_si_scpf)%r82d, &
-         hio_m10_si_capf         => this%hvars(ih_m10_si_capf)%r82d, &
-         hio_nonrx_crown_mort_si_scpf  => this%hvars(ih_nonrx_crown_mort_si_scpf)%r82d, &
-         hio_nonrx_cambial_mort_si_scpf => this%hvars(ih_nonrx_cambial_mort_si_scpf)%r82d, &
-         hio_rx_crown_mort_si_scpf   => this%hvars(ih_rx_crown_mort_si_scpf)%r82d, &
-         hio_rx_cambial_mort_si_scpf => this%hvars(ih_rx_cambial_mort_si_scpf)%r82d, &
-         hio_abg_mortality_cflux_si_scpf    => this%hvars(ih_abg_mortality_cflux_si_scpf)%r82d, &
-         hio_abg_productivity_cflux_si_scpf => this%hvars(ih_abg_productivity_cflux_si_scpf)%r82d, &
-         hio_burn_flux_elem    => this%hvars(ih_burn_flux_elem)%r82d, &
-         hio_m1_si_scls          => this%hvars(ih_m1_si_scls)%r82d, &
-         hio_m2_si_scls          => this%hvars(ih_m2_si_scls)%r82d, &
-         hio_m3_si_scls          => this%hvars(ih_m3_si_scls)%r82d, &
-         hio_m4_si_scls          => this%hvars(ih_m4_si_scls)%r82d, &
-         hio_m5_si_scls          => this%hvars(ih_m5_si_scls)%r82d, &
-         hio_m6_si_scls          => this%hvars(ih_m6_si_scls)%r82d, &
-         hio_m7_si_scls          => this%hvars(ih_m7_si_scls)%r82d, &
-         hio_m8_si_scls          => this%hvars(ih_m8_si_scls)%r82d, &
-         hio_m9_si_scls          => this%hvars(ih_m9_si_scls)%r82d, &
-         hio_m10_si_scls         => this%hvars(ih_m10_si_scls)%r82d, &
-         hio_m10_si_cacls        => this%hvars(ih_m10_si_cacls)%r82d, &
-         hio_m12_si_scls         => this%hvars(ih_m12_si_scls)%r82d)
-
-      ! Break up associates for NAG compilers
-      associate(hio_c13disc_si_scpf     => this%hvars(ih_c13disc_si_scpf)%r82d, &
-           hio_cwd_elcwd           => this%hvars(ih_cwd_elcwd)%r82d, &
-           hio_cwd_ag_elem         => this%hvars(ih_cwd_ag_elem)%r82d, &
-           hio_cwd_bg_elem         => this%hvars(ih_cwd_bg_elem)%r82d, &
-           hio_fines_ag_elem       => this%hvars(ih_fines_ag_elem)%r82d, &
-           hio_fines_bg_elem       => this%hvars(ih_fines_bg_elem)%r82d, &
-           hio_ba_si_scls          => this%hvars(ih_ba_si_scls)%r82d, &
-           hio_agb_si_scls          => this%hvars(ih_agb_si_scls)%r82d, &
-           hio_biomass_si_scls          => this%hvars(ih_biomass_si_scls)%r82d, &
-           hio_nplant_si_scls         => this%hvars(ih_nplant_si_scls)%r82d, &
-           hio_nplant_si_cacls        => this%hvars(ih_nplant_si_cacls)%r82d, &
-           hio_nplant_canopy_si_scls         => this%hvars(ih_nplant_canopy_si_scls)%r82d, &
-           hio_nplant_understory_si_scls     => this%hvars(ih_nplant_understory_si_scls)%r82d, &
-           hio_lai_canopy_si_scls         => this%hvars(ih_lai_canopy_si_scls)%r82d, &
-           hio_lai_understory_si_scls     => this%hvars(ih_lai_understory_si_scls)%r82d, &
-           hio_sai_canopy_si_scls         => this%hvars(ih_sai_canopy_si_scls)%r82d, &
-           hio_sai_understory_si_scls     => this%hvars(ih_sai_understory_si_scls)%r82d, &
-           hio_mortality_canopy_si_scls      => this%hvars(ih_mortality_canopy_si_scls)%r82d, &
-           hio_mortality_understory_si_scls  => this%hvars(ih_mortality_understory_si_scls)%r82d, &
-           hio_demotion_rate_si_scls         => this%hvars(ih_demotion_rate_si_scls)%r82d, &
-           hio_promotion_rate_si_scls        => this%hvars(ih_promotion_rate_si_scls)%r82d, &
-           hio_trimming_canopy_si_scls         => this%hvars(ih_trimming_canopy_si_scls)%r82d, &
-           hio_trimming_understory_si_scls     => this%hvars(ih_trimming_understory_si_scls)%r82d, &
-           hio_crown_fracarea_canopy_si_scls   => this%hvars(ih_crown_fracarea_canopy_si_scls)%r82d, &
-           hio_crown_fracarea_understory_si_scls => this%hvars(ih_crown_fracarea_understory_si_scls)%r82d, &
-           hio_leaf_md_canopy_si_scls           => this%hvars(ih_leaf_md_canopy_si_scls)%r82d, &
-           hio_root_md_canopy_si_scls           => this%hvars(ih_root_md_canopy_si_scls)%r82d, &
-           hio_carbon_balance_canopy_si_scls    => this%hvars(ih_carbon_balance_canopy_si_scls)%r82d, &
-           hio_bsw_md_canopy_si_scls            => this%hvars(ih_bsw_md_canopy_si_scls)%r82d, &
-           hio_bdead_md_canopy_si_scls          => this%hvars(ih_bdead_md_canopy_si_scls)%r82d, &
-           hio_bstore_md_canopy_si_scls         => this%hvars(ih_bstore_md_canopy_si_scls)%r82d, &
-           hio_seed_prod_canopy_si_scls         => this%hvars(ih_seed_prod_canopy_si_scls)%r82d, &
-           hio_npp_leaf_canopy_si_scls          => this%hvars(ih_npp_leaf_canopy_si_scls)%r82d, &
-           hio_npp_fnrt_canopy_si_scls         => this%hvars(ih_npp_fnrt_canopy_si_scls)%r82d, &
-           hio_npp_sapw_canopy_si_scls           => this%hvars(ih_npp_sapw_canopy_si_scls)%r82d, &
-           hio_npp_dead_canopy_si_scls         => this%hvars(ih_npp_dead_canopy_si_scls)%r82d, &
-           hio_npp_seed_canopy_si_scls         => this%hvars(ih_npp_seed_canopy_si_scls)%r82d, &
-           hio_npp_stor_canopy_si_scls         => this%hvars(ih_npp_stor_canopy_si_scls)%r82d, &
-           hio_leaf_md_understory_si_scls       => this%hvars(ih_leaf_md_understory_si_scls)%r82d, &
-           hio_root_md_understory_si_scls       => this%hvars(ih_root_md_understory_si_scls)%r82d, &
-           hio_carbon_balance_understory_si_scls=> this%hvars(ih_carbon_balance_understory_si_scls)%r82d, &
-           hio_bstore_md_understory_si_scls     => this%hvars(ih_bstore_md_understory_si_scls)%r82d, &
-           hio_bsw_md_understory_si_scls        => this%hvars(ih_bsw_md_understory_si_scls)%r82d, &
-           hio_bdead_md_understory_si_scls      => this%hvars(ih_bdead_md_understory_si_scls)%r82d, &
-           hio_seed_prod_understory_si_scls     => this%hvars(ih_seed_prod_understory_si_scls)%r82d, &
-           hio_npp_leaf_understory_si_scls      => this%hvars(ih_npp_leaf_understory_si_scls)%r82d, &
-           hio_npp_fnrt_understory_si_scls     => this%hvars(ih_npp_fnrt_understory_si_scls)%r82d, &
-           hio_npp_sapw_understory_si_scls       => this%hvars(ih_npp_sapw_understory_si_scls)%r82d, &
-           hio_npp_dead_understory_si_scls     => this%hvars(ih_npp_dead_understory_si_scls)%r82d, &
-           hio_npp_seed_understory_si_scls     => this%hvars(ih_npp_seed_understory_si_scls)%r82d, &
-           hio_npp_stor_understory_si_scls     => this%hvars(ih_npp_stor_understory_si_scls)%r82d, &
-           hio_yesterdaycanopylevel_canopy_si_scls     => this%hvars(ih_yesterdaycanopylevel_canopy_si_scls)%r82d, &
-           hio_yesterdaycanopylevel_understory_si_scls => this%hvars(ih_yesterdaycanopylevel_understory_si_scls)%r82d, &
-           hio_fracarea_si         => this%hvars(ih_fracarea_si)%r81d, &
-           hio_canopy_fracarea_si  => this%hvars(ih_canopy_fracarea_si)%r81d, &
-           hio_agesince_anthrodist_si     => this%hvars(ih_agesince_anthrodist_si)%r81d, &
-           hio_primarylands_fracarea_si => this%hvars(ih_primarylands_fracarea_si)%r81d, &
-           hio_secondarylands_fracarea_si => this%hvars(ih_secondarylands_fracarea_si)%r81d, &
-           hio_fracarea_si_landuse     => this%hvars(ih_fracarea_si_landuse)%r82d, &
-           hio_npp_si_landuse                 => this%hvars(ih_npp_si_landuse)%r82d, &
-           hio_biomass_si_landuse            => this%hvars(ih_biomass_si_landuse)%r82d, &
-           hio_burnedarea_si_landuse         => this%hvars(ih_burnedarea_si_landuse)%r82d, &
-           hio_burnt_frac_litter_si_fuel      => this%hvars(ih_burnt_frac_litter_si_fuel)%r82d, &
-           hio_fuel_amount_si_fuel            => this%hvars(ih_fuel_amount_si_fuel)%r82d, &
-           hio_canopy_height_dist_si_height   => this%hvars(ih_canopy_height_dist_si_height)%r82d, &
-           hio_leaf_height_dist_si_height     => this%hvars(ih_leaf_height_dist_si_height)%r82d, &
-           hio_litter_moisture_si_fuel        => this%hvars(ih_litter_moisture_si_fuel)%r82d, &
-           hio_cwd_ag_si_cwdsc                  => this%hvars(ih_cwd_ag_si_cwdsc)%r82d, &
-           hio_cwd_bg_si_cwdsc                  => this%hvars(ih_cwd_bg_si_cwdsc)%r82d, &
-           hio_cwd_ag_in_si_cwdsc               => this%hvars(ih_cwd_ag_in_si_cwdsc)%r82d, &
-           hio_cwd_bg_in_si_cwdsc               => this%hvars(ih_cwd_bg_in_si_cwdsc)%r82d, &
-           hio_cwd_ag_out_si_cwdsc              => this%hvars(ih_cwd_ag_out_si_cwdsc)%r82d, &
-           hio_cwd_bg_out_si_cwdsc              => this%hvars(ih_cwd_bg_out_si_cwdsc)%r82d, &
-           hio_crownarea_si_cnlf                => this%hvars(ih_crownarea_si_cnlf)%r82d, &
-           hio_crownarea_cl                     => this%hvars(ih_crownarea_cl)%r82d)
-    associate( hio_npatches_si         => this%hvars(ih_npatches_si)%r81d, &
                hio_npatches_sec_si     => this%hvars(ih_npatches_sec_si)%r81d, &
                hio_ncohorts_si         => this%hvars(ih_ncohorts_si)%r81d, &
                hio_ncohorts_sec_si     => this%hvars(ih_ncohorts_sec_si)%r81d, &
@@ -3371,7 +2478,7 @@ contains
                hio_fire_fuel_sav_si    => this%hvars(ih_fire_fuel_sav_si)%r81d, &
                hio_fire_fuel_mef_si    => this%hvars(ih_fire_fuel_mef_si)%r81d, &
                hio_fire_emissions_si_em    => this%hvars(ih_fire_emissions_si_emis)%r82d, &
-               hio_fire_emission_height_si  => this%hvars(ih_fire_emission_height_si)%r81d, &
+               hio_fire_emission_height_si    => this%hvars(ih_fire_emission_height_si)%r81d, &
                hio_sum_fuel_si         => this%hvars(ih_sum_fuel_si)%r81d,  &
                hio_fragmentation_scaler_sl  => this%hvars(ih_fragmentation_scaler_sl)%r82d,  &
                hio_litter_in_si        => this%hvars(ih_litter_in_si)%r81d, &
@@ -3450,23 +2557,171 @@ contains
                hio_nplant_si_scpf      => this%hvars(ih_nplant_si_scpf)%r82d, &
                hio_nplant_si_capf      => this%hvars(ih_nplant_si_capf)%r82d, &
 
-        ! Break up associates for NAG compilers
-        associate( hio_site_dstatus_si_pft              => this%hvars(ih_site_dstatus_si_pft)%r82d, &
-             hio_dleafoff_si_pft                  => this%hvars(ih_dleafoff_si_pft)%r82d, &
-             hio_dleafon_si_pft                   => this%hvars(ih_dleafon_si_pft)%r82d, &
-             hio_meanliqvol_si_pft                => this%hvars(ih_meanliqvol_si_pft)%r82d, &
-             hio_meansmp_si_pft                   => this%hvars(ih_meansmp_si_pft)%r82d, &
-             hio_elong_factor_si_pft              => this%hvars(ih_elong_factor_si_pft)%r82d, &
-             hio_seed_bank_si_pft                 => this%hvars(ih_seed_bank_si_pft)%r82d, &
-             hio_ungerm_seed_bank_si_pft          => this%hvars(ih_ungerm_seed_bank_si_pft)%r82d, &
-             hio_seedling_pool_si_pft             => this%hvars(ih_seedling_pool_si_pft)%r82d, &
-             hio_seeds_in_si_pft                  => this%hvars(ih_seeds_in_si_pft)%r82d, &
-             hio_seeds_in_local_si_pft            => this%hvars(ih_seeds_in_local_si_pft)%r82d, &
-             hio_disturbance_rate_si_lulu         => this%hvars(ih_disturbance_rate_si_lulu)%r82d, &
-             hio_cstarvmortality_continuous_carbonflux_si_pft  => this%hvars(ih_cstarvmortality_continuous_carbonflux_si_pft)%r82d, &
-             hio_transition_matrix_si_lulu      => this%hvars(ih_transition_matrix_si_lulu)%r82d, &
-             hio_scorch_height_si_pft           => this%hvars(ih_scorch_height_si_pft)%r82d, &
-             hio_sapwood_area_scpf              => this%hvars(ih_sapwood_area_scpf)%r82d)
+               hio_m1_si_scpf          => this%hvars(ih_m1_si_scpf)%r82d, &
+               hio_m2_si_scpf          => this%hvars(ih_m2_si_scpf)%r82d, &
+               hio_m3_si_scpf          => this%hvars(ih_m3_si_scpf)%r82d, &
+               hio_m4_si_scpf          => this%hvars(ih_m4_si_scpf)%r82d, &
+               hio_m5_si_scpf          => this%hvars(ih_m5_si_scpf)%r82d, &
+               hio_m6_si_scpf          => this%hvars(ih_m6_si_scpf)%r82d, &
+               hio_m7_si_scpf          => this%hvars(ih_m7_si_scpf)%r82d, &
+               hio_m8_si_scpf          => this%hvars(ih_m8_si_scpf)%r82d, &
+               hio_m9_si_scpf          => this%hvars(ih_m9_si_scpf)%r82d, &
+               hio_m10_si_scpf         => this%hvars(ih_m10_si_scpf)%r82d, &
+               hio_m10_si_capf         => this%hvars(ih_m10_si_capf)%r82d, &
+
+               hio_crownfiremort_si_scpf     => this%hvars(ih_crownfiremort_si_scpf)%r82d, &
+               hio_cambialfiremort_si_scpf   => this%hvars(ih_cambialfiremort_si_scpf)%r82d, &
+
+               hio_abg_mortality_cflux_si_scpf    => this%hvars(ih_abg_mortality_cflux_si_scpf)%r82d, &
+               hio_abg_productivity_cflux_si_scpf => this%hvars(ih_abg_productivity_cflux_si_scpf)%r82d, &
+               
+               hio_fire_c_to_atm_si  => this%hvars(ih_fire_c_to_atm_si)%r81d, &
+               hio_burn_flux_elem    => this%hvars(ih_burn_flux_elem)%r82d, &
+
+               hio_m1_si_scls          => this%hvars(ih_m1_si_scls)%r82d, &
+               hio_m2_si_scls          => this%hvars(ih_m2_si_scls)%r82d, &
+               hio_m3_si_scls          => this%hvars(ih_m3_si_scls)%r82d, &
+               hio_m4_si_scls          => this%hvars(ih_m4_si_scls)%r82d, &
+               hio_m5_si_scls          => this%hvars(ih_m5_si_scls)%r82d, &
+               hio_m6_si_scls          => this%hvars(ih_m6_si_scls)%r82d, &
+               hio_m7_si_scls          => this%hvars(ih_m7_si_scls)%r82d, &
+               hio_m8_si_scls          => this%hvars(ih_m8_si_scls)%r82d, &
+               hio_m9_si_scls          => this%hvars(ih_m9_si_scls)%r82d, &
+               hio_m10_si_scls         => this%hvars(ih_m10_si_scls)%r82d, &
+               hio_m10_si_cacls        => this%hvars(ih_m10_si_cacls)%r82d, &
+
+               hio_m1_sec_si_scls      => this%hvars(ih_m1_sec_si_scls)%r82d, &
+               hio_m2_sec_si_scls      => this%hvars(ih_m2_sec_si_scls)%r82d, &
+               hio_m3_sec_si_scls      => this%hvars(ih_m3_sec_si_scls)%r82d, &
+               hio_m7_sec_si_scls      => this%hvars(ih_m7_sec_si_scls)%r82d, &
+               hio_m8_sec_si_scls      => this%hvars(ih_m8_sec_si_scls)%r82d, &
+               hio_m9_sec_si_scls      => this%hvars(ih_m9_sec_si_scls)%r82d, &
+               hio_m10_sec_si_scls     => this%hvars(ih_m10_sec_si_scls)%r82d, &
+
+               hio_c13disc_si_scpf     => this%hvars(ih_c13disc_si_scpf)%r82d, &
+
+               hio_cwd_elcwd           => this%hvars(ih_cwd_elcwd)%r82d, &
+               hio_cwd_ag_elem         => this%hvars(ih_cwd_ag_elem)%r82d, &
+               hio_cwd_bg_elem         => this%hvars(ih_cwd_bg_elem)%r82d, &
+               hio_fines_ag_elem       => this%hvars(ih_fines_ag_elem)%r82d, &
+               hio_fines_bg_elem       => this%hvars(ih_fines_bg_elem)%r82d, &
+               hio_ba_si_scls          => this%hvars(ih_ba_si_scls)%r82d, &
+               hio_agb_si_scls          => this%hvars(ih_agb_si_scls)%r82d, &
+               hio_biomass_si_scls          => this%hvars(ih_biomass_si_scls)%r82d, &
+               hio_nplant_si_scls         => this%hvars(ih_nplant_si_scls)%r82d, &
+               hio_nplant_si_cacls        => this%hvars(ih_nplant_si_cacls)%r82d, &
+               hio_nplant_canopy_si_scls         => this%hvars(ih_nplant_canopy_si_scls)%r82d, &
+               hio_nplant_understory_si_scls     => this%hvars(ih_nplant_understory_si_scls)%r82d, &
+               hio_lai_canopy_si_scls         => this%hvars(ih_lai_canopy_si_scls)%r82d, &
+               hio_lai_understory_si_scls     => this%hvars(ih_lai_understory_si_scls)%r82d, &
+               hio_sai_canopy_si_scls         => this%hvars(ih_sai_canopy_si_scls)%r82d, &
+               hio_sai_understory_si_scls     => this%hvars(ih_sai_understory_si_scls)%r82d, &
+               hio_mortality_canopy_si_scls      => this%hvars(ih_mortality_canopy_si_scls)%r82d, &
+               hio_mortality_understory_si_scls  => this%hvars(ih_mortality_understory_si_scls)%r82d, &
+               hio_demotion_rate_si_scls         => this%hvars(ih_demotion_rate_si_scls)%r82d, &
+               hio_demotion_carbonflux_si        => this%hvars(ih_demotion_carbonflux_si)%r81d, &
+               hio_promotion_rate_si_scls        => this%hvars(ih_promotion_rate_si_scls)%r82d, &
+               hio_trimming_canopy_si_scls         => this%hvars(ih_trimming_canopy_si_scls)%r82d, &
+               hio_trimming_understory_si_scls     => this%hvars(ih_trimming_understory_si_scls)%r82d, &
+               hio_crown_area_canopy_si_scls         => this%hvars(ih_crown_area_canopy_si_scls)%r82d, &
+               hio_crown_area_understory_si_scls     => this%hvars(ih_crown_area_understory_si_scls)%r82d, &
+               hio_promotion_carbonflux_si       => this%hvars(ih_promotion_carbonflux_si)%r81d, &
+               hio_canopy_mortality_carbonflux_si     => this%hvars(ih_canopy_mortality_carbonflux_si)%r81d, &
+               hio_understory_mortality_carbonflux_si => this%hvars(ih_understory_mortality_carbonflux_si)%r81d, &
+               hio_leaf_md_canopy_si_scls           => this%hvars(ih_leaf_md_canopy_si_scls)%r82d, &
+               hio_root_md_canopy_si_scls           => this%hvars(ih_root_md_canopy_si_scls)%r82d, &
+               hio_carbon_balance_canopy_si_scls    => this%hvars(ih_carbon_balance_canopy_si_scls)%r82d, &
+               hio_bsw_md_canopy_si_scls            => this%hvars(ih_bsw_md_canopy_si_scls)%r82d, &
+               hio_bdead_md_canopy_si_scls          => this%hvars(ih_bdead_md_canopy_si_scls)%r82d, &
+               hio_bstore_md_canopy_si_scls         => this%hvars(ih_bstore_md_canopy_si_scls)%r82d, &
+               hio_seed_prod_canopy_si_scls         => this%hvars(ih_seed_prod_canopy_si_scls)%r82d, &
+               hio_npp_leaf_canopy_si_scls          => this%hvars(ih_npp_leaf_canopy_si_scls)%r82d, &
+               hio_npp_fnrt_canopy_si_scls         => this%hvars(ih_npp_fnrt_canopy_si_scls)%r82d, &
+               hio_npp_sapw_canopy_si_scls           => this%hvars(ih_npp_sapw_canopy_si_scls)%r82d, &
+               hio_npp_dead_canopy_si_scls         => this%hvars(ih_npp_dead_canopy_si_scls)%r82d, &
+               hio_npp_seed_canopy_si_scls         => this%hvars(ih_npp_seed_canopy_si_scls)%r82d, &
+               hio_npp_stor_canopy_si_scls         => this%hvars(ih_npp_stor_canopy_si_scls)%r82d, &
+               hio_leaf_md_understory_si_scls       => this%hvars(ih_leaf_md_understory_si_scls)%r82d, &
+               hio_root_md_understory_si_scls       => this%hvars(ih_root_md_understory_si_scls)%r82d, &
+               hio_carbon_balance_understory_si_scls=> this%hvars(ih_carbon_balance_understory_si_scls)%r82d, &
+               hio_bstore_md_understory_si_scls     => this%hvars(ih_bstore_md_understory_si_scls)%r82d, &
+               hio_bsw_md_understory_si_scls        => this%hvars(ih_bsw_md_understory_si_scls)%r82d, &
+               hio_bdead_md_understory_si_scls      => this%hvars(ih_bdead_md_understory_si_scls)%r82d, &
+               hio_seed_prod_understory_si_scls     => this%hvars(ih_seed_prod_understory_si_scls)%r82d, &
+               hio_npp_leaf_understory_si_scls      => this%hvars(ih_npp_leaf_understory_si_scls)%r82d, &
+               hio_npp_fnrt_understory_si_scls     => this%hvars(ih_npp_fnrt_understory_si_scls)%r82d, &
+               hio_npp_sapw_understory_si_scls       => this%hvars(ih_npp_sapw_understory_si_scls)%r82d, &
+               hio_npp_dead_understory_si_scls     => this%hvars(ih_npp_dead_understory_si_scls)%r82d, &
+               hio_npp_seed_understory_si_scls     => this%hvars(ih_npp_seed_understory_si_scls)%r82d, &
+               hio_npp_stor_understory_si_scls     => this%hvars(ih_npp_stor_understory_si_scls)%r82d, &
+               hio_nplant_si_scagpft                => this%hvars(ih_nplant_si_scagpft)%r82d, &
+               hio_npp_si_agepft                    => this%hvars(ih_npp_si_agepft)%r82d, &
+               hio_biomass_si_agepft                => this%hvars(ih_biomass_si_agepft)%r82d, &
+               hio_scorch_height_si_agepft          => this%hvars(ih_scorch_height_si_agepft)%r82d, &
+               hio_yesterdaycanopylevel_canopy_si_scls     => this%hvars(ih_yesterdaycanopylevel_canopy_si_scls)%r82d, &
+               hio_yesterdaycanopylevel_understory_si_scls => this%hvars(ih_yesterdaycanopylevel_understory_si_scls)%r82d, &
+               hio_area_si_age         => this%hvars(ih_area_si_age)%r82d, &
+               hio_area_si_landuse     => this%hvars(ih_area_si_landuse)%r82d, &
+               hio_lai_si_age          => this%hvars(ih_lai_si_age)%r82d, &
+               hio_lai_secondary_si          => this%hvars(ih_lai_secondary_si)%r81d, &
+               hio_canopy_area_si_age  => this%hvars(ih_canopy_area_si_age)%r82d, &
+               hio_ncl_si_age          => this%hvars(ih_ncl_si_age)%r82d, &
+               hio_npatches_si_age     => this%hvars(ih_npatches_si_age)%r82d, &
+               hio_zstar_si_age        => this%hvars(ih_zstar_si_age)%r82d, &
+               hio_biomass_si_age        => this%hvars(ih_biomass_si_age)%r82d, &
+               hio_fraction_secondary_forest_si   => this%hvars(ih_fraction_secondary_forest_si)%r81d, &
+               hio_biomass_secondary_forest_si    => this%hvars(ih_biomass_secondary_forest_si)%r81d, &
+               hio_woodproduct_si                 => this%hvars(ih_woodproduct_si)%r81d, &
+               hio_agesince_anthrodist_si_age     => this%hvars(ih_agesince_anthrodist_si_age)%r82d, &
+               hio_secondarylands_area_si_age    => this%hvars(ih_secondarylands_area_si_age)%r82d, &
+               hio_area_burnt_si_age              => this%hvars(ih_area_burnt_si_age)%r82d, &
+               ! hio_fire_rate_of_spread_front_si_age  => this%hvars(ih_fire_rate_of_spread_front_si_age)%r82d, &
+               hio_fire_intensity_si_age          => this%hvars(ih_fire_intensity_si_age)%r82d, &
+               hio_fire_sum_fuel_si_age           => this%hvars(ih_fire_sum_fuel_si_age)%r82d, &
+               hio_burnt_frac_litter_si_fuel      => this%hvars(ih_burnt_frac_litter_si_fuel)%r82d, &
+               hio_fuel_amount_si_fuel            => this%hvars(ih_fuel_amount_si_fuel)%r82d, &
+               hio_fuel_amount_age_fuel            => this%hvars(ih_fuel_amount_age_fuel)%r82d, &
+               hio_canopy_height_dist_si_height   => this%hvars(ih_canopy_height_dist_si_height)%r82d, &
+               hio_leaf_height_dist_si_height     => this%hvars(ih_leaf_height_dist_si_height)%r82d, &
+               hio_litter_moisture_si_fuel        => this%hvars(ih_litter_moisture_si_fuel)%r82d, &
+               hio_cwd_ag_si_cwdsc                  => this%hvars(ih_cwd_ag_si_cwdsc)%r82d, &
+               hio_cwd_bg_si_cwdsc                  => this%hvars(ih_cwd_bg_si_cwdsc)%r82d, &
+               hio_cwd_ag_in_si_cwdsc               => this%hvars(ih_cwd_ag_in_si_cwdsc)%r82d, &
+               hio_cwd_bg_in_si_cwdsc               => this%hvars(ih_cwd_bg_in_si_cwdsc)%r82d, &
+               hio_cwd_ag_out_si_cwdsc              => this%hvars(ih_cwd_ag_out_si_cwdsc)%r82d, &
+               hio_cwd_bg_out_si_cwdsc              => this%hvars(ih_cwd_bg_out_si_cwdsc)%r82d, &
+               hio_crownarea_si_cnlf                => this%hvars(ih_crownarea_si_cnlf)%r82d, &
+               hio_crownarea_si_can                 => this%hvars(ih_crownarea_si_can)%r82d, &
+               hio_ddbh_canopy_si_scag              => this%hvars(ih_ddbh_canopy_si_scag)%r82d, &
+               hio_ddbh_understory_si_scag          => this%hvars(ih_ddbh_understory_si_scag)%r82d, &
+               hio_mortality_canopy_si_scag         => this%hvars(ih_mortality_canopy_si_scag)%r82d, &
+               hio_mortality_understory_si_scag     => this%hvars(ih_mortality_understory_si_scag)%r82d )
+
+    ! Split up the associate statement as the nag compiler has a limit on line continuation  
+    associate( hio_gdd_si                           => this%hvars(ih_gdd_si)%r81d, &
+               hio_site_ncolddays_si                => this%hvars(ih_site_ncolddays_si)%r81d, &
+               hio_site_nchilldays_si               => this%hvars(ih_site_nchilldays_si)%r81d, &
+               hio_site_cstatus_si                  => this%hvars(ih_site_cstatus_si)%r81d, &
+               hio_cleafoff_si                      => this%hvars(ih_cleafoff_si)%r81d, &
+               hio_cleafon_si                       => this%hvars(ih_cleafon_si)%r81d, &
+               hio_site_dstatus_si_pft              => this%hvars(ih_site_dstatus_si_pft)%r82d, &
+               hio_dleafoff_si_pft                  => this%hvars(ih_dleafoff_si_pft)%r82d, &
+               hio_dleafon_si_pft                   => this%hvars(ih_dleafon_si_pft)%r82d, &
+               hio_meanliqvol_si_pft                => this%hvars(ih_meanliqvol_si_pft)%r82d, &
+               hio_meansmp_si_pft                   => this%hvars(ih_meansmp_si_pft)%r82d, &
+               hio_elong_factor_si_pft              => this%hvars(ih_elong_factor_si_pft)%r82d, &
+               hio_tveg24                           => this%hvars(ih_tveg24_si)%r81d, &
+               hio_tlongterm                           => this%hvars(ih_tlongterm_si)%r81d, &
+               hio_tgrowth                          => this%hvars(ih_tgrowth_si)%r81d, &
+               hio_cbal_err_fates_si                => this%hvars(ih_cbal_err_fates_si)%r81d, &
+               hio_err_fates_si                     => this%hvars(ih_err_fates_si)%r82d, &
+               hio_nplant_si_scag                   => this%hvars(ih_nplant_si_scag)%r82d, &
+               hio_nplant_canopy_si_scag            => this%hvars(ih_nplant_canopy_si_scag)%r82d, &
+               hio_nplant_understory_si_scag        => this%hvars(ih_nplant_understory_si_scag)%r82d, &
+               hio_lai_si                           => this%hvars(ih_lai_si)%r81d )
+
+   ! If we don't have dynamics turned on, we just abort these diagnostics
+   if (hlm_use_ed_st3.eq.itrue) return
 
           model_day_int = nint(hlm_model_day)
 
