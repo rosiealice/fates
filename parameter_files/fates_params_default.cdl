@@ -1609,9 +1609,9 @@ data:
 
  fates_landuse_grazing_rate = 0.007, 0, 0.02, 0.02, 0.02 ;
 
- fates_max_nocomp_pfts_by_landuse = 4, 4, 1, 1, 1 ;
+ fates_max_nocomp_pfts_by_landuse = 4, 4, 2, 2, 1 ;
 
- fates_maxpatches_by_landuse = 9, 4, 1, 1, 1 ;
+ fates_maxpatches_by_landuse = 9, 4, 2, 2, 1 ;
 
  fates_alloc_organ_name =
   "leaf",
