@@ -22,7 +22,7 @@ module FatesPatchMod
   use PRTParametersMod,       only : prt_params
   use FatesConstantsMod,      only : nocomp_bareground
   use EDParamsMod,            only : nlevleaf, nclmax, maxpft,max_cohort_per_patch
-  use EDParamsMod,         only : num_emission_compounds
+  use EDParamsMod, only : num_emission_compounds
   use FatesConstantsMod,      only : n_dbh_bins, n_dist_types
   use FatesConstantsMod,      only : t_water_freeze_k_1atm
   use FatesRunningMeanMod,    only : ema_24hr, fixed_24hr, ema_lpa, ema_longterm
@@ -35,35 +35,6 @@ module FatesPatchMod
   use FatesInterfaceTypesMod, only : numpft
   use shr_infnan_mod,         only : nan => shr_infnan_nan, assignment(=)
   use shr_log_mod,            only : errMsg => shr_log_errMsg
-  use FatesConstantsMod,   only : r8 => fates_r8
-  use FatesConstantsMod,   only : fates_unset_r8
-  use FatesConstantsMod,   only : fates_unset_int
-  use FatesConstantsMod,   only : primaryland, secondaryland
-  use FatesConstantsMod,   only : n_landuse_cats
-  use FatesConstantsMod,   only : TRS_regeneration
-  use FatesGlobals,        only : fates_log
-  use FatesGlobals,        only : endrun => fates_endrun
-  use FatesUtilsMod,       only : check_hlm_list
-  use FatesUtilsMod,       only : check_var_real
-  use FatesCohortMod,      only : fates_cohort_type
-  use FatesRunningMeanMod, only : rmean_type, rmean_arr_type
-  use FatesLitterMod,      only : nfsc
-  use FatesLitterMod,      only : litter_type
-  use PRTGenericMod,       only : num_elements
-  use PRTGenericMod,       only : element_list
-  use EDParamsMod,         only : nlevleaf, nclmax, maxpft
-  use EDParamsMod,         only : num_emission_compounds
-  use FatesConstantsMod,   only : n_dbh_bins, n_dist_types
-  use FatesConstantsMod,   only : t_water_freeze_k_1atm
-  use FatesRunningMeanMod, only : ema_24hr, fixed_24hr, ema_lpa, ema_longterm
-  use FatesRunningMeanMod, only : ema_sdlng_emerg_h2o, ema_sdlng_mort_par
-  use FatesRunningMeanMod, only : ema_sdlng2sap_par, ema_sdlng_mdd
-  use TwoStreamMLPEMod,    only : twostream_type
-  use FatesRadiationMemMod,only : num_swb
-  use FatesRadiationMemMod,only : num_rad_stream_types
-  use FatesInterfaceTypesMod,only : hlm_hio_ignore_val
-  use shr_infnan_mod,      only : nan => shr_infnan_nan, assignment(=)
-  use shr_log_mod,         only : errMsg => shr_log_errMsg
 
   implicit none
   private
@@ -274,7 +245,6 @@ module FatesPatchMod
     ! fire effects      
     real(r8)              :: scorch_ht(maxpft)       ! scorch height [m] 
     real(r8)              :: tfc_ros                 ! total intensity-relevant fuel consumed - no trunks [kgC/m2 of burned ground/day]
-    real(r8)              :: burnt_frac_litter(nfsc) ! fraction of each litter pool burned, conditional on it being burned [0-1]
     real(r8)              :: fire_emission_height    ! Height of fire emissions into the atmsophere. m.
     real(r8)              :: fire_emissions(num_emission_compounds) ! Emissions from fires. g emissions/m2/day
     

@@ -51,7 +51,7 @@ module FatesRestartInterfaceMod
   use EDTypesMod,              only : set_patchno
   use EDParamsMod,             only : nlevleaf
   use EDParamsMod,             only : num_emission_compounds    
-  use PRTGenericMod,           only : prt_global
+  use PRTGenericMod,           only : carbon12_element
   use PRTGenericMod,           only : num_elements
   use PRTGenericMod,           only : element_pos
   use FatesRunningMeanMod,     only : rmean_type
@@ -2843,7 +2843,7 @@ contains
 
                 ! Restart fire emissions (to populate the first day until they are recalculated.
                 io_idx_pa_em   = io_idx_co_1st
-                do i = 1,nfsc
+                do i = 1,num_emission_compounds
                    this%rvars(ir_fire_emissions_pa_em)%r81d(io_idx_pa_em) = cpatch%fire_emissions(i)
                    io_idx_pa_em      = io_idx_pa_em + 1
                 end do

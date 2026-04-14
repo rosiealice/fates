@@ -497,13 +497,8 @@ contains
           dimension_names=dim_names, lower_bounds=dim_lower_bound)
 
     ! adding the hlm_pft_map variable with two dimensions - FATES PFTno and N emission factors
-<<<<<<< HEAD
     emission_factors_dim_names(2) = dimension_name_pft
     emission_factors_dim_names(1) = dimension_name_nemission_compounds
-=======
-    emission_factors_dim_names(1) = dimension_name_pft
-    emission_factors_dim_names(2) = dimension_name_nemission_compounds
->>>>>>> 3048976e (Code now should read in the PFT indexed emission variables)
     
     name = 'fates_fire_emission_factors'
     call fates_params%RegisterParameter(name=name, dimension_shape=dimension_shape_2d, &
@@ -944,17 +939,8 @@ contains
 
     name = 'fates_fire_emission_heights'
     call fates_params%RetrieveParameterAllocate(name=name, &
-<<<<<<< HEAD
-<<<<<<< HEAD
          data=this%fire_emission_heights)
-=======
-         data=this%fire_emission_heights)
->>>>>>> 3048976e (Code now should read in the PFT indexed emission variables)
-         data=this%fire_emission_heights)
-=======
-         data=this%fates_fire_emission_heights)
->>>>>>> 3048976e (Code now should read in the PFT indexed emission variables)
-    
+
     name = 'fates_allom_frbstor_repro'
     call fates_params%RetrieveParameterAllocate(name=name, &
          data=this%allom_frbstor_repro)
@@ -1715,7 +1701,6 @@ contains
         write(fates_log(),fmt0) 'phen_cold_size_threshold = ',EDPftvarcon_inst%phen_cold_size_threshold
         write(fates_log(),fmt0) 'fire_alpha_SH = ',EDPftvarcon_inst%fire_alpha_SH
         write(fates_log(),fmt0) 'fire_emission_factors = ',EDPftvarcon_inst%fire_emission_factors
-        write(fates_log(),fmt0) 'fire_emission_factors = ',EDPftvarcon_inst%fire_emission_heights
         write(fates_log(),fmt0) 'allom_frbstor_repro = ',EDPftvarcon_inst%allom_frbstor_repro
         write(fates_log(),fmt0) 'hydro_p_taper = ',EDPftvarcon_inst%hydr_p_taper
         write(fates_log(),fmt0) 'hydro_rs2 = ',EDPftvarcon_inst%hydr_rs2
