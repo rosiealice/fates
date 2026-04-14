@@ -351,9 +351,8 @@ contains
 
     use FatesParametersInterface, only : fates_parameters_type, param_string_length
     use FatesParametersInterface, only : dimension_name_pft, dimension_shape_1d
-    use FatesParametersInterface, only : dimension_name_hlm_pftno,
+    use FatesParametersInterface, only : dimension_name_hlm_pftno, dimension_shape_2d
     use FatesParametersInterface, only : dimension_name_nemission_compounds
-    use FatesParametersInterface, only : dimension_shape_2d
 
     implicit none
 
