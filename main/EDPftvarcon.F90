@@ -133,7 +133,7 @@ module EDPftvarcon
      ! -------------------------------------------------------------------------------------------
      real(r8), allocatable :: fire_alpha_SH(:)      ! spitfire parameter, alpha scorch height
                                                     ! Equation 16 Thonicke et al 2010
-     real(r8), allocatable :: fire_emission_factors(:,:) ! emission factorss indexed by PFT and emission type/species. g emissions/m2/s per kg biomass burned. 
+     real(r8), allocatable :: fire_emission_factors(:,:) ! emission factors indexed by PFT and emission type/species. g emissions/m2/s per kg biomass burned. 
      real(r8), allocatable :: fire_emission_heights(:)   ! heights that fire emissions are injected into the atmosphere (m)
      
      ! Non-PARTEH Allometry Parameters
@@ -351,7 +351,8 @@ contains
 
     use FatesParametersInterface, only : fates_parameters_type, param_string_length
     use FatesParametersInterface, only : dimension_name_pft, dimension_shape_1d
-    use FatesParametersInterface, only : dimension_name_hlm_pftno, dimension_name_nemission_compounds
+    use FatesParametersInterface, only : dimension_name_hlm_pftno,
+    use FatesParametersInterface, only : dimension_name_nemission_compounds
     use FatesParametersInterface, only : dimension_shape_2d
 
     implicit none
@@ -1240,8 +1241,8 @@ contains
     ! arrays. We have to register the parameters as 1-d arrays as they
     ! are on the parameter file. We store them as 2-d in the receive step.
     use FatesParametersInterface, only : fates_parameters_type, param_string_length
-    use FatesParametersInterface, only : dimension_name_pft, dimension_name_nemission_compounds, dimension_shape_1d
-
+    use FatesParametersInterface, only : dimension_name_pft, dimension_shape_1d
+    use FatesParametersInterface, only : dimension_name_nemission_compounds
     implicit none
 
     class(EDPftvarcon_type), intent(inout) :: this
