@@ -470,7 +470,7 @@ module FatesHistoryInterfaceMod
   integer :: ih_rx_fracarea_fi_si
   integer :: ih_rx_fracarea_final_si
   integer :: ih_fragmentation_scaler_sl
-
+  integer :: ih_fire_emission_height_si
   integer :: ih_nplant_si_scpf
   integer :: ih_gpp_si_scpf
   integer :: ih_npp_totl_si_scpf
@@ -750,6 +750,9 @@ module FatesHistoryInterfaceMod
   integer :: ih_burnt_frac_litter_si_fuel
   integer :: ih_fuel_amount_si_fuel
 
+  ! indices to (site x emissions) variables
+  integer :: ih_fire_emissions_si_emis
+  
   ! indices to (site x cwd size class) variables
   integer :: ih_cwd_ag_si_cwdsc
   integer :: ih_cwd_bg_si_cwdsc
@@ -836,6 +839,7 @@ module FatesHistoryInterfaceMod
      integer, private :: levscls_index_, levpft_index_, levage_index_
      integer, private :: levfuel_index_, levcwdsc_index_, levscag_index_
      integer, private :: levcan_index_, levcnlf_index_, levcnlfpft_index_
+     integer, private :: levemis_index_
      integer, private :: levcdpf_index_, levcdsc_index_, levcdam_index_ 
      integer, private :: levscagpft_index_, levagepft_index_
      integer, private :: levheight_index_, levagefuel_index_
@@ -875,6 +879,7 @@ module FatesHistoryInterfaceMod
      procedure :: levcacls_index
      procedure :: levpft_index
      procedure :: levage_index
+     procedure :: levemis_index 
      procedure :: levfuel_index
      procedure :: levcwdsc_index
      procedure :: levcan_index
@@ -911,6 +916,7 @@ module FatesHistoryInterfaceMod
      procedure, private :: set_levscls_index
      procedure, private :: set_levpft_index
      procedure, private :: set_levage_index
+     procedure, private :: set_levemis_index
      procedure, private :: set_levfuel_index
      procedure, private :: set_levcwdsc_index
      procedure, private :: set_levcan_index
@@ -956,7 +962,7 @@ contains
 
     use FatesIODimensionsMod, only : column, levsoil, levscpf
     use FatesIODimensionsMod, only : levscls, levpft, levage
-    use FatesIODimensionsMod, only : levcacls, levcapf
+    use FatesIODimensionsMod, only : levcacls, levcapf, levemis
     use FatesIODimensionsMod, only : levfuel, levcwdsc, levscag
     use FatesIODimensionsMod, only : levscagpft, levagepft
     use FatesIODimensionsMod, only : levcan, levcnlf, levcnlfpft
@@ -1015,6 +1021,11 @@ contains
     call this%dim_bounds(dim_count)%Init(levage, num_threads, &
          fates_bounds%age_class_begin, fates_bounds%age_class_end)
 
+    dim_count = dim_count + 1
+    call this%set_levemis_index(dim_count)
+    call this%dim_bounds(dim_count)%Init(levemis, num_threads, &
+         fates_bounds%emis_class_begin, fates_bounds%emis_class_end)
+    
     dim_count = dim_count + 1
     call this%set_levfuel_index(dim_count)
     call this%dim_bounds(dim_count)%Init(levfuel, num_threads, &
@@ -1168,6 +1179,10 @@ contains
     call this%dim_bounds(index)%SetThreadBounds(thread_index, &
          thread_bounds%age_class_begin, thread_bounds%age_class_end)
 
+    index = this%levemis_index()
+    call this%dim_bounds(index)%SetThreadBounds(thread_index, &
+         thread_bounds%emis_class_begin, thread_bounds%emis_class_end)
+    
     index = this%levfuel_index()
     call this%dim_bounds(index)%SetThreadBounds(thread_index, &
          thread_bounds%fuel_begin, thread_bounds%fuel_end)
@@ -1289,6 +1304,9 @@ contains
     call this%set_dim_indices(site_age_r8, 1, this%column_index())
     call this%set_dim_indices(site_age_r8, 2, this%levage_index())
 
+    call this%set_dim_indices(site_emis_r8, 1, this%column_index())
+    call this%set_dim_indices(site_emis_r8, 2, this%levemis_index())
+    
     call this%set_dim_indices(site_fuel_r8, 1, this%column_index())
     call this%set_dim_indices(site_fuel_r8, 2, this%levfuel_index())
 
@@ -1520,6 +1538,20 @@ contains
     levfuel_index = this%levfuel_index_
   end function levfuel_index
 
+
+ subroutine set_levemis_index(this, index)
+   implicit none
+   class(fates_history_interface_type), intent(inout) :: this
+   integer, intent(in) :: index
+   this%levemis_index_ = index
+ end subroutine set_levemis_index
+
+ integer function levemis_index(this)
+   implicit none
+   class(fates_history_interface_type), intent(in) :: this
+   levemis_index = this%levemis_index_
+ end function levemis_index
+  
   ! =======================================================================
   subroutine set_levcwdsc_index(this, index)
     implicit none
@@ -1980,7 +2012,7 @@ contains
     ! ----------------------------------------------------------------------------------
     use FatesIOVariableKindMod, only : site_r8, site_soil_r8, site_size_pft_r8
     use FatesIOVariableKindMod, only : site_size_r8, site_pft_r8, site_age_r8
-    use FatesIOVariableKindMod, only : site_coage_r8, site_coage_pft_r8
+    use FatesIOVariableKindMod, only : site_coage_r8, site_coage_pft_r8, site_emis_r8
     use FatesIOVariableKindMod, only : site_fuel_r8, site_cwdsc_r8, site_scag_r8
     use FatesIOVariableKindMod, only : site_scagpft_r8, site_agepft_r8
     use FatesIOVariableKindMod, only : site_can_r8, site_cnlf_r8, site_cnlfpft_r8
