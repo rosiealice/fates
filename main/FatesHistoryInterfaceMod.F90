@@ -72,7 +72,7 @@ module FatesHistoryInterfaceMod
   use FatesInterfaceTypesMod        , only : hlm_hist_level_hifrq,hlm_hist_level_dynam
   use FatesIOVariableKindMod, only : site_r8, site_soil_r8, site_size_pft_r8
   use FatesIOVariableKindMod, only : site_size_r8, site_pft_r8, site_age_r8
-  use FatesIOVariableKindMod, only : site_coage_r8, site_coage_pft_r8
+  use FatesIOVariableKindMod, only : site_coage_r8, site_coage_pft_r8, site_emis_r8
   use FatesIOVariableKindMod, only : site_fuel_r8, site_cwdsc_r8, site_scag_r8
   use FatesIOVariableKindMod, only : site_scagpft_r8, site_agepft_r8
   use FatesIOVariableKindMod, only : site_can_r8, site_cnlf_r8, site_cnlfpft_r8
@@ -2049,6 +2049,11 @@ contains
     index = index + 1
     call this%dim_kinds(index)%Init(site_coage_pft_r8, 2)
 
+    ! site x emissions class
+    index = index + 1
+    call this%dim_kinds(index)%Init(site_emis_r8, 2)
+
+    
     ! site x cohort age-class
     index = index + 1
     call this%dim_kinds(index)%Init(site_coage_r8, 2)
@@ -6391,6 +6396,7 @@ contains
     ! coarse woody debris size (site_cwdsc_r8)  : DC
     ! element                  (site_elem_r8)   : EL
     ! leaf layer                                : LL
+    !  fire  emissions class    (site_emis_r8)   : EM
     ! fuel class               (site_fuel_r8)   : FC
     ! height                   (site_height_r8) : HT
     ! plant functional type    (site_pft_r8)    : PF
@@ -6668,6 +6674,13 @@ contains
             use_default='active', avgflag='A', vtype=site_r8, hlms='CLM:ALM',     &
             upfreq=group_dyna_simple, ivar=ivar, initialize=initialize_variables,                 &
             index = ih_sum_fuel_si)
+
+      call this%set_history_var(vname='FATES_FIRE_EMISSIONS_EMIS', units='1', &
+            long='Emissions of different chemical species produced by fires in FATES)', &
+            use_default='active', avgflag='A', vtype=site_emis_r8,                &
+            hlms='CLM:ALM', upfreq=group_dyna_complx, ivar=ivar, initialize=initialize_variables, &
+            index = ih_fire_emissions_si_emis)
+       
        ! Litter Variables
 
        call this%set_history_var(vname='FATES_LITTER_IN', units='kg m-2 s-1',     &
