@@ -8,7 +8,6 @@ dimensions:
 	fates_history_size_bins = 13 ;
 	fates_hlm_pftno = 14 ;
 	fates_hydr_organs = 4 ;
-	fates_landuseclass = 5 ;
 	fates_leafage_class = 1 ;
 	fates_litterclass = 6 ;
 	fates_pft = 14 ;
@@ -16,7 +15,6 @@ dimensions:
 	fates_string_length = 60 ;
 	fates_landuseclass = 5 ;
 	fates_nemission_compounds = 13 ;
-	fates_nemission_factors = 13 ;
 variables:
 	double fates_history_ageclass_bin_edges(fates_history_age_bins) ;
 		fates_history_ageclass_bin_edges:units = "yr" ;
@@ -1261,15 +1259,7 @@ fates_fire_emission_compound_name =
   "SO2" ;
 
 fates_fire_emission_factors =
-    1580, 103.2, 6.8, 8.1, 3.8, 1.85, 0.2, 9.1, 8.5, 6, 5.2, 0.63, 0.5 7,
-    1580, 103.2, 6.8, 8.1, 3.8, 1.85, 0.2, 9.1, 8.5, 6, 5.2, 0.63, 0.57,git cherry-pick 884962dfa7bde50fb5327b6b40e1d0754762d1e8
-    1580, 103.2, 6.8, 8.1, 3.8, 1.85, 0.2, 9.1, 8.5, 6, 5.2, 0.63, 0.5, 7,
-    1569, 106.7, 4.7, 5.7, 1.81, 3, 0.26, 13, 17.6, 8.3, 9.1, 0.56, 1,
-    1569, 106.7, 4.7, 5.7, 1.81, 3, 0.26, 13, 17.6, 8.3, 9.1, 0.56, 1,
-    1569, 106.7, 4.7, 5.7, 1.81, 3, 0.26, 13, 17.6, 8.3, 9.1, 0.56, 1,
->>>>>>> 884962df (bug fixes to fates parameter file)
-    1580, 103.2, 6.8, 8.1, 3.8, 1.85, 0.2, 9.1, 8.5, 6, 5.2, 0.63, 0.5, 7,
->>>>>>> 884962df (bug fixes to fates parameter file)
+    1580, 103.2, 6.8, 8.1, 3.8, 1.85, 0.2, 9.1, 8.5, 6, 5.2, 0.63, 0.57,
     1569, 106.7, 4.7, 5.7, 1.81, 3, 0.26, 13, 17.6, 8.3, 9.1, 0.56, 1,
     1569, 106.7, 4.7, 5.7, 1.81, 3, 0.26, 13, 17.6, 8.3, 9.1, 0.56, 1,
     1569, 106.7, 4.7, 5.7, 1.81, 3, 0.26, 13, 17.6, 8.3, 9.1, 0.56, 1,
@@ -1281,7 +1271,7 @@ fates_fire_emission_factors =
     1663, 61.6, 2.2, 3.4, 0.99, 2.35, 0.21, 4.9, 8.5, 3.7, 3.2, 0.46, 0.71,
     1663, 61.6, 2.2, 3.4, 0.99, 2.35, 0.21, 4.9, 8.5, 3.7, 3.2, 0.46, 0.71,
     1663, 61.6, 2.2, 3.4, 0.99, 2.35, 0.21, 4.9, 8.5, 3.7, 3.2, 0.46, 0.71;
-
+    
  fates_fire_emission_heights =  2500, 4000, 3000, 3000, 2500, 3000, 2000, 2000, 2000, 1000, 1000, 1000 ;
 
 fates_fire_emission_factors =
@@ -1295,8 +1285,6 @@ fates_fire_emission_factors =
     0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
     0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
     0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5 ;
-=======
->>>>>>> 884962df (bug fixes to fates parameter file)
 
  fates_fire_emission_heights =  2500, 4000, 3000, 3000, 2500, 3000, 2000, 2000, 2000, 1000, 1000, 1000 ;
 
