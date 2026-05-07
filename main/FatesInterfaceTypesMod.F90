@@ -297,6 +297,7 @@ module FatesInterfaceTypesMod
    integer , public, allocatable :: fates_hdim_levlanduse(:)       ! land use label dimension
    integer , public, allocatable :: fates_hdim_levfuel(:)          ! fire fuel size class (fsc) dimension
    integer , public, allocatable :: fates_hdim_levemis(:)          ! fire emissions class  dimensionn
+   character(len=64), public, allocatable :: fates_fire_emission_compound_name(:) ! labels for fates_levemis indices
    integer , public, allocatable :: fates_hdim_levcwdsc(:)         ! cwd class dimension
    integer , public, allocatable :: fates_hdim_levcan(:)           ! canopy-layer dimension 
    real(r8), public, allocatable :: fates_hdim_levleaf(:)          ! leaf-layer dimension, integrated VAI [m2/m2]

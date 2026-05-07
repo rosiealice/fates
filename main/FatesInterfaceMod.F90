@@ -1212,6 +1212,7 @@ contains
        allocate( fates_hdim_levpft(1:numpft   ))
        allocate( fates_hdim_levlanduse(1:n_landuse_cats))
        allocate( fates_hdim_levemis(1:num_emission_compounds))
+       allocate( fates_fire_emission_compound_name(1:num_emission_compounds))
        allocate( fates_hdim_levfuel(1:num_fuel_classes))
        allocate( fates_hdim_levcwdsc(1:NCWD   ))
        allocate( fates_hdim_levage(1:nlevage   ))
@@ -1272,6 +1273,7 @@ contains
 
        do iemis=1,num_emission_compounds
           fates_hdim_levemis(iemis) = iemis
+          write(fates_fire_emission_compound_name(iemis),'("compound_",I2.2)') iemis
        end do
 
        ! make cwd array
