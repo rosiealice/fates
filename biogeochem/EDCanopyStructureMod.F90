@@ -1424,9 +1424,17 @@ contains
                 do c = 1, num_emission_compounds
                    !is this in the right place in the code?
                    !what else do we need to do with restarts to not mess up the first day of emissions?
-                   bc_out(s)%fire_emissions_pa(ifp,c) = currentPatch%fire_emissions(c) / sec_per_day
+                   if (currentPatch%fire_emissions(c) == currentPatch%fire_emissions(c)) then
+                      bc_out(s)%fire_emissions_pa(ifp,c) = currentPatch%fire_emissions(c) / sec_per_day
+                   else
+                      bc_out(s)%fire_emissions_pa(ifp,c) = 0._r8
+                   end if
                 end do
-                bc_out(s)%fire_emission_height_pa(ifp) = currentPatch%fire_emission_height
+                if (currentPatch%fire_emission_height == currentPatch%fire_emission_height) then
+                   bc_out(s)%fire_emission_height_pa(ifp) = currentPatch%fire_emission_height
+                else
+                   bc_out(s)%fire_emission_height_pa(ifp) = 0._r8
+                end if
 
                 ! make sure there is some leaf and stem area
                 if (total_patch_leaf_stem_area > nearzero) then

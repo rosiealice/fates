@@ -54,7 +54,15 @@ contains
 
     ! LOCALS:  
     type (fates_patch_type), pointer :: currentPatch ! patch object
-        
+
+    ! Reset per-patch emissions each day so no-fire paths cannot retain stale/NaN values.
+    currentPatch => currentSite%oldest_patch
+    do while(associated(currentPatch))
+      currentPatch%fire_emissions(:) = 0.0_r8
+      currentPatch%fire_emission_height = 0.0_r8
+      currentPatch => currentPatch%younger
+    end do
+
     if (hlm_spitfire_mode > hlm_sf_nofire_def) then
       call UpdateFireWeather(currentSite, bc_in)
       call UpdateFuelCharacteristics(currentSite)
@@ -662,6 +670,9 @@ contains
        !this capability has not been added yet. 
        
        do while(associated(currentPatch))
+          currentPatch%fire_emissions(:) = 0.0_r8
+          currentPatch%fire_emission_height = 0.0_r8
+
           if(currentPatch%nocomp_pft_label .ne. nocomp_bareground)then
              biomass_burned = currentPatch%TFC_ROS / 0.45_r8 ! kg biomass/m2/day
              !n.b. does this also need to include the amount of tree canopy consumed?
@@ -672,9 +683,6 @@ contains
              enddo 
 
              currentPatch%fire_emission_height =  EDPftvarcon_inst%fire_emission_heights(currentPatch%nocomp_pft_label)
-             if(currentPatch%fire_emissions(c).gt.0.0_r8)then
-                write(*,*) 'postive emissionssf',currentPatch%fire_emissions(1),biomass_burned
-             endif
           endif ! bare ground
           currentPatch => currentPatch%younger
        enddo !end patch loop
