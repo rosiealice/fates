@@ -667,7 +667,7 @@ contains
              !n.b. does this also need to include the amount of tree canopy consumed?
 
              do c = 1, num_emission_compounds
-                emission_factor = EDPftvarcon_inst%fire_emission_factors(c,currentPatch%nocomp_pft_label)
+                emission_factor = EDPftvarcon_inst%fire_emission_factors(qcurrentPatch%nocomp_pft_label,c)
                 currentPatch%fire_emissions(c) = biomass_burned * emission_factor
              enddo 
 
