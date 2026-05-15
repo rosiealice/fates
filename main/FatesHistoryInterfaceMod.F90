@@ -6678,8 +6678,8 @@ contains
       ! Fire emissions variables - one per emission compound
       if (allocated(fates_hdim_levemis_name)) then
          do i_emis = 1, size(fates_hdim_levemis_name)
-            call this%set_history_var(vname='fire_emission_'// &
-                 trim(adjustl(fates_hdim_levemis_name(i_emis))), &
+            write(tempstring, '(a,i0)') 'FATES_FIRE_EMIS_', i_emis
+            call this%set_history_var(vname=trim(tempstring), &
                  units='kg m-2 s-1', &
                  long='Emissions of '//trim(adjustl(fates_hdim_levemis_name(i_emis)))// &
                       ' produced by fires in FATES', &
