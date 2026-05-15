@@ -2485,7 +2485,8 @@ contains
          hio_nesterov_fire_danger_si => this%hvars(ih_nesterov_fire_danger_si)%r81d, &
          hio_rx_burn_window_si => this%hvars(ih_rx_burn_window_si)%r81d, &
          hio_fire_nignitions_si => this%hvars(ih_fire_nignitions_si)%r81d, &
-         hio_fire_fdi_si => this%hvars(ih_fire_fdi_si)%r81d, &
+           hio_fire_fdi_si => this%hvars(ih_fire_fdi_si)%r81d, &
+           hio_fire_emission_height_si => this%hvars(ih_fire_emission_height_si)%r81d, &
          hio_spitfire_ros_si     => this%hvars(ih_spitfire_ros_si)%r81d, &
          hio_tfc_ros_si          => this%hvars(ih_tfc_ros_si)%r81d, &
          hio_effect_wspeed_si    => this%hvars(ih_effect_wspeed_si)%r81d, &
@@ -2777,7 +2778,8 @@ contains
             hio_fire_fuel_eff_moist_si(io_si)  = hio_fire_fuel_eff_moist_si(io_si) + cpatch%fuel%average_moisture_notrunks * cpatch%area * AREA_INV
             hio_fire_fuel_sav_si(io_si)        = hio_fire_fuel_sav_si(io_si) + cpatch%fuel%SAV_notrunks * cpatch%area * AREA_INV / m_per_cm
             hio_fire_fuel_mef_si(io_si)        = hio_fire_fuel_mef_si(io_si) + cpatch%fuel%MEF_notrunks * cpatch%area * AREA_INV
-            hio_sum_fuel_si(io_si)             = hio_sum_fuel_si(io_si) + cpatch%fuel%non_trunk_loading * cpatch%area * AREA_INV
+             hio_sum_fuel_si(io_si)             = hio_sum_fuel_si(io_si) + cpatch%fuel%non_trunk_loading * cpatch%area * AREA_INV
+             hio_fire_emission_height_si(io_si) = hio_fire_emission_height_si(io_si) + cpatch%fire_emission_height * cpatch%area * AREA_INV
 
             hio_nonrx_intensity_fracarea_product_si(io_si) = hio_nonrx_intensity_fracarea_product_si(io_si) + &
                  cpatch%nonrx_FI * cpatch%nonrx_frac_burnt * cpatch%area * AREA_INV * J_per_kJ
@@ -6685,7 +6687,14 @@ contains
             long='total ground fuel related to FATES_ROS (omits 1000hr fuels) in kg C per m2 land area',   &
             use_default='active', avgflag='A', vtype=site_r8, hlms='CLM:ALM',     &
             upfreq=group_dyna_simple, ivar=ivar, initialize=initialize_variables,                 &
-            index = ih_sum_fuel_si)
+             index = ih_sum_fuel_si)
+
+        call this%set_history_var(vname='FATES_FIRE_EMISSION_HEIGHT', units='m',  &
+             long='Height of fire emissions injected into the atmosphere',         &
+             use_default='active', avgflag='A', vtype=site_r8, hlms='CLM:ALM',    &
+             upfreq=group_dyna_simple, ivar=ivar, initialize=initialize_variables,                 &
+             index = ih_fire_emission_height_si)
+
 
        ! Fire emissions variables - one per emission compound
         if (allocated(fates_hdim_levemis_name)) then
