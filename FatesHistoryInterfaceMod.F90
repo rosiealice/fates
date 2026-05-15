@@ -751,6 +751,7 @@ module FatesHistoryInterfaceMod
   integer :: ih_burnt_frac_litter_si_fuel
   integer :: ih_fuel_amount_si_fuel
 
+  
   ! indices to (site x cwd size class) variables
   integer :: ih_cwd_ag_si_cwdsc
   integer :: ih_cwd_bg_si_cwdsc
@@ -6382,9 +6383,10 @@ contains
 
     integer :: ivar
     character(len=10) :: tempstring
+    integer :: i_emis, index_emis
 
-    integer :: i_emis
     ivar=0
+
     ! Variable names should start with the 'FATES_' prefix and end with a suffix
     ! depending on how it is indexed (i.e. the dimension):
     ! site                     (site_r8)        : no suffix
@@ -6683,7 +6685,7 @@ contains
                       ' produced by fires in FATES', &
                  use_default='active', avgflag='A', vtype=site_r8, &
                  hlms='CLM:ALM', upfreq=group_dyna_complx, ivar=ivar, &
-                 initialize=initialize_variables)
+                 initialize=initialize_variables, index=index_emis)
          end do
       end if
        
