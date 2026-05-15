@@ -6675,26 +6675,31 @@ contains
             upfreq=group_dyna_simple, ivar=ivar, initialize=initialize_variables,                 &
             index = ih_sum_fuel_si)
 
-      ! Fire emissions variables - one per emission compound
+      ! Fire emissions variables - one per emission compound  
+      ! Count/register these: in first pass, just increment ivar count
+      ! in second pass, actually register the variables
       if (allocated(fates_hdim_levemis_name)) then
          do i_emis = 1, size(fates_hdim_levemis_name)
-            tempstring = trim(adjustl(fates_hdim_levemis_name(i_emis)))
-            if (len_trim(tempstring) > 0) then
-               tempstring = 'FATES_FIRE_EMIS_'//trim(tempstring)
+            if (initialize_variables) then
+               tempstring = trim(adjustl(fates_hdim_levemis_name(i_emis)))
+               if (len_trim(tempstring) > 0) then
+                  tempstring = 'FATES_FIRE_EMIS_'//trim(tempstring)
+               else
+                  write(tempstring, '(a,i0)') 'FATES_FIRE_EMIS_', i_emis
+               end if
+               call this%set_history_var(vname=trim(tempstring), &
+                    units='kg m-2 s-1', &
+                    long='Emissions of '//trim(adjustl(fates_hdim_levemis_name(i_emis)))// &
+                         ' produced by fires in FATES', &
+                    use_default='active', avgflag='A', vtype=site_r8, &
+                    hlms='CLM:ALM', upfreq=group_dyna_complx, ivar=ivar, &
+                    initialize=initialize_variables, index=index_emis)
             else
-               write(tempstring, '(a,i0)') 'FATES_FIRE_EMIS_', i_emis
+               ivar = ivar + 1
             end if
-            call this%set_history_var(vname=trim(tempstring), &
-                 units='kg m-2 s-1', &
-                 long='Emissions of '//trim(adjustl(fates_hdim_levemis_name(i_emis)))// &
-                      ' produced by fires in FATES', &
-                 use_default='active', avgflag='A', vtype=site_r8, &
-                 hlms='CLM:ALM', upfreq=group_dyna_complx, ivar=ivar, &
-                 initialize=initialize_variables, index=index_emis)
          end do
       end if
-       
-       ! Litter Variables
+
 
        call this%set_history_var(vname='FATES_LITTER_IN', units='kg m-2 s-1',     &
             long='litter flux in kg carbon per m2 per second',                    &
