@@ -5,6 +5,7 @@ module FatesInterfaceTypesMod
   use FatesGlobals        , only : fates_global_verbose
   use FatesGlobals        , only : fates_log
   use FatesGlobals        , only : endrun => fates_endrun
+  use FatesParametersInterface, only : param_string_length
   use shr_log_mod         , only : errMsg => shr_log_errMsg
   use shr_infnan_mod      , only : nan => shr_infnan_nan, assignment(=)
   
@@ -297,6 +298,7 @@ module FatesInterfaceTypesMod
    integer , public, allocatable :: fates_hdim_levlanduse(:)       ! land use label dimension
    integer , public, allocatable :: fates_hdim_levfuel(:)          ! fire fuel size class (fsc) dimension
    integer , public, allocatable :: fates_hdim_levemis(:)          ! fire emissions class  dimensionn
+   character(len=param_string_length), public, allocatable :: fates_hdim_levemis_name(:) ! fire emissions compound labels
    integer , public, allocatable :: fates_hdim_levcwdsc(:)         ! cwd class dimension
    integer , public, allocatable :: fates_hdim_levcan(:)           ! canopy-layer dimension 
    real(r8), public, allocatable :: fates_hdim_levleaf(:)          ! leaf-layer dimension, integrated VAI [m2/m2]

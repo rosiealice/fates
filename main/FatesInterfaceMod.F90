@@ -1270,6 +1270,13 @@ contains
           fates_hdim_levfuel(ifuel) = ifuel
        end do
 
+       if (.not. allocated(fates_hdim_levemis_name)) then
+          allocate(fates_hdim_levemis_name(1:num_emission_compounds))
+          do iemis=1,num_emission_compounds
+             write(fates_hdim_levemis_name(iemis), '(a,i0)') 'emis_', iemis
+          end do
+       end if
+
        do iemis=1,num_emission_compounds
           fates_hdim_levemis(iemis) = iemis
        end do

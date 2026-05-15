@@ -62,6 +62,7 @@ module FatesHistoryInterfaceMod
   use EDParamsMod               , only : ED_val_history_ageclass_bin_edges
   use FatesInterfaceTypesMod        , only : nlevsclass, nlevage
   use FatesInterfaceTypesMod        , only : nlevheight
+  use FatesInterfaceTypesMod        , only : fates_hdim_levemis_name
   use FatesInterfaceTypesMod        , only : bc_in_type
   use FatesInterfaceTypesMod        , only : bc_out_type
   use FatesInterfaceTypesMod        , only : hlm_model_day
@@ -750,9 +751,6 @@ module FatesHistoryInterfaceMod
   integer :: ih_burnt_frac_litter_si_fuel
   integer :: ih_fuel_amount_si_fuel
 
-  ! indices to (site x emissions) variables
-  integer :: ih_fire_emissions_si_emis
-  
   ! indices to (site x cwd size class) variables
   integer :: ih_cwd_ag_si_cwdsc
   integer :: ih_cwd_bg_si_cwdsc
@@ -6385,8 +6383,8 @@ contains
     integer :: ivar
     character(len=10) :: tempstring
 
+    integer :: i_emis
     ivar=0
-
     ! Variable names should start with the 'FATES_' prefix and end with a suffix
     ! depending on how it is indexed (i.e. the dimension):
     ! site                     (site_r8)        : no suffix
@@ -6675,11 +6673,19 @@ contains
             upfreq=group_dyna_simple, ivar=ivar, initialize=initialize_variables,                 &
             index = ih_sum_fuel_si)
 
-      call this%set_history_var(vname='FATES_FIRE_EMISSIONS_EMIS', units='1', &
-            long='Emissions of different chemical species produced by fires in FATES)', &
-            use_default='active', avgflag='A', vtype=site_emis_r8,                &
-            hlms='CLM:ALM', upfreq=group_dyna_complx, ivar=ivar, initialize=initialize_variables, &
-            index = ih_fire_emissions_si_emis)
+      ! Fire emissions variables - one per emission compound
+      if (allocated(fates_hdim_levemis_name)) then
+         do i_emis = 1, size(fates_hdim_levemis_name)
+            call this%set_history_var(vname='fire_emission_'// &
+                 trim(adjustl(fates_hdim_levemis_name(i_emis))), &
+                 units='kg m-2 s-1', &
+                 long='Emissions of '//trim(adjustl(fates_hdim_levemis_name(i_emis)))// &
+                      ' produced by fires in FATES', &
+                 use_default='active', avgflag='A', vtype=site_r8, &
+                 hlms='CLM:ALM', upfreq=group_dyna_complx, ivar=ivar, &
+                 initialize=initialize_variables)
+         end do
+      end if
        
        ! Litter Variables
 
