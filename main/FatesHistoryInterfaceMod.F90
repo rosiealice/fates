@@ -6382,7 +6382,7 @@ contains
     logical, intent(in) :: initialize_variables  ! are we 'count'ing or 'initializ'ing?
 
     integer :: ivar
-    character(len=10) :: tempstring
+    character(len=64) :: tempstring
     integer :: i_emis, index_emis
 
     ivar=0
