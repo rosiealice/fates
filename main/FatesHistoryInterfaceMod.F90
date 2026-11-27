@@ -649,6 +649,8 @@ module FatesHistoryInterfaceMod
   integer :: ih_mortality_carbonflux_si_pft
   integer :: ih_hydraulicmortality_carbonflux_si_pft
   integer :: ih_cstarvmortality_carbonflux_si_pft
+  integer :: ih_impactmortality_carbonflux_si_pft
+  integer :: ih_terminationmortality_carbonflux_si_pft
   integer :: ih_firemortality_carbonflux_si_pft
   integer :: ih_cstarvmortality_continuous_carbonflux_si_pft
   integer :: ih_crownarea_si_pft
@@ -3201,6 +3203,8 @@ contains
          hio_mortality_si_pft    => this%hvars(ih_mortality_si_pft)%r82d, &
          hio_mortality_carbonflux_si_pft  => this%hvars(ih_mortality_carbonflux_si_pft)%r82d, &
          hio_cstarvmortality_carbonflux_si_pft  => this%hvars(ih_cstarvmortality_carbonflux_si_pft)%r82d, &
+         hio_impactmortality_carbonflux_si_pft  => this%hvars(ih_impactmortality_carbonflux_si_pft)%r82d, &
+         hio_terminationmortality_carbonflux_si_pft  => this%hvars(ih_terminationmortality_carbonflux_si_pft)%r82d, &
          hio_hydraulicmortality_carbonflux_si_pft  => this%hvars(ih_hydraulicmortality_carbonflux_si_pft)%r82d, &
          hio_firemortality_carbonflux_si_pft  => this%hvars(ih_firemortality_carbonflux_si_pft)%r82d, &
          hio_crownarea_si_pft    => this%hvars(ih_crownarea_si_pft)%r82d, &
@@ -4446,6 +4450,17 @@ contains
 
                 hio_firemortality_carbonflux_si_pft(io_si,ft) = (sites(s)%fmort_carbonflux_canopy(ft) + &
                     sites(s)%fmort_carbonflux_ustory(ft)) / g_per_kg
+
+                hio_impactmortality_carbonflux_si_pft(io_si,ft) = &
+                     hio_impactmortality_carbonflux_si_pft(io_si,ft) + &
+                     sites(s)%imort_carbonflux(ft)
+
+                ! termination mortality excluding carbon starvation, which is reported separately
+                hio_terminationmortality_carbonflux_si_pft(io_si,ft) = &
+                     hio_terminationmortality_carbonflux_si_pft(io_si,ft) + &
+                     (sum(sites(s)%term_carbonflux_ustory(i_term_mort_type_canlev:n_term_mort_types,ft)) + &
+                     sum(sites(s)%term_carbonflux_canopy(i_term_mort_type_canlev:n_term_mort_types,ft))) * &
+                     days_per_sec * ha_per_m2
              end do
 
              ! add imort and fmort to aboveground woody mortality 
@@ -8053,6 +8068,18 @@ contains
                use_default='active', avgflag='A', vtype=site_pft_r8, hlms='CLM:ALM', &
                upfreq=group_dyna_complx, ivar=ivar, initialize=initialize_variables,                 &
                index=ih_cstarvmortality_carbonflux_si_pft)
+
+          call this%set_history_var(vname='FATES_MORTALITY_IMPACT_CFLUX_PF', units='kg m-2 s-1',    &
+               long='PFT-level flux of biomass carbon from live to dead pool from impact mortality', &
+               use_default='active', avgflag='A', vtype=site_pft_r8, hlms='CLM:ALM', &
+               upfreq=group_dyna_complx, ivar=ivar, initialize=initialize_variables,                 &
+               index=ih_impactmortality_carbonflux_si_pft)
+
+          call this%set_history_var(vname='FATES_MORTALITY_TERM_CFLUX_PF', units='kg m-2 s-1',    &
+               long='PFT-level flux of biomass carbon from live to dead pool from termination mortality (excluding carbon starvation termination)', &
+               use_default='active', avgflag='A', vtype=site_pft_r8, hlms='CLM:ALM', &
+               upfreq=group_dyna_complx, ivar=ivar, initialize=initialize_variables,                 &
+               index=ih_terminationmortality_carbonflux_si_pft)
 
           call this%set_history_var(vname='FATES_MORT_CSTARV_CONT_CFLUX_PF', units='kg m-2 s-1',    &
                long='PFT-level flux of biomass carbon from live to dead pool from carbon starvation mortality (Continuous-only, without termination)', &
